@@ -1,0 +1,53 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server",
+    "dev:client": "vite",
+    "build": "npm run build:client && npm run build:server && npm run prerender && npm run build:verify",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "prerender": "node prerender.js",
+    "build:verify": "node -e \"const fs=require('fs'),path=require('path');const p=path.join('dist','client','index.html');if(!fs.existsSync(p)){console.error('Build verification failed: index.html not found');process.exit(1);}console.log('✅ Build verified successfully');\"",
+    "preview": "cross-env NODE_ENV=production node server",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-oauth/google": "^0.13.4",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.1",
+    "axios": "^1.13.6",
+    "compression": "^1.7.4",
+    "express": "^4.21.2",
+    "framer-motion": "^12.35.2",
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-helmet-async": "^3.0.0",
+    "react-router-dom": "^7.13.1",
+    "sirv": "^3.0.0",
+    "web-vitals": "^5.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/compression": "^1.7.5",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.27",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "postcss": "^8.5.8",
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}

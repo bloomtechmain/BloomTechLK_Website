@@ -1,0 +1,51 @@
+# Cache-Control headers for Cloudflare Pages
+
+# HTML - No caching for main HTML files (always get latest)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Root index
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# JavaScript and CSS - Long-term caching (immutable with hash)
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - Long-term caching
+/assets/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts - Long-term caching
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Static images in public folder
+/bloomtech-logo.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Service Worker (if added later)
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Manifest and other meta files
+/manifest.json
+  Cache-Control: public, max-age=86400
+  
+/robots.txt
+  Cache-Control: public, max-age=86400

@@ -1,0 +1,30 @@
+# Cloudflare Pages - Ignore server-side files
+# Only deploy the static pre-rendered client files
+
+# Server-side files (for development only)
+server.js
+dist/server/
+
+# Source files (already compiled)
+src/
+
+# Development files
+node_modules/
+*.md
+README.md
+SSR_IMPLEMENTATION.md
+DEPLOYMENT_SSR.md
+
+# Environment files
+.env
+.env.*
+
+# Config files not needed in production
+tsconfig.json
+tsconfig.*.json
+vite.config.ts
+eslint.config.js
+
+# Build scripts
+prerender.js
+convert-images.js
