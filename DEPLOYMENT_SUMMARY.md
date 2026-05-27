@@ -1,189 +1,192 @@
-# ✅ Deployment Preparation Complete!
+# BloomTech.lk — Deployment Instructions
 
-Your BloomTech.lk project is now ready for Railway + Cloudflare Pages deployment.
-
----
-
-## 📝 What Was Done
-
-### ✅ Files Created
-
-1. **`DEPLOYMENT_GUIDE.md`** - Complete step-by-step deployment instructions
-2. **`backend/railway.json`** - Railway configuration file
-3. **`DEPLOYMENT_SUMMARY.md`** - This file
-
-### ✅ Files Modified
-
-1. **`frontend/src/components/ExpertFormModal.tsx`**
-   - Changed hardcoded API URL to use environment variable
-   - Now uses: `import.meta.env.VITE_API_URL`
-   - Works in both development and production
-
-2. **`backend/index.ts`**
-   - Updated CORS configuration to allow your Cloudflare domain
-   - Allows: `localhost:5173`, `bloomtechusa.com`, and `*.pages.dev`
+Everything you need to do manually to get the backend live on Railway and the frontend live on Cloudflare Pages.
 
 ---
 
-## 🎯 Next Steps
+## Part 1 — Railway (Backend)
 
-### Option 1: Commit Changes Now (Recommended)
+### Step 1: Create a Railway account
+1. Go to **https://railway.app** and sign up (or log in)
+2. Click **New Project**
 
-```bash
-# Add all changes
-git add .
+### Step 2: Deploy from GitHub
+1. Choose **Deploy from GitHub repo**
+2. Authorise Railway to access your GitHub account if prompted
+3. Select **bloomtechmain/BloomTechLK_Website**
+4. Railway will detect the repo — **do not deploy yet**, continue to Step 3 first
 
-# Commit with descriptive message
-git commit -m "Configure Railway + Cloudflare deployment setup"
+### Step 3: Set the root directory
+1. After selecting the repo, click the service that was created
+2. Go to **Settings → Source**
+3. Set **Root Directory** to: `backend`
+4. This tells Railway to only build the `backend/` folder
 
-# Push to GitHub
-git push origin main
-```
+### Step 4: Add a PostgreSQL database
+1. In your Railway project, click **+ New** → **Database** → **Add PostgreSQL**
+2. Railway will create a Postgres instance and automatically inject `DATABASE_URL` into your backend service
+3. You do not need to set `DATABASE_URL` manually — Railway handles it
 
-### Option 2: Follow the Deployment Guide
+### Step 5: Set environment variables
+1. Click your **backend service** → **Variables** tab
+2. Add the following variables one by one:
 
-Open **`DEPLOYMENT_GUIDE.md`** and follow:
-- **Part 1**: Deploy backend to Railway
-- **Part 2**: Configure Cloudflare Pages
-- **Part 3**: Test integration
-- **Part 4**: Final verification
+| Variable | Value |
+|---|---|
+| `JWT_SECRET` | `0fc3966bfebe7da2f22679d81d0d7a4a6655c8e7cde29599c1ad6a858c7a3a1388f514d62af204c5e3d65a3d32db64cf6db3b1d605bdf403ba1c9cf99a84e82d` |
+| `GOOGLE_CLIENT_ID` | *(your Google OAuth Client ID from Google Cloud Console)* |
+| `PORT` | `5000` |
+| `NODE_ENV` | `production` |
+
+> `DATABASE_URL` is injected automatically by Railway — do not add it manually.
+
+### Step 6: Trigger the first deploy
+1. Go to the **Deployments** tab
+2. Click **Deploy** (or it may auto-deploy after you set variables)
+3. Watch the build logs — it runs `npm install && npm run build` then starts `node dist/index.js`
+4. Build should complete in 1–2 minutes
+
+### Step 7: Initialise the database
+Once the deploy is green:
+1. Go to your **PostgreSQL** service → **Data** tab, or use the Railway shell
+2. Alternatively, open the backend service → **Settings** → **Deploy** → run a one-off command:
+   ```
+   ts-node init-db.ts
+   ```
+   Or trigger it via the Railway CLI if you have it installed:
+   ```bash
+   railway run --service backend ts-node init-db.ts
+   ```
+
+### Step 8: Copy your Railway backend URL
+1. Click your backend service → **Settings** → **Networking**
+2. Click **Generate Domain** if none exists
+3. Copy the URL — it looks like: `https://backend-production-0cf48.up.railway.app`
+4. You will need this URL in Part 2
 
 ---
 
-## 📊 Impact Summary
+## Part 2 — Cloudflare Pages (Frontend)
 
-### ✅ Images & Videos
-- **No changes needed** - They're already static assets
-- All videos in `frontend/src/assets/` will be bundled by Vite
-- All images in `frontend/public/` will be copied to build output
-- **100% served from Cloudflare Pages** (zero backend involvement)
+### Step 1: Log in to Cloudflare
+1. Go to **https://dash.cloudflare.com**
+2. In the left sidebar, click **Workers & Pages**
+3. Click **Create application** → **Pages** → **Connect to Git**
 
-### ✅ Backend Features Preserved
-- User authentication (login/register) ✅
-- Expert form submissions ✅
-- Portfolio data (with fallback) ✅
-- Google OAuth ✅
+### Step 2: Connect GitHub
+1. Authorise Cloudflare to access your GitHub account if prompted
+2. Select **bloomtechmain/BloomTechLK_Website**
+3. Click **Begin setup**
 
-### ✅ Frontend Features Preserved
-- All pages pre-rendered for SEO ✅
-- Videos and images load perfectly ✅
-- Lightning-fast Cloudflare CDN delivery ✅
-- Static site generation (SSG) ✅
+### Step 3: Configure build settings
+Set these exactly:
+
+| Setting | Value |
+|---|---|
+| **Framework preset** | None (leave blank) |
+| **Root directory** | `frontend` |
+| **Build command** | `npm run build` |
+| **Build output directory** | `dist/client` |
+
+### Step 4: Set environment variables
+Still on the setup screen, scroll to **Environment variables** and add:
+
+| Variable | Value |
+|---|---|
+| `NODE_VERSION` | `20` |
+| `VITE_API_URL` | *(paste the Railway URL from Part 1 Step 8)* e.g. `https://backend-production-xxxx.up.railway.app` |
+| `VITE_GOOGLE_CLIENT_ID` | *(your Google OAuth Client ID)* |
+
+### Step 5: Save and deploy
+1. Click **Save and Deploy**
+2. Cloudflare will clone the repo, run `npm install && npm run build` inside `frontend/`, and publish `dist/client/`
+3. First build takes 2–4 minutes
+
+### Step 6: Get your Cloudflare Pages URL
+1. Once the build is green, Cloudflare shows your live URL — something like `https://bloomtechlk-website.pages.dev`
+2. If you have a custom domain (`bloomtech.lk`), go to **Custom domains** → **Set up a custom domain** and follow the DNS instructions
 
 ---
 
-## 🚀 Quick Deployment Checklist
+## Part 3 — Wire Railway CORS to your Cloudflare domain
 
-Use this checklist when following the deployment guide:
+The backend already allows `https://*.pages.dev` and `https://bloomtechusa.com`. If your final custom domain is different:
+
+1. Open `backend/index.ts` in the repo, find the `cors({ origin: [...] })` block
+2. Add your exact Cloudflare domain:
+   ```ts
+   'https://bloomtech.lk',
+   'https://www.bloomtech.lk',
+   ```
+3. Commit and push — Railway will auto-redeploy
+
+---
+
+## Part 4 — Google OAuth: authorise your domains
+
+If you are using Google Sign-In:
+
+1. Go to **https://console.cloud.google.com** → **APIs & Services** → **Credentials**
+2. Click your OAuth 2.0 Client ID
+3. Under **Authorised JavaScript origins**, add:
+   - `https://bloomtechlk-website.pages.dev` (Cloudflare preview URL)
+   - `https://bloomtech.lk` (your custom domain, once set up)
+4. Under **Authorised redirect URIs**, add the same domains with `/auth/google/callback` appended if your flow uses a redirect
+5. Click **Save**
+
+---
+
+## Part 5 — Verification checklist
+
+Run through this after both services are live:
 
 ### Backend (Railway)
-- [ ] Create Railway account
-- [ ] Connect GitHub repository
-- [ ] Set root directory to `backend`
-- [ ] Add PostgreSQL database
-- [ ] Configure environment variables
-- [ ] Deploy backend
-- [ ] Get Railway URL
-- [ ] Initialize database
+- [ ] Build log shows `npm run build` succeeded with no errors
+- [ ] Service status is **Active** (green)
+- [ ] Visit `https://your-railway-url.up.railway.app/` — should return a JSON response or `Cannot GET /` (both mean it's running)
 
 ### Frontend (Cloudflare)
-- [ ] Add environment variables (include Railway URL)
-- [ ] Verify build settings
-- [ ] Trigger deployment
-- [ ] Test site
+- [ ] Build log shows `vite build` succeeded
+- [ ] Homepage loads at your Cloudflare URL
+- [ ] No console errors about `VITE_API_URL` being undefined
+- [ ] Hero videos play on the homepage
+- [ ] All images load (Services pages, Portfolio, etc.)
 
-### Testing
-- [ ] Homepage loads with videos
-- [ ] Images display correctly
-- [ ] User registration works
-- [ ] User login works
-- [ ] Expert form submissions work
-
----
-
-## 💰 Cost: $0/month
-
-- **Railway**: $5 free credit/month (sufficient for this project)
-- **Cloudflare Pages**: 100% FREE (unlimited bandwidth)
-
-**Total: $0/month** 🎉
+### Integration
+- [ ] User registration works (creates an account)
+- [ ] User login works (returns a JWT)
+- [ ] Expert enquiry form submits successfully
+- [ ] Google Sign-In works (if GOOGLE_CLIENT_ID is set)
 
 ---
 
-## 📁 File Changes Summary
+## Environment variable reference
 
+### Railway — backend service
 ```
-Modified Files:
-├── frontend/src/components/ExpertFormModal.tsx  (API URL now uses env var)
-├── backend/index.ts                              (CORS updated for Cloudflare)
+DATABASE_URL        → auto-injected by Railway PostgreSQL add-on
+JWT_SECRET          → 0fc3966bfebe7da2f22679d81d0d7a4a6655c8e7cde29599c1ad6a858c7a3a1388f514d62af204c5e3d65a3d32db64cf6db3b1d605bdf403ba1c9cf99a84e82d
+GOOGLE_CLIENT_ID    → your Google OAuth client ID
+PORT                → 5000
+NODE_ENV            → production
+```
 
-New Files:
-├── DEPLOYMENT_GUIDE.md                           (Step-by-step instructions)
-├── backend/railway.json                          (Railway configuration)
-└── DEPLOYMENT_SUMMARY.md                         (This file)
+### Cloudflare Pages — frontend build
+```
+NODE_VERSION        → 18
+VITE_API_URL        → https://your-backend.up.railway.app
+VITE_GOOGLE_CLIENT_ID → your Google OAuth client ID
 ```
 
 ---
 
-## 🔑 Environment Variables You'll Need
+## Costs
 
-### Railway (Backend)
-```env
-DATABASE_URL              (Auto-filled by Railway)
-JWT_SECRET                bloomtech_secret_key_2026_enterprise_integrity
-GOOGLE_CLIENT_ID          664605079979-g31lo74cfiue4tlict3do3cpi24ikcv.apps.googleusercontent.com
-PORT                      5000
-NODE_ENV                  production
-```
-
-### Cloudflare Pages (Frontend)
-```env
-NODE_VERSION              18
-VITE_API_URL              https://your-app-name.up.railway.app
-VITE_GOOGLE_CLIENT_ID     664605079979-g31lo74cfiue4tlict3do3cpi24ikcv.apps.googleusercontent.com
-```
+| Service | Plan | Cost |
+|---|---|---|
+| Railway | Hobby (includes $5 free credit/month) | ~$0/month for low traffic |
+| Cloudflare Pages | Free | $0/month |
 
 ---
 
-## ⚡ Quick Start
-
-1. **Read** `DEPLOYMENT_GUIDE.md` (comprehensive instructions)
-2. **Deploy backend** to Railway (Part 1 of guide)
-3. **Configure** Cloudflare environment variables (Part 2 of guide)
-4. **Test** everything works (Part 3 of guide)
-
-**Estimated time**: 30-45 minutes for first deployment
-
----
-
-## 🐛 Troubleshooting
-
-If you encounter issues, check:
-
-1. **CORS errors** → Verify backend CORS config includes your domain
-2. **API connection fails** → Check `VITE_API_URL` in Cloudflare
-3. **Images don't load** → Check browser console for 404 errors
-4. **Build fails** → Review build logs in Railway/Cloudflare
-
-Full troubleshooting guide in **Part 5** of `DEPLOYMENT_GUIDE.md`
-
----
-
-## 📞 Need Help?
-
-- **Railway**: https://docs.railway.app
-- **Cloudflare**: https://developers.cloudflare.com/pages
-- **Deployment Guide**: See `DEPLOYMENT_GUIDE.md` in this folder
-
----
-
-## 🎉 You're All Set!
-
-Your codebase is ready for production deployment. Just follow the step-by-step guide in `DEPLOYMENT_GUIDE.md` and you'll have a live site in about 30-45 minutes!
-
-**Good luck with your deployment! 🚀**
-
----
-
-**Last Updated**: May 2026  
-**Status**: Ready to Deploy
+*Last updated: May 2026*
