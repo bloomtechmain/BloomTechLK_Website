@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bloom Audit — Master Your Financial Destiny</title>
+  <meta name="description" content="Bloom Audit is Sri Lanka's cloud-based accounting, audit, and financial management SaaS platform for SMEs, growing businesses, and accounting firms. Advanced analytics, payroll, EPF/ETF, inventory, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --teal: #00cba9;
+      --teal-dark: #00a88c;
+      --teal-light: rgba(0,203,169,.12);
+      --blue: #1c3bd8;
+      --navy: #0e3b5e;
+      --navy-mid: #163252;
+      --navy-dark: #0a2d47;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-600: #475569;
+      --muted: #5b7a8a;
+      --max-w: 1400px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: var(--navy);
+      background: #fff;
+      line-height: 1.5;
+    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+    @media(min-width:1280px){ .container{ padding: 0 3rem; } }
+
+    /* ─── NAVBAR ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(229,231,235,0.6);
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 4px 24px rgba(14,59,94,.1); }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem; height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    @media(min-width:1280px){ .nav-inner{ padding:0 3rem; } }
+    .nav-logo { display:flex; align-items:center; gap:.625rem; text-decoration:none; }
+    .nav-logo-icon {
+      width:34px; height:34px; border-radius:8px;
+      background:linear-gradient(135deg,var(--teal),#00e8c4);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .nav-logo-icon svg { width:18px; height:18px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .nav-logo-text { font-size:1.125rem; font-weight:900; color:var(--navy); letter-spacing:-.03em; }
+    .nav-logo-text span { color:var(--teal); }
+    .nav-links { display:none; list-style:none; gap:1.75rem; align-items:center; }
+    @media(min-width:768px){ .nav-links{ display:flex; } }
+    .nav-links a {
+      font-size:13px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; color:var(--navy); opacity:.65;
+      text-decoration:none; transition:color .2s, opacity .2s;
+    }
+    .nav-links a:hover { color:var(--teal); opacity:1; }
+    .nav-actions { display:none; align-items:center; gap:.625rem; }
+    @media(min-width:640px){ .nav-actions{ display:flex; } }
+    .nav-login {
+      padding:.5rem 1.125rem; background:transparent; color:var(--navy);
+      font-size:13px; font-weight:700; border-radius:10px; text-decoration:none;
+      border:1.5px solid var(--gray-200); transition:border-color .2s, color .2s;
+    }
+    .nav-login:hover { border-color:var(--teal); color:var(--teal); }
+    .nav-cta {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.55rem 1.375rem; background:var(--teal);
+      color:#fff; font-size:13px; font-weight:900;
+      border-radius:12px; text-decoration:none;
+      transition:background .2s, box-shadow .2s;
+    }
+    .nav-cta:hover { background:var(--teal-dark); box-shadow:0 0 24px rgba(0,203,169,.45); }
+    .hamburger {
+      display:flex; flex-direction:column; gap:5px;
+      background:none; border:none; cursor:pointer; padding:8px;
+    }
+    @media(min-width:768px){ .hamburger{ display:none; } }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--navy); border-radius:2px; transition:all .3s; }
+
+    .mob-menu {
+      display:none; position:fixed; inset:0; z-index:200;
+      background:rgba(14,59,94,.98);
+      flex-direction:column; align-items:center; justify-content:center; gap:2.5rem;
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a { color:#fff; font-size:2rem; font-weight:900; text-decoration:none; letter-spacing:-.02em; transition:color .2s; }
+    .mob-menu a:hover { color:var(--teal); }
+    .mob-close {
+      position:absolute; top:1.5rem; right:1.5rem;
+      background:none; border:none; color:rgba(255,255,255,.6);
+      font-size:2rem; cursor:pointer; line-height:1; transition:color .2s;
+    }
+    .mob-close:hover { color:#fff; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position:relative; min-height:100vh;
+      display:flex; align-items:center; overflow:hidden;
+      background:var(--navy);
+    }
+    .hero::after {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size:72px 72px;
+    }
+    .hero-grad {
+      position:absolute; inset:0; z-index:2;
+      background:linear-gradient(130deg,rgba(14,59,94,.97) 0%,rgba(14,59,94,.7) 50%,rgba(0,203,169,.15) 100%);
+    }
+    .blob { position:absolute; border-radius:50%; filter:blur(120px); pointer-events:none; animation:bpulse 6s ease-in-out infinite; }
+    .blob-1 { width:540px; height:540px; top:5%; right:4%; background:rgba(0,203,169,.16); animation-duration:6s; }
+    .blob-2 { width:400px; height:400px; bottom:8%; left:2%; background:rgba(28,59,216,.12); animation-duration:8s; animation-direction:reverse; }
+    .blob-3 { width:320px; height:320px; top:40%; right:30%; background:rgba(0,203,169,.08); animation-duration:10s; }
+    @keyframes bpulse { 0%,100%{ transform:scale(1); opacity:.8; } 50%{ transform:scale(1.12); opacity:1; } }
+
+    .hero-layout {
+      position:relative; z-index:10; width:100%;
+      max-width:var(--max-w); margin:0 auto;
+      padding:96px 1.5rem 5rem;
+      display:grid; grid-template-columns:1fr; gap:4rem; align-items:center;
+    }
+    @media(min-width:1024px){ .hero-layout{ grid-template-columns:1fr 1fr; padding:96px 3rem 5rem; } }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:.5rem 1.375rem; margin-bottom:2rem;
+      font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.28em; color:#fff;
+      background:rgba(0,203,169,.15); backdrop-filter:blur(12px);
+      border:1px solid rgba(0,203,169,.35); border-radius:9999px;
+    }
+    .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--teal); box-shadow:0 0 10px var(--teal); animation:dotpulse 1.8s ease-in-out infinite; }
+    @keyframes dotpulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.6);} }
+
+    .hero-h1 {
+      font-size:clamp(3rem,6.5vw,5.5rem);
+      font-weight:900; line-height:.9; letter-spacing:-.045em; color:#fff; margin-bottom:1.25rem;
+    }
+    .hero-h1 span { color:var(--teal); }
+    .hero-sub-tag {
+      font-size:clamp(.8rem,1.4vw,1rem); font-weight:700;
+      color:rgba(255,255,255,.5); letter-spacing:.1em; text-transform:uppercase;
+      margin-bottom:1.25rem;
+    }
+    .hero-sub {
+      max-width:38rem; font-size:clamp(.975rem,1.6vw,1.2rem);
+      font-weight:500; color:rgba(255,255,255,.75); line-height:1.75; margin-bottom:2.25rem;
+    }
+    .hero-ctas { display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:3rem; }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:var(--teal); color:#fff;
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; transition:background .2s, box-shadow .2s, transform .15s;
+    }
+    .btn-primary:hover { background:var(--teal-dark); box-shadow:0 0 36px rgba(0,203,169,.55); }
+    .btn-primary:active { transform:scale(.97); }
+    .btn-glass {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:rgba(255,255,255,.1);
+      backdrop-filter:blur(12px); color:#fff; font-size:1rem; font-weight:900;
+      border-radius:14px; text-decoration:none;
+      border:2px solid rgba(255,255,255,.2); transition:background .2s, color .2s;
+    }
+    .btn-glass:hover { background:#fff; color:var(--navy); }
+    .hero-trust { display:flex; flex-wrap:wrap; gap:.75rem; }
+    .trust-pill {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.35rem .875rem;
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+      border-radius:9999px; font-size:12px; font-weight:700; color:rgba(255,255,255,.6);
+    }
+    .trust-pill svg { width:13px; height:13px; stroke:var(--teal); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+
+    /* Dashboard card */
+    .hero-card {
+      background:rgba(255,255,255,.06); backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,.12); border-radius:24px; padding:1.75rem;
+      animation:floatCard 5s ease-in-out infinite;
+      display:none;
+    }
+    @media(min-width:1024px){ .hero-card{ display:block; } }
+    @keyframes floatCard { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-14px); } }
+    .hcard-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; }
+    .hcard-title { font-size:.875rem; font-weight:900; color:#fff; letter-spacing:-.01em; }
+    .hcard-badge {
+      font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.1em;
+      color:var(--teal); background:rgba(0,203,169,.15); border:1px solid rgba(0,203,169,.3);
+      padding:.2rem .625rem; border-radius:9999px;
+    }
+    .hcard-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:1.5rem; }
+    .hcard-metric { text-align:center; }
+    .hcard-metric-n { font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:-.03em; }
+    .hcard-metric-n.green { color:var(--teal); }
+    .hcard-metric-n.red { color:#f87171; }
+    .hcard-metric-l { font-size:10px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.12em; margin-top:.2rem; }
+    .hcard-chart { height:80px; position:relative; margin-bottom:1.25rem; }
+    .hcard-chart svg { width:100%; height:100%; }
+    .hcard-rows { display:flex; flex-direction:column; gap:.625rem; }
+    .hcard-row { display:flex; align-items:center; gap:.75rem; }
+    .hcard-row-bar-bg { flex:1; height:6px; background:rgba(255,255,255,.08); border-radius:9999px; overflow:hidden; }
+    .hcard-row-bar { height:100%; border-radius:9999px; }
+    .hcard-row-label { font-size:11px; font-weight:700; color:rgba(255,255,255,.55); width:80px; }
+    .hcard-row-val { font-size:11px; font-weight:900; color:#fff; width:48px; text-align:right; }
+    .hcard-footer { display:flex; align-items:center; gap:.5rem; margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,.08); }
+    .hcard-footer-dot { width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 8px var(--teal); }
+    .hcard-footer-text { font-size:11px; font-weight:700; color:rgba(255,255,255,.5); }
+    .hero-fade { position:absolute; bottom:0; left:0; right:0; height:100px; background:linear-gradient(to top,#fff,transparent); z-index:11; pointer-events:none; }
+
+    /* ─── STATS ─── */
+    .stats-bar { background:var(--navy); }
+    .stats-grid {
+      max-width:var(--max-w); margin:0 auto; padding:0 1.5rem;
+      display:grid; grid-template-columns:repeat(2,1fr);
+    }
+    @media(min-width:640px){ .stats-grid{ grid-template-columns:repeat(4,1fr); } }
+    @media(min-width:1280px){ .stats-grid{ padding:0 3rem; } }
+    .stat {
+      padding:2.25rem 1.5rem; text-align:center;
+      border-right:1px solid rgba(255,255,255,.07);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .stat:nth-child(2n){ border-right:none; }
+    @media(min-width:640px){
+      .stat:nth-child(2n){ border-right:1px solid rgba(255,255,255,.07); }
+      .stat:last-child{ border-right:none; }
+      .stat{ border-bottom:none; }
+    }
+    .stat-n { font-size:2.25rem; font-weight:900; color:var(--teal); line-height:1; letter-spacing:-.04em; margin-bottom:.4rem; }
+    .stat-l { font-size:11px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.18em; }
+
+    /* ─── SECTION COMMON ─── */
+    section { scroll-margin-top:64px; }
+    .s-label { display:block; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.3em; color:var(--teal); margin-bottom:.875rem; }
+    .s-title { font-size:clamp(1.875rem,3.5vw,3rem); font-weight:900; line-height:1.05; letter-spacing:-.03em; color:var(--navy); margin-bottom:1.125rem; }
+    .s-title-w { color:#fff; }
+    .s-desc { font-size:1.0625rem; font-weight:500; color:var(--gray-600); line-height:1.75; max-width:52rem; margin:0 auto; }
+    .s-desc-w { color:rgba(255,255,255,.65); }
+    .s-head { text-align:center; margin-bottom:4.5rem; }
+
+    /* ─── FEATURES ─── */
+    .features-sec { padding:7rem 0; background:#fff; }
+    .feat-grid {
+      display:grid; gap:1.25rem;
+      grid-template-columns:repeat(2,1fr);
+    }
+    @media(min-width:640px){ .feat-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:768px){ .feat-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:1200px){ .feat-grid{ grid-template-columns:repeat(5,1fr); } }
+    .feat-card {
+      background:var(--gray-50); border-radius:20px; padding:1.625rem;
+      border:2px solid var(--gray-100); cursor:pointer;
+      transition:all .3s;
+    }
+    .feat-card:hover, .feat-card.open {
+      border-color:rgba(0,203,169,.35); box-shadow:0 20px 40px rgba(0,0,0,.07);
+      background:#fff; transform:translateY(-3px);
+    }
+    .feat-ico {
+      width:3rem; height:3rem; border-radius:12px;
+      background:var(--teal-light); display:flex; align-items:center; justify-content:center;
+      margin-bottom:1rem; transition:background .3s;
+    }
+    .feat-card:hover .feat-ico, .feat-card.open .feat-ico { background:var(--teal); }
+    .feat-ico svg { width:1.375rem; height:1.375rem; stroke:var(--teal); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .3s; }
+    .feat-card:hover .feat-ico svg, .feat-card.open .feat-ico svg { stroke:#fff; }
+    .feat-t { font-size:.9rem; font-weight:900; color:var(--navy); margin-bottom:.3rem; }
+    .feat-d { font-size:.8rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+    .feat-expand { display:none; margin-top:.875rem; padding-top:.875rem; border-top:1px solid var(--gray-100); }
+    .feat-card.open .feat-expand { display:block; }
+    .feat-expand p { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.7; }
+
+    /* ─── PRICING ─── */
+    .pricing-sec { padding:7rem 0; background:var(--gray-50); }
+    .plans-grid {
+      display:grid; gap:1.5rem;
+      grid-template-columns:1fr;
+    }
+    @media(min-width:640px){ .plans-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1024px){ .plans-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:1280px){ .plans-grid{ grid-template-columns:repeat(5,1fr); } }
+    .plan-card {
+      background:#fff; border-radius:24px; padding:2rem;
+      border:2px solid var(--gray-100); position:relative;
+      display:flex; flex-direction:column; transition:all .3s;
+    }
+    .plan-card:hover { border-color:rgba(0,203,169,.3); box-shadow:0 24px 48px rgba(0,0,0,.08); transform:translateY(-4px); }
+    .plan-card.recommended {
+      border-color:var(--teal); box-shadow:0 24px 48px rgba(0,203,169,.2);
+    }
+    .plan-badge {
+      position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+      padding:.3rem 1rem; background:var(--teal); color:#fff;
+      font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.15em;
+      border-radius:9999px; white-space:nowrap;
+    }
+    .plan-name { font-size:.8125rem; font-weight:900; text-transform:uppercase; letter-spacing:.18em; color:var(--teal); margin-bottom:.625rem; }
+    .plan-price-wrap { margin-bottom:1.125rem; }
+    .plan-promo {
+      display:flex; align-items:baseline; gap:.5rem;
+      flex-wrap:wrap;
+    }
+    .plan-price { font-size:1.875rem; font-weight:900; color:var(--navy); letter-spacing:-.04em; line-height:1; }
+    .plan-price-period { font-size:.8125rem; font-weight:600; color:var(--gray-600); }
+    .plan-original { font-size:.875rem; font-weight:700; color:var(--muted); text-decoration:line-through; }
+    .plan-promo-tag {
+      font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.1em;
+      color:#fff; background:var(--teal); padding:.15rem .5rem; border-radius:6px;
+    }
+    .plan-users { font-size:.8rem; font-weight:700; color:var(--muted); margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px solid var(--gray-100); }
+    .plan-features { list-style:none; flex:1; margin-bottom:1.5rem; display:flex; flex-direction:column; gap:.625rem; }
+    .plan-features li { display:flex; align-items:flex-start; gap:.625rem; font-size:.8125rem; font-weight:600; color:var(--gray-600); }
+    .plan-features li::before {
+      content:''; width:16px; height:16px; border-radius:50%;
+      background:var(--teal-light); flex-shrink:0; margin-top:1px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300cba9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:center; background-size:10px;
+    }
+    .plan-btn {
+      display:block; text-align:center; padding:.875rem;
+      background:var(--teal-light); color:var(--teal);
+      font-size:.9375rem; font-weight:900; border-radius:12px;
+      text-decoration:none; transition:background .2s, color .2s;
+    }
+    .plan-btn:hover { background:var(--teal); color:#fff; }
+    .plan-card.recommended .plan-btn { background:var(--teal); color:#fff; }
+    .plan-card.recommended .plan-btn:hover { background:var(--teal-dark); }
+    .plan-enterprise .plan-price { font-size:1.5rem; }
+
+    /* ─── ADD-ONS ─── */
+    .addons-sec { padding:7rem 0; background:#fff; }
+    .addons-grid {
+      display:grid; gap:1.25rem;
+      grid-template-columns:repeat(2,1fr);
+    }
+    @media(min-width:640px){ .addons-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:768px){ .addons-grid{ grid-template-columns:repeat(4,1fr); } }
+    .addon-card {
+      background:var(--gray-50); border-radius:18px; padding:1.5rem;
+      border:2px solid var(--gray-100); transition:all .3s;
+    }
+    .addon-card:hover { border-color:rgba(0,203,169,.3); box-shadow:0 16px 32px rgba(0,0,0,.07); background:#fff; transform:translateY(-3px); }
+    .addon-ico {
+      width:2.75rem; height:2.75rem; border-radius:10px;
+      background:var(--teal-light); display:flex; align-items:center; justify-content:center;
+      margin-bottom:.875rem; transition:background .3s;
+    }
+    .addon-card:hover .addon-ico { background:var(--teal); }
+    .addon-ico svg { width:1.25rem; height:1.25rem; stroke:var(--teal); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .3s; }
+    .addon-card:hover .addon-ico svg { stroke:#fff; }
+    .addon-t { font-size:.9rem; font-weight:900; color:var(--navy); margin-bottom:.3rem; }
+    .addon-d { font-size:.775rem; font-weight:500; color:var(--gray-600); line-height:1.6; }
+    .addon-avail {
+      display:inline-flex; align-items:center; gap:.35rem;
+      margin-top:.75rem; font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.1em;
+      color:var(--teal); padding:.2rem .6rem; background:var(--teal-light);
+      border-radius:6px;
+    }
+
+    /* ─── FOR ACCOUNTANTS ─── */
+    .accountants-sec {
+      padding:7rem 0; background:var(--navy);
+      position:relative; overflow:hidden;
+    }
+    .accountants-sec::after {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+      background-size:64px 64px; pointer-events:none;
+    }
+    .acct-tools-grid { display:grid; gap:1.5rem; position:relative; z-index:10; }
+    @media(min-width:640px){ .acct-tools-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1024px){ .acct-tools-grid{ grid-template-columns:repeat(3,1fr); } }
+    .acct-tool-card {
+      background:rgba(255,255,255,.05); backdrop-filter:blur(10px);
+      border-radius:22px; padding:2rem;
+      border:1px solid rgba(255,255,255,.1); transition:all .3s;
+      position:relative; overflow:hidden;
+    }
+    .acct-tool-card::before {
+      content:''; position:absolute; top:0; right:0;
+      width:6rem; height:6rem; background:rgba(0,203,169,.18);
+      filter:blur(40px); opacity:0; transition:opacity .3s;
+    }
+    .acct-tool-card:hover { background:rgba(255,255,255,.08); border-color:rgba(0,203,169,.25); }
+    .acct-tool-card:hover::before { opacity:1; }
+    .acct-tool-ico {
+      width:3.5rem; height:3.5rem; border-radius:14px;
+      background:linear-gradient(135deg,var(--teal),#00e8c4);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.25rem; transition:transform .3s;
+    }
+    .acct-tool-card:hover .acct-tool-ico { transform:scale(1.08); }
+    .acct-tool-ico svg { width:1.75rem; height:1.75rem; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .acct-tool-name { font-size:1rem; font-weight:900; color:#fff; margin-bottom:.25rem; }
+    .acct-tool-sub { font-size:.75rem; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.75rem; }
+    .acct-tool-desc { font-size:.875rem; font-weight:500; color:rgba(255,255,255,.6); line-height:1.7; }
+    .acct-featured { grid-column:1/-1; display:grid; grid-template-columns:1fr; }
+    @media(min-width:1024px){ .acct-featured{ grid-column:auto; } }
+
+    /* ─── HOW IT WORKS ─── */
+    .hiw-sec { padding:7rem 0; background:var(--gray-50); }
+    .hiw-steps { display:grid; gap:2rem; position:relative; }
+    @media(min-width:768px){
+      .hiw-steps { grid-template-columns:repeat(3,1fr); }
+      .hiw-steps::before {
+        content:''; position:absolute; top:2.75rem; left:20%; right:20%; height:2px;
+        background:linear-gradient(90deg,var(--teal),var(--blue)); z-index:0;
+      }
+    }
+    .hiw-step { text-align:center; position:relative; z-index:1; }
+    .hiw-num {
+      width:5.5rem; height:5.5rem; border-radius:50%;
+      background:linear-gradient(135deg,var(--teal),#00e8c4);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.375rem; font-size:1.75rem; font-weight:900; color:#fff;
+      box-shadow:0 12px 32px rgba(0,203,169,.35);
+    }
+    .hiw-t { font-size:1.125rem; font-weight:900; color:var(--navy); margin-bottom:.625rem; }
+    .hiw-d { font-size:.9375rem; font-weight:500; color:var(--gray-600); line-height:1.7; max-width:22rem; margin:0 auto; }
+
+    /* ─── BUSINESS TYPES ─── */
+    .biz-sec { padding:7rem 0; background:#fff; }
+    .biz-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(2,1fr); }
+    @media(min-width:768px){ .biz-grid{ grid-template-columns:repeat(4,1fr); } }
+    .biz-card {
+      background:var(--gray-50); border-radius:22px; padding:2rem;
+      border:2px solid var(--gray-100); text-align:center; transition:all .3s;
+    }
+    .biz-card:hover { border-color:rgba(0,203,169,.3); box-shadow:0 20px 40px rgba(0,0,0,.07); background:#fff; transform:translateY(-4px); }
+    .biz-ico {
+      width:4rem; height:4rem; border-radius:16px;
+      background:var(--teal-light); display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.25rem; transition:background .3s;
+    }
+    .biz-card:hover .biz-ico { background:var(--teal); }
+    .biz-ico svg { width:1.75rem; height:1.75rem; stroke:var(--teal); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .3s; }
+    .biz-card:hover .biz-ico svg { stroke:#fff; }
+    .biz-t { font-size:1rem; font-weight:900; color:var(--navy); margin-bottom:.5rem; }
+    .biz-d { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testi-sec { padding:7rem 0; background:var(--gray-50); }
+    .testi-grid { display:grid; gap:1.5rem; grid-template-columns:1fr; }
+    @media(min-width:768px){ .testi-grid{ grid-template-columns:repeat(3,1fr); } }
+    .testi-card {
+      background:#fff; border-radius:24px; padding:2.25rem;
+      border:2px solid var(--gray-100); transition:all .3s;
+      display:flex; flex-direction:column;
+    }
+    .testi-card:hover { border-color:rgba(0,203,169,.3); box-shadow:0 20px 40px rgba(0,0,0,.07); transform:translateY(-4px); }
+    .testi-stars { display:flex; gap:.25rem; margin-bottom:1.25rem; }
+    .testi-stars svg { width:1rem; height:1rem; fill:#f59e0b; }
+    .testi-quote { font-size:.9375rem; font-weight:600; color:var(--navy); line-height:1.7; font-style:italic; flex:1; margin-bottom:1.5rem; }
+    .testi-author { display:flex; align-items:center; gap:.875rem; padding-top:1.25rem; border-top:1px solid var(--gray-100); }
+    .testi-avatar {
+      width:2.75rem; height:2.75rem; border-radius:50%;
+      background:linear-gradient(135deg,var(--teal),#00e8c4);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; font-weight:900; color:#fff; flex-shrink:0;
+    }
+    .testi-name { font-size:.9rem; font-weight:900; color:var(--navy); }
+    .testi-role-t { font-size:.775rem; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:.08em; }
+
+    /* ─── TRUST & SECURITY ─── */
+    .trust-sec {
+      padding:7rem 0; background:var(--navy);
+      position:relative; overflow:hidden;
+    }
+    .trust-sec::after {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+      background-size:64px 64px; pointer-events:none;
+    }
+    .trust-grid { display:grid; gap:1.5rem; position:relative; z-index:10; }
+    @media(min-width:640px){ .trust-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1024px){ .trust-grid{ grid-template-columns:repeat(3,1fr); } }
+    .trust-card {
+      background:rgba(255,255,255,.05); border-radius:20px; padding:1.75rem;
+      border:1px solid rgba(255,255,255,.1); transition:all .3s;
+    }
+    .trust-card:hover { background:rgba(255,255,255,.08); border-color:rgba(0,203,169,.25); }
+    .trust-card-ico {
+      width:3rem; height:3rem; border-radius:12px;
+      background:rgba(0,203,169,.15); display:flex; align-items:center; justify-content:center;
+      margin-bottom:1rem;
+    }
+    .trust-card-ico svg { width:1.375rem; height:1.375rem; stroke:var(--teal); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .trust-card-t { font-size:.9375rem; font-weight:900; color:#fff; margin-bottom:.4rem; }
+    .trust-card-d { font-size:.8125rem; font-weight:500; color:rgba(255,255,255,.55); line-height:1.65; }
+
+    /* ─── CTA ─── */
+    .cta-sec {
+      padding:7rem 0;
+      background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,rgba(0,203,169,.2) 100%);
+      position:relative; overflow:hidden; text-align:center;
+    }
+    .cta-sec::after {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:64px 64px; pointer-events:none;
+    }
+    .cta-inner { position:relative; z-index:10; }
+    .cta-t { font-size:clamp(2rem,3.8vw,3.25rem); font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:1.125rem; }
+    .cta-t span { color:var(--teal); }
+    .cta-d { font-size:1.0625rem; font-weight:500; color:rgba(255,255,255,.75); max-width:42rem; margin:0 auto 2.75rem; line-height:1.72; }
+    .cta-btns { display:flex; flex-wrap:wrap; gap:1.125rem; justify-content:center; }
+    .btn-white {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:#fff; color:var(--navy);
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; transition:background .2s, box-shadow .2s;
+    }
+    .btn-white:hover { background:#f0faf8; box-shadow:0 0 36px rgba(255,255,255,.2); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:transparent; color:#fff;
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; border:2px solid rgba(255,255,255,.3); transition:background .2s;
+    }
+    .btn-ghost:hover { background:rgba(255,255,255,.1); }
+
+    /* ─── FOOTER ─── */
+    .footer { background:var(--navy-dark); color:#fff; padding:5.5rem 0 2.5rem; }
+    .footer-top { display:grid; gap:3rem; grid-template-columns:1fr; margin-bottom:3.5rem; }
+    @media(min-width:768px){ .footer-top{ grid-template-columns:2fr 3fr; } }
+    .footer-brand { display:flex; align-items:center; gap:.875rem; text-decoration:none; margin-bottom:1rem; }
+    .footer-brand-icon {
+      width:42px; height:42px; border-radius:10px;
+      background:linear-gradient(135deg,var(--teal),#00e8c4);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .footer-brand-icon svg { width:20px; height:20px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .footer-brand-t { font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:-.03em; }
+    .footer-brand-t span { color:var(--teal); }
+    .footer-tagline { font-size:.875rem; font-weight:500; color:rgba(255,255,255,.4); max-width:28rem; line-height:1.7; margin-bottom:1.5rem; }
+    .footer-social { display:flex; gap:.75rem; }
+    .footer-social a {
+      width:2.25rem; height:2.25rem; border-radius:8px;
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.1);
+      display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s;
+    }
+    .footer-social a:hover { background:var(--teal); border-color:var(--teal); }
+    .footer-social a svg { width:14px; height:14px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .footer-links-grid { display:grid; gap:2rem; grid-template-columns:repeat(2,1fr); }
+    @media(min-width:640px){ .footer-links-grid{ grid-template-columns:repeat(3,1fr); } }
+    .footer-col h5 { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.22em; color:var(--muted); margin-bottom:1.25rem; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:.625rem; }
+    .footer-col ul li a { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.4); text-decoration:none; transition:color .2s; }
+    .footer-col ul li a:hover { color:var(--teal); }
+    .footer-divider { border:none; border-top:1px solid rgba(255,255,255,.07); margin-bottom:2.5rem; }
+    .footer-bottom { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; }
+    .footer-copy { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); }
+    .footer-copy a { color:var(--teal); text-decoration:none; }
+    .footer-sub { font-size:11px; font-weight:700; color:rgba(255,255,255,.28); text-transform:uppercase; letter-spacing:.14em; }
+    .footer-sub a { color:rgba(255,255,255,.4); text-decoration:none; transition:color .2s; }
+    .footer-sub a:hover { color:var(--teal); }
+
+    /* ─── ANIMATIONS ─── */
+    .fu { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+    .fu.in { opacity:1; transform:none; }
+    .d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
+    .d4{transition-delay:.32s;}.d5{transition-delay:.4s;}.d6{transition-delay:.48s;}
+    .d7{transition-delay:.56s;}.d8{transition-delay:.64s;}.d9{transition-delay:.72s;}.d10{transition-delay:.8s;}
+
+    .arr { display:inline-block; width:16px; height:16px; vertical-align:middle; transition:transform .2s; }
+    a:hover .arr, button:hover .arr { transform:translateX(4px); }
+
+    /* promo banner */
+    .promo-banner {
+      background:linear-gradient(90deg,var(--teal),#00e8c4);
+      text-align:center; padding:.6rem 1rem;
+      font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:.1em; color:#0a2d47;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PROMO BANNER ═══ -->
+<div class="promo-banner">
+  Limited-Time Offer — Up to 3 Months Discounted · Plans from LKR 7,499/mo
+</div>
+
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h10v4H3zM3 17h14v4H3z"/></svg>
+      </div>
+      <span class="nav-logo-text">Bloom <span>Audit</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#accountants">For Accountants</a></li>
+      <li><a href="#business-types">Small Business</a></li>
+      <li><a href="#cta">Support</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" class="nav-login">Login</a>
+      <a href="#pricing" class="nav-cta">Get Started <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <button class="hamburger" id="hbtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose" aria-label="Close">✕</button>
+  <a href="#features" onclick="closeMenu()">Features</a>
+  <a href="#pricing" onclick="closeMenu()">Pricing</a>
+  <a href="#accountants" onclick="closeMenu()">For Accountants</a>
+  <a href="#business-types" onclick="closeMenu()">Small Business</a>
+  <a href="#cta" onclick="closeMenu()">Support</a>
+  <a href="#pricing" onclick="closeMenu()" style="color:var(--teal)">Get Started →</a>
+</div>
+
+<!-- ═══════════════════════════════ HERO ════════════════════════════════ -->
+<section class="hero" id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-grad"></div>
+
+  <div class="hero-layout">
+    <!-- Left: Copy -->
+    <div>
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Cloud-Based · Sri Lanka Compliant · EPF / ETF Ready
+      </div>
+      <h1 class="hero-h1">
+        Master Your<br><span>Financial</span><br>Destiny
+      </h1>
+      <p class="hero-sub-tag">Audit &amp; Reporting · Strategic Advisory · Management Services</p>
+      <p class="hero-sub">
+        Bloom Audit is Sri Lanka's most complete cloud accounting and financial management platform — built for SMEs, growing businesses, and accounting firms that demand more than basic bookkeeping.
+      </p>
+      <div class="hero-ctas">
+        <a href="#pricing" class="btn-primary">
+          Get Started
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#pricing" class="btn-glass">View Pricing</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          JWT Auth
+        </span>
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Bcrypt Encrypted
+        </span>
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Role-Based Access
+        </span>
+        <span class="trust-pill">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Google OAuth
+        </span>
+      </div>
+    </div>
+
+    <!-- Right: Floating Dashboard Card -->
+    <div>
+      <div class="hero-card">
+        <div class="hcard-header">
+          <span class="hcard-title">Financial Dashboard · May 2026</span>
+          <span class="hcard-badge">Live</span>
+        </div>
+        <div class="hcard-metrics">
+          <div class="hcard-metric">
+            <div class="hcard-metric-n green">LKR 4.2M</div>
+            <div class="hcard-metric-l">Revenue</div>
+          </div>
+          <div class="hcard-metric">
+            <div class="hcard-metric-n red">LKR 1.8M</div>
+            <div class="hcard-metric-l">Expenses</div>
+          </div>
+          <div class="hcard-metric">
+            <div class="hcard-metric-n green">LKR 2.4M</div>
+            <div class="hcard-metric-l">Net Profit</div>
+          </div>
+        </div>
+        <!-- SVG Mini Chart -->
+        <div class="hcard-chart">
+          <svg viewBox="0 0 280 80" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="incGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00cba9" stop-opacity=".35"/>
+                <stop offset="100%" stop-color="#00cba9" stop-opacity="0"/>
+              </linearGradient>
+              <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1c3bd8" stop-opacity=".25"/>
+                <stop offset="100%" stop-color="#1c3bd8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- Income area -->
+            <path d="M0 60 C30 55 60 40 90 35 C120 30 150 38 180 28 C210 18 240 22 280 15 L280 80 L0 80Z" fill="url(#incGrad)"/>
+            <path d="M0 60 C30 55 60 40 90 35 C120 30 150 38 180 28 C210 18 240 22 280 15" fill="none" stroke="#00cba9" stroke-width="2" stroke-linecap="round"/>
+            <!-- Expense area -->
+            <path d="M0 72 C30 68 60 62 90 65 C120 68 150 58 180 55 C210 52 240 56 280 50 L280 80 L0 80Z" fill="url(#expGrad)"/>
+            <path d="M0 72 C30 68 60 62 90 65 C120 68 150 58 180 55 C210 52 240 56 280 50" fill="none" stroke="#1c3bd8" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 2"/>
+            <!-- Dots -->
+            <circle cx="280" cy="15" r="4" fill="#00cba9"/>
+            <circle cx="280" cy="50" r="3" fill="#1c3bd8"/>
+          </svg>
+        </div>
+        <div class="hcard-rows">
+          <div class="hcard-row">
+            <span class="hcard-row-label">Sales</span>
+            <div class="hcard-row-bar-bg"><div class="hcard-row-bar" style="width:82%;background:var(--teal);"></div></div>
+            <span class="hcard-row-val">LKR 3.4M</span>
+          </div>
+          <div class="hcard-row">
+            <span class="hcard-row-label">Services</span>
+            <div class="hcard-row-bar-bg"><div class="hcard-row-bar" style="width:55%;background:#1c3bd8;"></div></div>
+            <span class="hcard-row-val">LKR 0.8M</span>
+          </div>
+          <div class="hcard-row">
+            <span class="hcard-row-label">Expenses</span>
+            <div class="hcard-row-bar-bg"><div class="hcard-row-bar" style="width:43%;background:#f87171;"></div></div>
+            <span class="hcard-row-val">LKR 1.8M</span>
+          </div>
+        </div>
+        <div class="hcard-footer">
+          <span class="hcard-footer-dot"></span>
+          <span class="hcard-footer-text">Package active · Notifications enabled · Data synced 2 min ago</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-fade"></div>
+</section>
+
+<!-- ═══════════════════════════════ STATS BAR ══════════════════════════ -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat fu"><div class="stat-n" id="ctr-businesses">0+</div><div class="stat-l">Businesses Served</div></div>
+    <div class="stat fu d1"><div class="stat-n">5</div><div class="stat-l">Plans Available</div></div>
+    <div class="stat fu d2"><div class="stat-n">100%</div><div class="stat-l">Sri Lanka Compliant</div></div>
+    <div class="stat fu d3"><div class="stat-n" id="ctr-years">0+</div><div class="stat-l">Years of Expertise</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ FEATURES ═══════════════════════════ -->
+<section class="features-sec" id="features">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Platform Features</span>
+      <h2 class="s-title">Everything You Need to<br>Run Your Finances</h2>
+      <p class="s-desc">10 powerful modules built for Sri Lankan businesses — click any card to learn more about what's included.</p>
+    </div>
+    <div class="feat-grid">
+      <!-- 1 -->
+      <div class="feat-card fu d1" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3 class="feat-t">Advanced Accounting</h3>
+        <p class="feat-d">Full double-entry ledgers &amp; journals</p>
+        <div class="feat-expand">
+          <p>Complete double-entry accounting system with automated ledgers, journals, trial balance, profit &amp; loss, and balance sheet generation. Supports multiple chart-of-accounts structures for any business type.</p>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="feat-card fu d2" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 class="feat-t">Expense Tracking</h3>
+        <p class="feat-d">Real-time capture across departments</p>
+        <div class="feat-expand">
+          <p>Capture expenses in real time across categories and departments. Attach receipts, set approval workflows, and generate instant expense summaries by cost centre or project.</p>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="feat-card fu d3" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <h3 class="feat-t">Bank Reconciliation</h3>
+        <p class="feat-d">Manual reconciliation &amp; transaction matching</p>
+        <div class="feat-expand">
+          <p>Manual bank reconciliation tools with intelligent transaction matching, outstanding item tracking, and reconciliation reports for accurate month-end closing.</p>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="feat-card fu d4" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+        </div>
+        <h3 class="feat-t">Advanced Analytics</h3>
+        <p class="feat-d">Visual dashboards with trend charts</p>
+        <div class="feat-expand">
+          <p>Visual dashboards showing income, expense, and profit trends over time. Drill-down reports, period comparisons, and exportable charts to share with stakeholders.</p>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="feat-card fu d5" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="feat-t">Payroll &amp; EPF/ETF</h3>
+        <p class="feat-d">Sri Lanka-compliant payroll automation</p>
+        <div class="feat-expand">
+          <p>Fully compliant Sri Lankan payroll processing with automatic EPF (8% / 12%) and ETF (3%) calculations, salary slips, and government submission-ready reports.</p>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="feat-card fu d6" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="feat-t">Asset Management</h3>
+        <p class="feat-d">Track assets, depreciation &amp; write-offs</p>
+        <div class="feat-expand">
+          <p>Maintain a complete fixed asset register with purchase cost, useful life, depreciation schedules (straight-line or reducing balance), and automated write-off journals.</p>
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="feat-card fu d7" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M5 8h14M5 8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>
+        </div>
+        <h3 class="feat-t">Inventory Management</h3>
+        <p class="feat-d">Stock tracking &amp; reorder alerts</p>
+        <div class="feat-expand">
+          <p>Real-time stock tracking across multiple locations, automatic reorder alerts, cost-of-goods-sold reporting, and inventory valuation using FIFO or weighted average methods.</p>
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="feat-card fu d8" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3 class="feat-t">Employee &amp; Vendor Portal</h3>
+        <p class="feat-d">Manage staff, vendors &amp; access permissions</p>
+        <div class="feat-expand">
+          <p>Centralised employee records, vendor contracts, purchase orders, and access permissions. Employees can access their own data; vendors can submit invoices through the portal.</p>
+        </div>
+      </div>
+      <!-- 9 -->
+      <div class="feat-card fu d9" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3 class="feat-t">Document Bank</h3>
+        <p class="feat-d">Secure digital storage for all records</p>
+        <div class="feat-expand">
+          <p>Encrypted cloud storage for invoices, contracts, bank statements, and financial records. Tag, search, and share documents securely with role-based access control.</p>
+        </div>
+      </div>
+      <!-- 10 -->
+      <div class="feat-card fu d10" onclick="toggleFeat(this)">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3 class="feat-t">Real-Time Notifications</h3>
+        <p class="feat-d">Package expiry alerts &amp; in-app updates</p>
+        <div class="feat-expand">
+          <p>Automated alerts for subscription expiry, overdue invoices, low stock, payroll due dates, and system updates — delivered via email and in-app notifications.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PRICING ═════════════════════════════ -->
+<section class="pricing-sec" id="pricing">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Pricing Plans</span>
+      <h2 class="s-title">Simple, Transparent Pricing<br>in LKR</h2>
+      <p class="s-desc">All plans include a promotional rate for the first 3 months. No hidden fees. Cancel anytime.</p>
+    </div>
+    <div class="plans-grid">
+
+      <!-- Basic -->
+      <div class="plan-card fu d1">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price-wrap">
+          <div class="plan-promo">
+            <span class="plan-price">LKR 7,499</span>
+            <span class="plan-price-period">/mo</span>
+            <span class="plan-promo-tag">Promo</span>
+          </div>
+          <div style="margin-top:.4rem;">
+            <span class="plan-original">LKR 9,499/mo after 3 months</span>
+          </div>
+        </div>
+        <div class="plan-users">1 User</div>
+        <ul class="plan-features">
+          <li>Advanced Accounting Modules</li>
+          <li>Advanced Analytics</li>
+          <li>Expense Tracking</li>
+          <li>Bank Reconciliation (Manual)</li>
+          <li>Basic Report Generation</li>
+        </ul>
+        <a href="#cta" class="plan-btn">Get Started</a>
+      </div>
+
+      <!-- Starter -->
+      <div class="plan-card fu d2">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price-wrap">
+          <div class="plan-promo">
+            <span class="plan-price">LKR 14,999</span>
+            <span class="plan-price-period">/mo</span>
+            <span class="plan-promo-tag">Promo</span>
+          </div>
+          <div style="margin-top:.4rem;">
+            <span class="plan-original">LKR 19,499/mo after 3 months</span>
+          </div>
+        </div>
+        <div class="plan-users">3 Users</div>
+        <ul class="plan-features">
+          <li>Everything in Basic</li>
+          <li>Employee Data Management</li>
+          <li>Vendor Data Management</li>
+          <li>Project &amp; Contract Tracking</li>
+          <li>Advanced Report Generation</li>
+        </ul>
+        <a href="#cta" class="plan-btn">Get Started</a>
+      </div>
+
+      <!-- Standard — Recommended -->
+      <div class="plan-card recommended fu d3">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Standard</div>
+        <div class="plan-price-wrap">
+          <div class="plan-promo">
+            <span class="plan-price">LKR 25,499</span>
+            <span class="plan-price-period">/mo</span>
+            <span class="plan-promo-tag">Promo</span>
+          </div>
+          <div style="margin-top:.4rem;">
+            <span class="plan-original">LKR 29,499/mo after 3 months</span>
+          </div>
+        </div>
+        <div class="plan-users">5 Users</div>
+        <ul class="plan-features">
+          <li>Everything in Basic + Starter</li>
+          <li>Asset Management</li>
+          <li>Basic Payroll Management</li>
+          <li>Inventory Management</li>
+          <li>Document Bank</li>
+        </ul>
+        <a href="#cta" class="plan-btn">Get Started</a>
+      </div>
+
+      <!-- Premium -->
+      <div class="plan-card fu d4">
+        <div class="plan-name">Premium</div>
+        <div class="plan-price-wrap">
+          <div class="plan-promo">
+            <span class="plan-price">LKR 39,499</span>
+            <span class="plan-price-period">/mo</span>
+            <span class="plan-promo-tag">Promo</span>
+          </div>
+          <div style="margin-top:.4rem;">
+            <span class="plan-original">LKR 47,499/mo after 3 months</span>
+          </div>
+        </div>
+        <div class="plan-users">20 Users</div>
+        <ul class="plan-features">
+          <li>Everything above</li>
+          <li>Employee Access Portal</li>
+          <li>Vacation Time Tracking</li>
+          <li>EPF/ETF Tracking</li>
+          <li>Quote Generation</li>
+          <li>Priority Support</li>
+        </ul>
+        <a href="#cta" class="plan-btn">Get Started</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="plan-card plan-enterprise fu d5">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price-wrap">
+          <div class="plan-promo">
+            <span class="plan-price">Custom</span>
+            <span class="plan-price-period">pricing</span>
+          </div>
+          <div style="margin-top:.4rem; font-size:.8rem; font-weight:600; color:var(--muted);">Tailored to your scale</div>
+        </div>
+        <div class="plan-users">Unlimited Users</div>
+        <ul class="plan-features">
+          <li>Custom Workflow Design</li>
+          <li>Financial Forecasting with AI</li>
+          <li>Backup &amp; Recovery</li>
+          <li>Dedicated Account Manager</li>
+          <li>SLA Support</li>
+          <li>Custom Integrations</li>
+        </ul>
+        <a href="#cta" class="plan-btn">Contact Us</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ADD-ONS ══════════════════════════════ -->
+<section class="addons-sec" id="addons">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Add-Ons</span>
+      <h2 class="s-title">Extend Your Plan<br>With Powerful Add-Ons</h2>
+      <p class="s-desc">Bolt on exactly the modules your business needs. Available as optional extras on any plan.</p>
+    </div>
+    <div class="addons-grid">
+      <div class="addon-card fu d1">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+        </div>
+        <h3 class="addon-t">Quote Generator</h3>
+        <p class="addon-d">Create professional quotes and proposals for clients with automated pricing and PDF export.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d2">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="addon-t">Monthly Subscriptions Tracker</h3>
+        <p class="addon-d">Track all recurring business subscriptions, renewal dates, and costs in one centralised view.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d3">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="addon-t">Document Bank</h3>
+        <p class="addon-d">Encrypted cloud storage for invoices, contracts, and all financial records with role-based access.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d4">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="addon-t">Asset Management &amp; Depreciation</h3>
+        <p class="addon-d">Fixed asset register, depreciation schedules, and automated write-off journals for every asset class.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d1">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3 class="addon-t">Custom Estimate Generator</h3>
+        <p class="addon-d">Generate detailed project estimates with line items, taxes, and branded PDF output for clients.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d2">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3 class="addon-t">Custom Management</h3>
+        <p class="addon-d">Bespoke workflow and data management modules tailored to your specific business operations.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d3">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="addon-t">Leads Management</h3>
+        <p class="addon-d">Track potential clients, follow-up activities, and conversion rates integrated with your financial data.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+      <div class="addon-card fu d4">
+        <div class="addon-ico">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="addon-t">Proposal Tracker</h3>
+        <p class="addon-d">Monitor the status of sent proposals, track client views, set follow-up reminders, and win more deals.</p>
+        <div class="addon-avail">Available Add-On</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOR ACCOUNTANTS ═══════════════════ -->
+<section class="accountants-sec" id="accountants">
+  <div class="blob" style="position:absolute;top:-60px;right:3%;width:460px;height:460px;background:rgba(0,203,169,.08);"></div>
+  <div class="blob" style="position:absolute;bottom:-60px;left:3%;width:360px;height:360px;background:rgba(28,59,216,.08);"></div>
+  <div class="container">
+    <div class="s-head fu" style="position:relative;z-index:10;">
+      <span class="s-label">For Accountants</span>
+      <h2 class="s-title s-title-w">A Dedicated Suite for<br><span style="color:var(--teal)">Accounting Professionals</span></h2>
+      <p class="s-desc s-desc-w">Bloom Audit goes beyond a single business. Accounting firms and professionals get a full command centre to manage multiple clients, workpapers, and analytics.</p>
+    </div>
+    <div class="acct-tools-grid">
+      <div class="acct-tool-card acct-featured fu d1">
+        <div class="acct-tool-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <div class="acct-tool-name">Bloom ERP HQ</div>
+        <div class="acct-tool-sub">ERP Command Centre</div>
+        <p class="acct-tool-desc">Full ERP command centre for accountants managing multiple client organisations from a single dashboard. Switch between clients instantly, consolidate reports, and maintain full audit trails.</p>
+      </div>
+      <div class="acct-tool-card fu d2">
+        <div class="acct-tool-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="acct-tool-name">Practice Manager</div>
+        <div class="acct-tool-sub">Firm Workflow Management</div>
+        <p class="acct-tool-desc">End-to-end workflow and client management for accounting firms — task assignment, deadline tracking, client communication logs, and team capacity management.</p>
+      </div>
+      <div class="acct-tool-card fu d3">
+        <div class="acct-tool-ico">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="acct-tool-name">Cashbook &amp; Ledger</div>
+        <div class="acct-tool-sub">Simplified Bookkeeping</div>
+        <p class="acct-tool-desc">Simplified cash-based bookkeeping tool for small clients who need straightforward income/expense tracking with cashbook reports and basic ledger summaries.</p>
+      </div>
+      <div class="acct-tool-card fu d4">
+        <div class="acct-tool-ico">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="acct-tool-name">Workpapers</div>
+        <div class="acct-tool-sub">Digital Audit Preparation</div>
+        <p class="acct-tool-desc">Digital audit workpaper preparation and sign-off system. Prepare, review, and authorise working papers electronically — with version control and partner approval workflows.</p>
+      </div>
+      <div class="acct-tool-card fu d5">
+        <div class="acct-tool-ico">
+          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="m7 16 4-4 4 4 5-5"/></svg>
+        </div>
+        <div class="acct-tool-name">Syft Analytics</div>
+        <div class="acct-tool-sub">Advanced Financial Intelligence</div>
+        <p class="acct-tool-desc">Advanced data analytics and financial visualisation for accounting professionals. Generate client-ready reports, benchmark performance, and deliver strategic advisory insights with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ══════════════════════ -->
+<section class="hiw-sec" id="how-it-works">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Getting Started</span>
+      <h2 class="s-title">Up and Running in<br>Three Simple Steps</h2>
+      <p class="s-desc">We make onboarding seamless — from your first consultation to full platform access.</p>
+    </div>
+    <div class="hiw-steps">
+      <div class="hiw-step fu d1">
+        <div class="hiw-num">1</div>
+        <h3 class="hiw-t">Book a Consultation</h3>
+        <p class="hiw-d">Schedule a one-on-one session with our team for a thorough analysis of your financial requirements, business size, and goals.</p>
+      </div>
+      <div class="hiw-step fu d3">
+        <div class="hiw-num">2</div>
+        <h3 class="hiw-t">Choose a Package</h3>
+        <p class="hiw-d">Select the plan that best fits your business size and operational needs — or let us recommend the right one based on your consultation.</p>
+      </div>
+      <div class="hiw-step fu d5">
+        <div class="hiw-num">3</div>
+        <h3 class="hiw-t">Get Your Services</h3>
+        <p class="hiw-d">Our experts handle your onboarding, accounting setup, audits, and compliance — so you can focus entirely on growing your business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ BUSINESS TYPES ════════════════════ -->
+<section class="biz-sec" id="business-types">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Who It's For</span>
+      <h2 class="s-title">Built for Every Stage<br>of Business Growth</h2>
+      <p class="s-desc">Whether you're a solo consultant or a fast-growing enterprise, Bloom Audit scales with you.</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card fu d1">
+        <div class="biz-ico">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3 class="biz-t">Freelancers</h3>
+        <p class="biz-d">Simple income tracking, expense management, and professional reports without accountant fees. Start with Basic from LKR 7,499.</p>
+      </div>
+      <div class="biz-card fu d2">
+        <div class="biz-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="biz-t">Small Teams</h3>
+        <p class="biz-d">Multi-user access, vendor management, and project tracking for teams of up to 5. The Standard plan covers everything you need.</p>
+      </div>
+      <div class="biz-card fu d3">
+        <div class="biz-ico">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="biz-t">Growing Companies</h3>
+        <p class="biz-d">Full payroll, EPF/ETF, inventory, asset management, and employee portals. Premium supports up to 20 users as you scale.</p>
+      </div>
+      <div class="biz-card fu d4">
+        <div class="biz-ico">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3 class="biz-t">Enterprises</h3>
+        <p class="biz-d">AI forecasting, custom integrations, dedicated account manager, and SLA support. Enterprise plans are built around your exact requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TESTIMONIALS ══════════════════════ -->
+<section class="testi-sec" id="testimonials">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Client Stories</span>
+      <h2 class="s-title">Trusted by Sri Lankan<br>Businesses</h2>
+      <p class="s-desc">Real feedback from owners and accountants who use Bloom Audit every day.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fu d1">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-quote">"Bloom Audit replaced three separate tools we were juggling. The payroll module with EPF/ETF calculations saved us hours every month — and it's always accurate. Best decision for our manufacturing company."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">NK</div>
+          <div>
+            <div class="testi-name">Nimal Karunaratne</div>
+            <div class="testi-role-t">Director · Karunaratne Manufacturing, Kandy</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fu d2">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-quote">"As an accounting firm, the Practice Manager and Workpapers modules changed how we operate. We manage 35+ client files from one dashboard with full sign-off trails. Our audit efficiency has doubled."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SF</div>
+          <div>
+            <div class="testi-name">Sanduni Fernando</div>
+            <div class="testi-role-t">Partner · Fernando &amp; Associates, Colombo 3</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card fu d3">
+        <div class="testi-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="testi-quote">"We upgraded from Basic to Standard after just two months. The inventory and asset management modules alone paid for the plan many times over. The analytics dashboard is something I look at every morning."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RP</div>
+          <div>
+            <div class="testi-name">Roshan Perera</div>
+            <div class="testi-role-t">CEO · Perera Trading Co., Gampaha</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TRUST & SECURITY ══════════════════ -->
+<section class="trust-sec" id="security">
+  <div class="container">
+    <div class="s-head fu" style="position:relative;z-index:10;">
+      <span class="s-label">Trust &amp; Security</span>
+      <h2 class="s-title s-title-w">Your Financial Data is<br><span style="color:var(--teal)">Secured at Every Layer</span></h2>
+      <p class="s-desc s-desc-w">Enterprise-grade security built into every part of the Bloom Audit platform — so you can focus on your finances, not your infrastructure.</p>
+    </div>
+    <div class="trust-grid" style="position:relative;z-index:10;">
+      <div class="trust-card fu d1">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="trust-card-t">JWT Authentication</h3>
+        <p class="trust-card-d">Stateless JSON Web Token authentication with short-lived tokens and refresh rotation — every session is verified independently.</p>
+      </div>
+      <div class="trust-card fu d2">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="trust-card-t">Bcrypt Password Encryption</h3>
+        <p class="trust-card-d">All user passwords are hashed with bcrypt before storage. Plain-text credentials are never written to disk or transmitted.</p>
+      </div>
+      <div class="trust-card fu d3">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="trust-card-t">Role-Based Access Control</h3>
+        <p class="trust-card-d">Granular permissions ensure every user only sees and touches what they're authorised to — from data entry staff to directors.</p>
+      </div>
+      <div class="trust-card fu d4">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="trust-card-t">Daily Package Monitoring</h3>
+        <p class="trust-card-d">Automated daily checks on subscription status with advance expiry notifications so your team is never caught off guard.</p>
+      </div>
+      <div class="trust-card fu d5">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3 class="trust-card-t">Google OAuth 2.0</h3>
+        <p class="trust-card-d">Sign in securely with your existing Google account — no extra password to remember, with full OAuth 2.0 compliance.</p>
+      </div>
+      <div class="trust-card fu d6">
+        <div class="trust-card-ico">
+          <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+        </div>
+        <h3 class="trust-card-t">Cloud Hosting &amp; Backups</h3>
+        <p class="trust-card-d">Hosted on secure cloud infrastructure with automatic daily backups, high availability, and SSL encryption on all data in transit and at rest.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CTA ══════════════════════════════ -->
+<section class="cta-sec" id="cta">
+  <div class="container cta-inner">
+    <div class="s-head fu" style="margin-bottom:2.25rem;">
+      <span class="s-label" style="color:rgba(255,255,255,.5)">Get Started</span>
+      <h2 class="cta-t">Ready to <span>Master</span><br>Your Finances?</h2>
+      <p class="cta-d">Join Sri Lankan businesses and accounting firms that trust Bloom Audit to handle their numbers. Start with a free consultation — no commitment required.</p>
+    </div>
+    <div class="cta-btns fu d1">
+      <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" class="btn-white">
+        Get Started Free
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" class="btn-ghost">Book a Consultation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" class="footer-brand">
+          <div class="footer-brand-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h10v4H3zM3 17h14v4H3z"/></svg>
+          </div>
+          <span class="footer-brand-t">Bloom <span>Audit</span></span>
+        </a>
+        <p class="footer-tagline">Cloud-based accounting, audit, and financial management platform for Sri Lankan SMEs, growing businesses, and accounting firms. Built by Bloomtech.</p>
+        <div class="footer-social">
+          <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" aria-label="Website">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h5>Features</h5>
+          <ul>
+            <li><a href="#features">Advanced Accounting</a></li>
+            <li><a href="#features">Expense Tracking</a></li>
+            <li><a href="#features">Payroll &amp; EPF/ETF</a></li>
+            <li><a href="#features">Asset Management</a></li>
+            <li><a href="#features">Inventory</a></li>
+            <li><a href="#features">Document Bank</a></li>
+            <li><a href="#features">Analytics</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Pricing</h5>
+          <ul>
+            <li><a href="#pricing">Basic Plan</a></li>
+            <li><a href="#pricing">Starter Plan</a></li>
+            <li><a href="#pricing">Standard Plan</a></li>
+            <li><a href="#pricing">Premium Plan</a></li>
+            <li><a href="#pricing">Enterprise Plan</a></li>
+            <li><a href="#addons">Add-Ons</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">BloomTech.lk</a></li>
+            <li><a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer">BloomSwift POS</a></li>
+            <li><a href="#accountants">For Accountants</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#cta">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">Bloomtech</a> · All rights reserved</div>
+      <div class="footer-sub">
+        <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">bloomtech.lk</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer">bloomswiftpos.com</a>
+        &nbsp;·&nbsp; Mawaramandiya, Sri Lanka
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Navbar scroll shadow ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Mobile menu ──
+  const mobMenu = document.getElementById('mobMenu');
+  document.getElementById('hbtn').addEventListener('click', () => {
+    mobMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('mobClose').addEventListener('click', closeMenu);
+  function closeMenu() {
+    mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close mob menu on link click
+  mobMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // ── Intersection Observer for .fu animations ──
+  const fus = document.querySelectorAll('.fu');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+  fus.forEach(el => io.observe(el));
+
+  // ── Feature card accordion ──
+  function toggleFeat(card) {
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.feat-card.open').forEach(c => c.classList.remove('open'));
+    if (!wasOpen) card.classList.add('open');
+  }
+
+  // ── Animated counters ──
+  function animCount(el, to, dur, suffix) {
+    let start = null;
+    (function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(eased * to) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
+
+  const ctrB = document.getElementById('ctr-businesses');
+  const ctrY = document.getElementById('ctr-years');
+  let ctrsFired = false;
+  const ctrObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !ctrsFired) {
+      ctrsFired = true;
+      animCount(ctrB, 200, 1800, '+');
+      animCount(ctrY, 5, 1400, '+');
+      ctrObs.disconnect();
+    }
+  }, { threshold: 0.4 });
+  ctrObs.observe(ctrB);
+
+  // ── Smooth active nav link highlight on scroll ──
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.opacity = a.getAttribute('href') === '#' + current ? '1' : '';
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--teal)' : '';
+    });
+  }, { passive: true });
+</script>
+</body>
+</html>

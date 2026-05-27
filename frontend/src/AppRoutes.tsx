@@ -11,6 +11,9 @@ import ServiceDetails from './pages/ServiceDetails';
 import Dashboard from './pages/Dashboard';
 import Company from './pages/Company';
 import ContactUs from './pages/ContactUs';
+import Portfolio from './pages/Portfolio';
+import BloomSwiftPOS from './pages/BloomSwiftPOS';
+import BloomGo from './pages/BloomGo';
 
 function AppRoutes() {
   return (
@@ -25,7 +28,10 @@ function AppRoutes() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/services/bloomswift-pos" element={<BloomSwiftPOS />} />
+            <Route path="/services/bloomgo" element={<BloomGo />} />
             <Route path="/services/:serviceId" element={<ServiceDetails />} />
+            <Route path="/portfolio" element={<Portfolio />} />
           </Routes>
         </div>
       </AuthProvider>

@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloomGo — Sri Lanka's Peer-to-Peer Car Rental Marketplace</title>
+  <meta name="description" content="BloomGo connects private vehicle owners with renters directly across Sri Lanka. No middlemen. List your car and earn, or browse real cars from real people. Your car. Your terms." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #ff6b00;
+      --orange-dark: #e65c00;
+      --navy: #0c1a36;
+      --navy-mid: #1a305c;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-600: #4b5563;
+      --muted: #5b6e8a;
+      --max-w: 1400px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: var(--navy);
+      background: #fff;
+      line-height: 1.5;
+    }
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem; }
+    @media(min-width:1280px){ .container{ padding: 0 3rem; } }
+
+    /* ─── NAVBAR ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 64px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(229,231,235,0.6);
+      transition: box-shadow .3s;
+    }
+    .nav.scrolled { box-shadow: 0 4px 24px rgba(12,26,54,.08); }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto;
+      padding: 0 1.5rem; height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    @media(min-width:1280px){ .nav-inner{ padding:0 3rem; } }
+    .nav-logo { display:flex; align-items:center; gap:.625rem; text-decoration:none; }
+    .nav-logo-icon {
+      width:34px; height:34px; border-radius:8px;
+      background:linear-gradient(135deg,var(--orange),#ff8c33);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .nav-logo-icon svg { width:18px; height:18px; stroke:#fff; fill:none; }
+    .nav-logo-text { font-size:1.125rem; font-weight:900; color:var(--navy); letter-spacing:-.03em; }
+    .nav-logo-text span { color:var(--orange); }
+    .nav-links { display:none; list-style:none; gap:2rem; }
+    @media(min-width:768px){ .nav-links{ display:flex; } }
+    .nav-links a {
+      font-size:13px; font-weight:700; text-transform:uppercase;
+      letter-spacing:.08em; color:var(--navy); opacity:.65;
+      text-decoration:none; transition:color .2s, opacity .2s;
+    }
+    .nav-links a:hover { color:var(--orange); opacity:1; }
+    .nav-cta {
+      display:none; align-items:center; gap:.5rem;
+      padding:.55rem 1.375rem; background:var(--orange);
+      color:#fff; font-size:13px; font-weight:900;
+      border-radius:12px; text-decoration:none;
+      transition:background .2s, box-shadow .2s;
+    }
+    @media(min-width:640px){ .nav-cta{ display:inline-flex; } }
+    .nav-cta:hover { background:var(--orange-dark); box-shadow:0 0 24px rgba(255,107,0,.45); }
+    .hamburger {
+      display:flex; flex-direction:column; gap:5px;
+      background:none; border:none; cursor:pointer; padding:8px;
+    }
+    @media(min-width:768px){ .hamburger{ display:none; } }
+    .hamburger span { display:block; width:22px; height:2px; background:var(--navy); border-radius:2px; transition:all .3s; }
+
+    /* mobile menu */
+    .mob-menu {
+      display:none; position:fixed; inset:0; z-index:200;
+      background:rgba(12,26,54,.98);
+      flex-direction:column; align-items:center; justify-content:center; gap:2.5rem;
+    }
+    .mob-menu.open { display:flex; }
+    .mob-menu a { color:#fff; font-size:2rem; font-weight:900; text-decoration:none; letter-spacing:-.02em; transition:color .2s; }
+    .mob-menu a:hover { color:var(--orange); }
+    .mob-close {
+      position:absolute; top:1.5rem; right:1.5rem;
+      background:none; border:none; color:rgba(255,255,255,.6);
+      font-size:2rem; cursor:pointer; line-height:1;
+      transition:color .2s;
+    }
+    .mob-close:hover { color:#fff; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position:relative; min-height:100svh;
+      display:flex; align-items:flex-start; overflow:hidden;
+      background:var(--navy);
+    }
+    .hero::after {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:64px 64px;
+    }
+    .hero-grad {
+      position:absolute; inset:0; z-index:2;
+      background:
+        linear-gradient(to right,
+          rgba(12,26,54,1)   0%,
+          rgba(12,26,54,.97) 28%,
+          rgba(12,26,54,.72) 50%,
+          rgba(12,26,54,.22) 72%,
+          rgba(12,26,54,.04) 100%
+        ),
+        linear-gradient(to top, rgba(12,26,54,.6) 0%, transparent 30%);
+    }
+    .blob {
+      position:absolute; border-radius:50%;
+      filter:blur(110px); pointer-events:none;
+      animation:bpulse 5s ease-in-out infinite;
+    }
+    .blob-1 { width:520px; height:520px; top:8%; right:6%; background:rgba(255,107,0,.14); animation-duration:5s; }
+    .blob-2 { width:420px; height:420px; bottom:6%; left:3%; background:rgba(59,130,246,.1); animation-duration:7s; animation-direction:reverse; }
+
+    /* hero image — fades in from the right behind the gradient */
+    .hero-img-wrap {
+      display:none; position:absolute; right:0; top:0; height:100%; width:72%;
+    }
+    @media(min-width:1024px){ .hero-img-wrap{ display:block; } }
+    .hero-img-wrap img { width:100%; height:100%; object-fit:cover; object-position:30% center; opacity:.85; }
+    @keyframes bpulse {
+      0%,100%{ transform:scale(1); opacity:.8; }
+      50%{ transform:scale(1.1); opacity:1; }
+    }
+    .hero-content {
+      position:relative; z-index:10; width:100%;
+      max-width:var(--max-w); margin:0 auto;
+      /* top clears navbar (64px) + breathing room; all dims scale with vh */
+      padding: clamp(5rem,11vh,7.5rem) 1.5rem clamp(2rem,5vh,4rem);
+    }
+    @media(min-width:1280px){ .hero-content{ padding-left:3rem; padding-right:3rem; } }
+    .hero-text-col { max-width:100%; }
+    @media(min-width:1024px){ .hero-text-col{ max-width:52%; } }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:.45rem 1.25rem; margin-bottom:clamp(.5rem,1.5vh,2rem);
+      font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.28em;
+      color:#fff;
+      background:rgba(255,107,0,.18); backdrop-filter:blur(12px);
+      border:1px solid rgba(255,107,0,.35); border-radius:9999px;
+    }
+    .badge-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--orange); box-shadow:0 0 10px var(--orange);
+      animation:dotpulse 1.8s ease-in-out infinite;
+    }
+    @keyframes dotpulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.5);} }
+
+    .hero-h1 {
+      font-size:clamp(2.75rem,6vw,6.5rem);
+      font-weight:900; line-height:.92; letter-spacing:-.045em;
+      color:#fff; margin-bottom:clamp(.5rem,1.2vh,1.5rem);
+    }
+    .hero-h1 span { color:var(--orange); }
+    .hero-sub {
+      max-width:38rem; font-size:clamp(.9375rem,1.6vw,1.2rem);
+      font-weight:500; color:rgba(255,255,255,.78); line-height:1.68;
+      margin-bottom:clamp(.5rem,1.4vh,1.75rem);
+    }
+
+    .stack-chips { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:clamp(.75rem,1.8vh,2.5rem); }
+    .chip {
+      padding:.25rem .8rem;
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+      border-radius:9999px; font-size:11.5px; font-weight:700;
+      color:rgba(255,255,255,.6); letter-spacing:.04em;
+    }
+
+    .hero-ctas { display:flex; flex-wrap:wrap; gap:.875rem; margin-bottom:clamp(.875rem,2vh,3rem); }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:.875rem 2rem; background:var(--orange); color:#fff;
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; transition:background .2s, box-shadow .2s, transform .15s;
+    }
+    .btn-primary:hover { background:var(--orange-dark); box-shadow:0 0 36px rgba(255,107,0,.55); }
+    .btn-primary:active { transform:scale(.97); }
+    .btn-glass {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:.875rem 2rem; background:rgba(255,255,255,.1);
+      backdrop-filter:blur(12px); color:#fff; font-size:1rem; font-weight:900;
+      border-radius:14px; text-decoration:none;
+      border:2px solid rgba(255,255,255,.2); transition:background .2s, color .2s;
+    }
+    .btn-glass:hover { background:#fff; color:var(--navy); }
+
+    .hero-counters { display:flex; flex-wrap:wrap; gap:.75rem; margin-bottom:clamp(.375rem,1vh,1.5rem); }
+    .hcounter {
+      padding:clamp(.6rem,1.2vh,1.125rem) clamp(.875rem,1.8vw,1.75rem);
+      background:rgba(255,255,255,.06); backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.1); border-radius:16px;
+    }
+    .hcounter-n { font-size:clamp(1.5rem,3.2vh,2.5rem); font-weight:900; color:var(--orange); line-height:1; letter-spacing:-.04em; }
+    .hcounter-l { font-size:10px; font-weight:700; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.18em; margin-top:.2rem; }
+
+    .subbrand {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.275rem .875rem; margin-top:clamp(.375rem,.8vh,.5rem);
+      background:rgba(255,107,0,.1); border:1px solid rgba(255,107,0,.2); border-radius:9999px;
+    }
+    .subbrand span { font-size:11px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.12em; }
+    .subbrand a { font-size:11px; font-weight:900; color:var(--orange); text-decoration:none; text-transform:uppercase; letter-spacing:.12em; }
+    .subbrand a:hover { text-decoration:underline; }
+
+    .hero-fade { position:absolute; bottom:0; left:0; right:0; height:120px; background:linear-gradient(to top,#fff,transparent); z-index:11; pointer-events:none; }
+
+    /* ─── STATS BAR ─── */
+    .stats { background:var(--navy); }
+    .stats-grid {
+      max-width:var(--max-w); margin:0 auto; padding:0 1.5rem;
+      display:grid; grid-template-columns:repeat(2,1fr);
+    }
+    @media(min-width:640px){ .stats-grid{ grid-template-columns:repeat(4,1fr); } }
+    @media(min-width:1280px){ .stats-grid{ padding:0 3rem; } }
+    .stat {
+      padding:2.25rem 1.5rem; text-align:center;
+      border-right:1px solid rgba(255,255,255,.07);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .stat:nth-child(2n){ border-right:none; }
+    @media(min-width:640px){
+      .stat:nth-child(2n){ border-right:1px solid rgba(255,255,255,.07); }
+      .stat:last-child{ border-right:none; }
+      .stat{ border-bottom:none; }
+    }
+    .stat-n { font-size:2.25rem; font-weight:900; color:var(--orange); line-height:1; letter-spacing:-.04em; margin-bottom:.4rem; }
+    .stat-l { font-size:11px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.18em; }
+
+    /* ─── SECTION COMMON ─── */
+    section { scroll-margin-top:64px; }
+    .s-label { display:block; font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.3em; color:var(--orange); margin-bottom:.875rem; }
+    .s-title { font-size:clamp(2rem,3.8vw,3.25rem); font-weight:900; line-height:1.05; letter-spacing:-.03em; color:var(--navy); margin-bottom:1.125rem; }
+    .s-title-w { color:#fff; }
+    .s-desc { font-size:1.0625rem; font-weight:500; color:var(--gray-600); line-height:1.75; max-width:50rem; margin:0 auto; }
+    .s-desc-w { color:rgba(255,255,255,.65); }
+    .s-head { text-align:center; margin-bottom:4.5rem; }
+
+    /* ─── HOW IT WORKS ─── */
+    .hiw-sec { padding:7rem 0; background:#fff; }
+    .hiw-tabs {
+      display:flex; gap:.625rem; justify-content:center; margin-bottom:3.5rem;
+      border-bottom:2px solid var(--gray-100); padding-bottom:0;
+    }
+    .hiw-tab {
+      padding:.75rem 2rem; font-size:14px; font-weight:900; text-transform:uppercase; letter-spacing:.1em;
+      background:none; border:none; cursor:pointer; color:var(--muted);
+      border-bottom:3px solid transparent; margin-bottom:-2px;
+      transition:color .2s, border-color .2s;
+    }
+    .hiw-tab.active { color:var(--orange); border-bottom-color:var(--orange); }
+    .hiw-panel { display:none; }
+    .hiw-panel.active { display:block; }
+    .hiw-steps {
+      display:grid; gap:2rem;
+      grid-template-columns:1fr;
+    }
+    @media(min-width:768px){ .hiw-steps{ grid-template-columns:repeat(3,1fr); } }
+    .hiw-connector {
+      display:none;
+    }
+    @media(min-width:768px){
+      .hiw-steps { position:relative; }
+      .hiw-steps::before {
+        content:''; position:absolute; top:2rem; left:calc(16.67% + 1rem); right:calc(16.67% + 1rem);
+        height:2px; background:linear-gradient(to right, var(--orange), rgba(255,107,0,.3));
+        z-index:0;
+      }
+    }
+    .hiw-step {
+      background:var(--gray-50); border-radius:22px; padding:2rem;
+      border:2px solid var(--gray-100); text-align:center; position:relative; z-index:1;
+      transition:all .3s;
+    }
+    .hiw-step:hover { border-color:rgba(255,107,0,.3); box-shadow:0 20px 40px rgba(0,0,0,.07); background:#fff; transform:translateY(-4px); }
+    .hiw-step-num {
+      width:4rem; height:4rem; border-radius:50%;
+      background:linear-gradient(135deg,var(--orange),#ff8c33);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.25rem; font-size:1.5rem; font-weight:900; color:#fff;
+      box-shadow:0 8px 24px rgba(255,107,0,.35);
+    }
+    .hiw-step-ico {
+      width:3rem; height:3rem; border-radius:12px;
+      background:rgba(255,107,0,.1); display:flex; align-items:center; justify-content:center;
+      margin:0 auto .875rem; transition:background .3s;
+    }
+    .hiw-step:hover .hiw-step-ico { background:var(--orange); }
+    .hiw-step-ico svg { width:1.375rem; height:1.375rem; stroke:var(--orange); transition:stroke .3s; }
+    .hiw-step:hover .hiw-step-ico svg { stroke:#fff; }
+    .hiw-step-t { font-size:1rem; font-weight:900; color:var(--navy); margin-bottom:.375rem; }
+    .hiw-step-d { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+
+    /* ─── FEATURES ─── */
+    .features-sec { padding:7rem 0; background:var(--gray-50); }
+    .feat-grid {
+      display:grid; gap:1.5rem;
+      grid-template-columns:repeat(2,1fr);
+    }
+    @media(min-width:768px){ .feat-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:1024px){ .feat-grid{ grid-template-columns:repeat(4,1fr); } }
+    .feat-card {
+      background:#fff; border-radius:22px; padding:1.875rem;
+      border:2px solid var(--gray-100); transition:all .3s;
+    }
+    .feat-card:hover { border-color:rgba(255,107,0,.3); box-shadow:0 20px 40px rgba(0,0,0,.07); transform:translateY(-4px); }
+    .feat-ico {
+      width:3.25rem; height:3.25rem; border-radius:13px;
+      background:rgba(255,107,0,.1); display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.125rem; transition:background .3s;
+    }
+    .feat-card:hover .feat-ico { background:var(--orange); }
+    .feat-ico svg { width:1.5rem; height:1.5rem; stroke:var(--orange); transition:stroke .3s; }
+    .feat-card:hover .feat-ico svg { stroke:#fff; }
+    .feat-t { font-size:.9375rem; font-weight:900; color:var(--navy); margin-bottom:.4rem; }
+    .feat-d { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+
+    /* ─── FOR OWNERS ─── */
+    .owners-sec {
+      padding:7rem 0; background:var(--navy);
+      position:relative; overflow:hidden;
+    }
+    .owners-sec::after {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);
+      background-size:64px 64px; pointer-events:none;
+    }
+    .owners-layout {
+      display:grid; gap:4rem; position:relative; z-index:10;
+      align-items:start;
+    }
+    @media(min-width:1024px){ .owners-layout{ grid-template-columns:1fr 1.2fr; } }
+    .earn-card {
+      background:rgba(255,255,255,.06); backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,.12); border-radius:26px; padding:2.5rem;
+    }
+    .earn-label { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.3em; color:rgba(255,255,255,.4); margin-bottom:1.25rem; }
+    .earn-amount { font-size:clamp(2.5rem,5vw,4rem); font-weight:900; color:var(--orange); line-height:1; letter-spacing:-.04em; margin-bottom:.5rem; }
+    .earn-sub { font-size:1rem; font-weight:600; color:rgba(255,255,255,.7); margin-bottom:2rem; }
+    .earn-row { display:flex; align-items:center; gap:.875rem; margin-bottom:1rem; }
+    .earn-row-ico {
+      width:2.5rem; height:2.5rem; border-radius:10px; flex-shrink:0;
+      background:rgba(255,107,0,.15); display:flex; align-items:center; justify-content:center;
+    }
+    .earn-row-ico svg { width:1.125rem; height:1.125rem; stroke:var(--orange); }
+    .earn-row-text { font-size:.875rem; font-weight:600; color:rgba(255,255,255,.7); }
+    .earn-row-text strong { color:#fff; display:block; font-size:.9375rem; font-weight:900; }
+
+    .why-grid { display:grid; gap:1.5rem; }
+    @media(min-width:640px){ .why-grid{ grid-template-columns:repeat(1,1fr); } }
+    .why-card {
+      background:rgba(255,255,255,.05); backdrop-filter:blur(10px);
+      border-radius:20px; padding:1.75rem;
+      border:1px solid rgba(255,255,255,.1); transition:all .3s;
+      position:relative; overflow:hidden;
+    }
+    .why-card::before {
+      content:''; position:absolute; top:0; right:0;
+      width:7rem; height:7rem; background:rgba(255,107,0,.15);
+      filter:blur(40px); opacity:0; transition:opacity .3s;
+    }
+    .why-card:hover { background:rgba(255,255,255,.09); }
+    .why-card:hover::before { opacity:1; }
+    .why-ico {
+      width:3rem; height:3rem; border-radius:12px;
+      background:linear-gradient(135deg,var(--orange),#ff8c33);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1rem; transition:transform .3s;
+    }
+    .why-card:hover .why-ico { transform:scale(1.08); }
+    .why-ico svg { width:1.375rem; height:1.375rem; stroke:#fff; }
+    .why-t { font-size:1rem; font-weight:900; color:#fff; margin-bottom:.5rem; }
+    .why-d { font-size:.8125rem; font-weight:500; color:rgba(255,255,255,.62); line-height:1.7; }
+
+    /* ─── FOR RENTERS ─── */
+    .renters-sec { padding:7rem 0; background:#fff; }
+    .renters-layout {
+      display:grid; gap:4rem; align-items:center;
+    }
+    @media(min-width:1024px){ .renters-layout{ grid-template-columns:1.2fr 1fr; } }
+    .renter-cards { display:grid; gap:1.25rem; }
+    .renter-card {
+      background:var(--gray-50); border-radius:22px; padding:1.75rem;
+      border:2px solid var(--gray-100); display:flex; gap:1.25rem; align-items:flex-start;
+      transition:all .3s;
+    }
+    .renter-card:hover { border-color:rgba(255,107,0,.3); box-shadow:0 16px 32px rgba(0,0,0,.06); background:#fff; transform:translateY(-3px); }
+    .renter-card-ico {
+      width:3rem; height:3rem; border-radius:12px; flex-shrink:0;
+      background:rgba(255,107,0,.1); display:flex; align-items:center; justify-content:center;
+      transition:background .3s;
+    }
+    .renter-card:hover .renter-card-ico { background:var(--orange); }
+    .renter-card-ico svg { width:1.375rem; height:1.375rem; stroke:var(--orange); transition:stroke .3s; }
+    .renter-card:hover .renter-card-ico svg { stroke:#fff; }
+    .renter-card-t { font-size:1rem; font-weight:900; color:var(--navy); margin-bottom:.375rem; }
+    .renter-card-d { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+
+    /* ─── TRUST ─── */
+    .trust-sec { padding:7rem 0; background:var(--gray-50); }
+    .trust-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(2,1fr); }
+    @media(min-width:1024px){ .trust-grid{ grid-template-columns:repeat(4,1fr); } }
+    .trust-card {
+      background:#fff; border-radius:22px; padding:1.875rem;
+      border:2px solid var(--gray-100); text-align:center; transition:all .3s;
+    }
+    .trust-card:hover { border-color:rgba(255,107,0,.3); box-shadow:0 20px 40px rgba(0,0,0,.07); transform:translateY(-4px); }
+    .trust-ico {
+      width:3.75rem; height:3.75rem; border-radius:15px;
+      background:linear-gradient(135deg,var(--orange),#ff8c33);
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.25rem; transition:transform .3s;
+    }
+    .trust-card:hover .trust-ico { transform:scale(1.08); }
+    .trust-ico svg { width:1.75rem; height:1.75rem; stroke:#fff; }
+    .trust-t { font-size:1rem; font-weight:900; color:var(--navy); margin-bottom:.5rem; }
+    .trust-d { font-size:.8125rem; font-weight:500; color:var(--gray-600); line-height:1.65; }
+
+    /* ─── CTA ─── */
+    .cta-sec {
+      padding:7rem 0;
+      background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,#b84a00 100%);
+      position:relative; overflow:hidden; text-align:center;
+    }
+    .cta-sec::after {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:64px 64px; pointer-events:none;
+    }
+    .cta-inner { position:relative; z-index:10; }
+    .cta-t { font-size:clamp(2rem,3.8vw,3.25rem); font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1.05; margin-bottom:1.125rem; }
+    .cta-d { font-size:1.0625rem; font-weight:500; color:rgba(255,255,255,.78); max-width:42rem; margin:0 auto 2.75rem; line-height:1.72; }
+    .cta-btns { display:flex; flex-wrap:wrap; gap:1.125rem; justify-content:center; margin-bottom:3rem; }
+    .btn-white {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:#fff; color:var(--navy);
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; transition:background .2s, box-shadow .2s;
+    }
+    .btn-white:hover { background:#f0f0f0; box-shadow:0 0 36px rgba(255,255,255,.25); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:.75rem;
+      padding:1rem 2.25rem; background:transparent; color:#fff;
+      font-size:1rem; font-weight:900; border-radius:14px;
+      text-decoration:none; border:2px solid rgba(255,255,255,.3); transition:background .2s;
+    }
+    .btn-ghost:hover { background:rgba(255,255,255,.1); }
+    .cta-contacts { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
+    .cta-contact-tile {
+      display:flex; align-items:center; gap:.875rem;
+      padding:.875rem 1.375rem;
+      background:rgba(255,255,255,.08); backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.14); border-radius:14px;
+    }
+    .cta-contact-tile-ico {
+      width:2.5rem; height:2.5rem; border-radius:10px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .cta-contact-tile-ico svg { width:1.125rem; height:1.125rem; }
+    .tile-lbl { font-size:10px; font-weight:700; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.15em; margin-bottom:2px; }
+    .tile-val { font-size:.9375rem; font-weight:900; color:#fff; text-decoration:none; display:block; transition:color .2s; }
+
+    /* ─── FOOTER ─── */
+    .footer { background:var(--navy); color:#fff; padding:5.5rem 0 2.5rem; }
+    .footer-brand { display:flex; align-items:center; gap:.875rem; text-decoration:none; margin-bottom:1rem; }
+    .footer-brand-ico {
+      width:44px; height:44px; border-radius:10px;
+      background:linear-gradient(135deg,var(--orange),#ff8c33);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .footer-brand-ico svg { width:24px; height:24px; stroke:#fff; fill:none; }
+    .footer-brand-t { font-size:1.625rem; font-weight:900; color:#fff; letter-spacing:-.03em; }
+    .footer-brand-t span { color:var(--orange); }
+    .footer-tagline { font-size:.875rem; font-weight:500; color:rgba(255,255,255,.45); max-width:32rem; line-height:1.7; margin-bottom:3.5rem; }
+    .footer-grid {
+      display:grid; gap:2.5rem; grid-template-columns:repeat(2,1fr);
+      padding:2.5rem 0; border-top:1px solid rgba(255,255,255,.08); border-bottom:1px solid rgba(255,255,255,.08); margin-bottom:2.5rem;
+    }
+    @media(min-width:640px){ .footer-grid{ grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:1024px){ .footer-grid{ grid-template-columns:repeat(4,1fr); } }
+    .footer-col h5 { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:.22em; color:var(--muted); margin-bottom:1.25rem; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:.625rem; }
+    .footer-col ul li a { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.45); text-decoration:none; transition:color .2s; }
+    .footer-col ul li a:hover { color:var(--orange); }
+    .footer-bottom { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1rem; }
+    .footer-copy { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:.18em; color:var(--muted); }
+    .footer-copy a { color:var(--orange); text-decoration:none; }
+    .footer-sub { font-size:11px; font-weight:700; color:rgba(255,255,255,.28); text-transform:uppercase; letter-spacing:.14em; }
+    .footer-sub a { color:rgba(255,255,255,.45); text-decoration:none; transition:color .2s; }
+    .footer-sub a:hover { color:var(--orange); }
+
+    /* ─── ANIMATIONS ─── */
+    .fu { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+    .fu.in { opacity:1; transform:none; }
+    .d1{ transition-delay:.1s; } .d2{ transition-delay:.18s; } .d3{ transition-delay:.26s; }
+    .d4{ transition-delay:.34s; } .d5{ transition-delay:.42s; } .d6{ transition-delay:.5s; }
+    .d7{ transition-delay:.58s; } .d8{ transition-delay:.66s; }
+
+    .arr { display:inline-block; width:18px; height:18px; vertical-align:middle; transition:transform .2s; }
+    a:hover .arr, button:hover .arr { transform:translateX(4px); }
+
+    /* ─── TAGLINE SECTION ─── */
+    .tagline-strip {
+      background:var(--orange); padding:1rem 0; overflow:hidden;
+    }
+    .tagline-inner {
+      display:flex; gap:4rem; align-items:center;
+      animation:marquee 28s linear infinite;
+      white-space:nowrap; width:max-content;
+    }
+    .tagline-item {
+      font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.22em; color:#fff; opacity:.9;
+    }
+    .tagline-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.5); flex-shrink:0; display:inline-block; margin:0 1rem; }
+    @keyframes marquee { 0%{ transform:translateX(0); } 100%{ transform:translateX(-50%); } }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/>
+          <rect x="9" y="11" width="14" height="10" rx="2"/>
+          <circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Bloom<span>Go</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#owners">For Owners</a></li>
+      <li><a href="#renters">For Renters</a></li>
+    </ul>
+    <a href="#cta" class="nav-cta">
+      <svg style="width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      Sign In
+    </a>
+    <button class="hamburger" id="hbtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose" aria-label="Close">✕</button>
+  <a href="#how-it-works" onclick="closeMenu()">How It Works</a>
+  <a href="#features" onclick="closeMenu()">Features</a>
+  <a href="#owners" onclick="closeMenu()">For Owners</a>
+  <a href="#renters" onclick="closeMenu()">For Renters</a>
+  <a href="#cta" onclick="closeMenu()" style="color:var(--orange)">Sign In →</a>
+</div>
+
+<!-- ═══════════════════════════════ HERO ════════════════════════════════ -->
+<section class="hero" id="home">
+  <!-- image first — sits behind blobs and gradient which fade it in -->
+  <div class="hero-img-wrap">
+    <img src="./Assets/stylish-elegant-woman-car-salon.jpg" alt="Woman in a car showroom — BloomGo" />
+  </div>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-grad"></div>
+
+  <div class="hero-content">
+  <div class="hero-text-col">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Sri Lanka's Peer-to-Peer Car Rental Marketplace
+    </div>
+
+    <h1 class="hero-h1">
+      Rent from real people.<br>
+      <span>Drive Sri Lanka.</span>
+    </h1>
+
+    <p class="hero-sub">
+      BloomGo connects private car owners directly with renters across Sri Lanka — no rental companies, no middlemen. List your car and earn while it parks, or find the perfect car from a real local owner.
+    </p>
+
+    <div class="stack-chips">
+      <span class="chip">Google OAuth</span>
+      <span class="chip">Real-time Booking</span>
+      <span class="chip">Journey Inspection</span>
+      <span class="chip">In-App Messaging</span>
+      <span class="chip">Photo Evidence</span>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#renters" class="btn-primary">
+        Rent a Car
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#owners" class="btn-glass">List Your Car</a>
+    </div>
+
+    <div class="hero-counters">
+      <div class="hcounter">
+        <div class="hcounter-n" id="ctr-owners">0+</div>
+        <div class="hcounter-l">Verified Owners</div>
+      </div>
+      <div class="hcounter">
+        <div class="hcounter-n" id="ctr-rentals">0+</div>
+        <div class="hcounter-l">Daily Rentals</div>
+      </div>
+      <div class="hcounter">
+        <div class="hcounter-n" id="ctr-cities">0</div>
+        <div class="hcounter-l">Cities Across LK</div>
+      </div>
+      <div class="hcounter">
+        <div class="hcounter-n">4.9★</div>
+        <div class="hcounter-l">Average Review</div>
+      </div>
+    </div>
+
+    <div class="subbrand">
+      <span>A Sub-Brand of</span>
+      <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">BloomTech.lk</a>
+    </div>
+  </div><!-- /.hero-text-col -->
+  </div><!-- /.hero-content -->
+
+  <div class="hero-fade"></div>
+</section>
+
+<!-- ═══════════════════════════════ TAGLINE STRIP ══════════════════════ -->
+<div class="tagline-strip">
+  <div class="tagline-inner">
+    <span class="tagline-item">Your Car. Your Terms. Earn While It Parks.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Real Cars. Real Owners. Real Prices.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Zero Middlemen. 100% Peer-to-Peer.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Google-Verified. Fully Protected.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Drive Sri Lanka with BloomGo</span>
+    <span class="tagline-dot"></span>
+    <!-- duplicate for seamless loop -->
+    <span class="tagline-item">Your Car. Your Terms. Earn While It Parks.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Real Cars. Real Owners. Real Prices.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Zero Middlemen. 100% Peer-to-Peer.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Google-Verified. Fully Protected.</span>
+    <span class="tagline-dot"></span>
+    <span class="tagline-item">Drive Sri Lanka with BloomGo</span>
+    <span class="tagline-dot"></span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ STATS BAR ══════════════════════════ -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat fu"><div class="stat-n">500+</div><div class="stat-l">Verified Owners</div></div>
+    <div class="stat fu d1"><div class="stat-n">1,200+</div><div class="stat-l">Daily Rentals</div></div>
+    <div class="stat fu d2"><div class="stat-n">25</div><div class="stat-l">Cities Across LK</div></div>
+    <div class="stat fu d3"><div class="stat-n">4.9★</div><div class="stat-l">5-Star Reviews</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HOW IT WORKS ════════════════════════ -->
+<section class="hiw-sec" id="how-it-works">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">How BloomGo Works</span>
+      <h2 class="s-title">Three steps.<br>Zero hassle.</h2>
+      <p class="s-desc">Whether you're looking to earn from your idle vehicle or find your next road trip car, BloomGo makes it simple.</p>
+    </div>
+
+    <div class="hiw-tabs">
+      <button class="hiw-tab active" onclick="switchTab('renter')">For Renters</button>
+      <button class="hiw-tab" onclick="switchTab('owner')">For Owners</button>
+    </div>
+
+    <div class="hiw-panel active" id="panel-renter">
+      <div class="hiw-steps">
+        <div class="hiw-step fu d1">
+          <div class="hiw-step-num">1</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">Sign In with Google</h3>
+          <p class="hiw-step-d">One-click Google login. No passwords, no forms. Your account is instantly verified and ready to book.</p>
+        </div>
+        <div class="hiw-step fu d2">
+          <div class="hiw-step-num">2</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">Browse &amp; Book</h3>
+          <p class="hiw-step-d">Filter by city, dates, and vehicle type. Pick your dates, confirm the price, and send a booking request to the owner.</p>
+        </div>
+        <div class="hiw-step fu d3">
+          <div class="hiw-step-num">3</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/>
+              <rect x="9" y="11" width="14" height="10" rx="2"/>
+              <circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">Pre-Check &amp; Drive</h3>
+          <p class="hiw-step-d">Complete the pre-journey inspection — log mileage and upload a photo — then hit the road. Return and do a post-check to close the booking.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hiw-panel" id="panel-owner">
+      <div class="hiw-steps">
+        <div class="hiw-step fu d1">
+          <div class="hiw-step-num">1</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l3 3"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">Sign In with Google</h3>
+          <p class="hiw-step-d">Log in instantly with your Google account — fully verified. No registration forms, no waiting for approval.</p>
+        </div>
+        <div class="hiw-step fu d2">
+          <div class="hiw-step-num">2</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">List Your Vehicle</h3>
+          <p class="hiw-step-d">Add your make, model, year, plate, price/day in LKR, location, availability, and photos. Go live in minutes.</p>
+        </div>
+        <div class="hiw-step fu d3">
+          <div class="hiw-step-num">3</div>
+          <div class="hiw-step-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h3 class="hiw-step-t">Approve &amp; Earn</h3>
+          <p class="hiw-step-d">Review booking requests, approve or decline, and get notified at every step — from confirmed to completed. Your car earns, you stay in control.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FEATURES ════════════════════════════ -->
+<section class="features-sec" id="features">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Platform Features</span>
+      <h2 class="s-title">Everything the platform needs.<br>Built and ready.</h2>
+      <p class="s-desc">BloomGo is a full-stack P2P car rental platform — from secure sign-in to post-journey photo evidence — built specifically for Sri Lanka.</p>
+    </div>
+
+    <div class="feat-grid">
+      <!-- 1 -->
+      <div class="feat-card fu d1">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Google Sign-In</h3>
+        <p class="feat-d">One-click login via Google OAuth. No passwords. Every user is Google-verified before they can book or list.</p>
+      </div>
+      <!-- 2 -->
+      <div class="feat-card fu d2">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">List Your Vehicle</h3>
+        <p class="feat-d">Owners add make, model, year, plate, price/day in LKR, location, photos, and availability calendar — live in minutes.</p>
+      </div>
+      <!-- 3 -->
+      <div class="feat-card fu d3">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Smart Booking Engine</h3>
+        <p class="feat-d">Date conflict detection, multi-day selection, and automatic total price calculation in LKR — no double bookings ever.</p>
+      </div>
+      <!-- 4 -->
+      <div class="feat-card fu d4">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Booking Approval Flow</h3>
+        <p class="feat-d">Owners approve or reject requests. Bookings move through: Pending → Confirmed → Completed or Rejected/Cancelled.</p>
+      </div>
+      <!-- 5 -->
+      <div class="feat-card fu d1">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Pre-Journey Inspection</h3>
+        <p class="feat-d">Mileage recording and photo upload before handover. Every inspection is stored per booking for full accountability.</p>
+      </div>
+      <!-- 6 -->
+      <div class="feat-card fu d2">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            <polyline points="9 11 12 14 22 4"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Post-Journey Inspection</h3>
+        <p class="feat-d">Mileage after return plus photo evidence. The owner is auto-notified the moment a renter completes the post-check.</p>
+      </div>
+      <!-- 7 -->
+      <div class="feat-card fu d3">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">In-App Notifications</h3>
+        <p class="feat-d">Real-time alerts for owners: new booking requests, journey completions, status changes. Mark-as-read supported.</p>
+      </div>
+      <!-- 8 -->
+      <div class="feat-card fu d4">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Owner &amp; Renter Dashboards</h3>
+        <p class="feat-d">Separate views: "My Rides" for renters, "Hire Outs" for owners — with full booking history and status tracking.</p>
+      </div>
+      <!-- 9 -->
+      <div class="feat-card fu d1">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">In-App Messaging</h3>
+        <p class="feat-d">Dedicated chat room per booking for owner–renter coordination. Every message is tied to a specific booking for context.</p>
+      </div>
+      <!-- 10 -->
+      <div class="feat-card fu d2">
+        <div class="feat-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+        </div>
+        <h3 class="feat-t">Vehicle Media Gallery</h3>
+        <p class="feat-d">Photos stored per vehicle and per journey check. Visual evidence for every handover — complete dispute protection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOR OWNERS ══════════════════════════ -->
+<section class="owners-sec" id="owners">
+  <div class="blob" style="top:-80px;right:4%;width:480px;height:480px;background:rgba(255,107,0,.09);position:absolute;"></div>
+  <div class="blob" style="bottom:-80px;left:4%;width:380px;height:380px;background:rgba(59,130,246,.09);position:absolute;"></div>
+  <div class="container">
+    <div class="s-head fu" style="position:relative;z-index:10;">
+      <span class="s-label">For Vehicle Owners</span>
+      <h2 class="s-title s-title-w">Your parked car<br><span style="color:var(--orange)">earns money.</span></h2>
+      <p class="s-desc s-desc-w">Turn your idle vehicle into a passive income stream. You set the price, you approve every booking, and you're protected at every handover.</p>
+    </div>
+    <div class="owners-layout" style="position:relative;z-index:10;">
+      <div>
+        <div class="earn-card fu">
+          <div class="earn-label">Example Daily Earnings</div>
+          <div class="earn-amount">Rs. 8,500</div>
+          <div class="earn-sub">per day from your idle vehicle</div>
+          <div class="earn-row">
+            <div class="earn-row-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="earn-row-text">
+              <strong>Full Control</strong>
+              Approve or decline every request. No forced bookings.
+            </div>
+          </div>
+          <div class="earn-row">
+            <div class="earn-row-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+            <div class="earn-row-text">
+              <strong>Photo Evidence</strong>
+              Pre &amp; post-journey photos stored per booking.
+            </div>
+          </div>
+          <div class="earn-row">
+            <div class="earn-row-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+              </svg>
+            </div>
+            <div class="earn-row-text">
+              <strong>Instant Alerts</strong>
+              Get notified the moment a renter completes a journey.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fu d1">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 11 12 14 22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </div>
+          <h3 class="why-t">Booking Approval Control</h3>
+          <p class="why-d">Every booking request comes to you first. Review the renter's Google-verified profile, then approve or reject. You're always in charge of who drives your car.</p>
+        </div>
+        <div class="why-card fu d2">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+          </div>
+          <h3 class="why-t">Inspection Protection</h3>
+          <p class="why-d">Mandatory pre and post-journey photo inspections with mileage recording. Every handover is documented — clear evidence if anything goes wrong.</p>
+        </div>
+        <div class="why-card fu d3">
+          <div class="why-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </div>
+          <h3 class="why-t">Real-Time Notifications</h3>
+          <p class="why-d">Get instant alerts when a booking request arrives, when a journey starts, and when it completes. Mark notifications read and track everything from your Hire Outs dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOR RENTERS ═════════════════════════ -->
+<section class="renters-sec" id="renters">
+  <div class="container">
+    <div class="renters-layout">
+      <div>
+        <div class="fu">
+          <span class="s-label">For Renters</span>
+          <h2 class="s-title">Real cars. Real owners.<br>Real prices.</h2>
+          <p class="s-desc" style="margin:0 0 2.5rem; max-width:none;">Skip the rental company queues and inflated rates. BloomGo puts you directly in touch with local car owners — verified by Google, protected by the platform.</p>
+        </div>
+        <div class="renter-cards">
+          <div class="renter-card fu d1">
+            <div class="renter-card-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="renter-card-t">Browse by Location</h3>
+              <p class="renter-card-d">Find available vehicles near you across 25+ cities in Sri Lanka — from Colombo to Galle, Kandy to Jaffna. Filter by date and pick-up area.</p>
+            </div>
+          </div>
+          <div class="renter-card fu d2">
+            <div class="renter-card-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="renter-card-t">Flexible Dates</h3>
+              <p class="renter-card-d">Multi-day booking with smart conflict detection. The platform auto-calculates your total in LKR before you confirm — no hidden surprises.</p>
+            </div>
+          </div>
+          <div class="renter-card fu d3">
+            <div class="renter-card-ico">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="renter-card-t">Google-Verified Owners</h3>
+              <p class="renter-card-d">Every car owner is verified via Google OAuth. Chat directly with them in-app, view the vehicle gallery, and ride with confidence.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fu d2">
+        <div style="background:var(--gray-50);border-radius:26px;padding:2.5rem;border:2px solid var(--gray-100);">
+          <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;">
+            <div style="width:3rem;height:3rem;border-radius:12px;background:linear-gradient(135deg,var(--orange),#ff8c33);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg style="width:1.375rem;height:1.375rem;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+            </div>
+            <div>
+              <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);">Available Now</div>
+              <div style="font-size:1.0625rem;font-weight:900;color:var(--navy);">Toyota Axio 2018 · Colombo 7</div>
+            </div>
+          </div>
+          <div style="display:grid;gap:.75rem;margin-bottom:1.75rem;">
+            <div style="display:flex;justify-content:space-between;padding:.875rem 1.125rem;background:#fff;border-radius:14px;border:1px solid var(--gray-200);">
+              <span style="font-size:.8125rem;font-weight:700;color:var(--muted);">Price per day</span>
+              <span style="font-size:.9375rem;font-weight:900;color:var(--orange);">Rs. 6,500</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:.875rem 1.125rem;background:#fff;border-radius:14px;border:1px solid var(--gray-200);">
+              <span style="font-size:.8125rem;font-weight:700;color:var(--muted);">3-day total</span>
+              <span style="font-size:.9375rem;font-weight:900;color:var(--navy);">Rs. 19,500</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:.875rem 1.125rem;background:#fff;border-radius:14px;border:1px solid var(--gray-200);">
+              <span style="font-size:.8125rem;font-weight:700;color:var(--muted);">Owner</span>
+              <span style="display:flex;align-items:center;gap:.4rem;font-size:.8125rem;font-weight:900;color:var(--navy);">
+                <svg style="width:14px;height:14px;stroke:#059669;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                Google Verified
+              </span>
+            </div>
+          </div>
+          <a href="#cta" class="btn-primary" style="width:100%;justify-content:center;">
+            Request to Book
+            <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ TRUST & SAFETY ══════════════════════ -->
+<section class="trust-sec" id="trust">
+  <div class="container">
+    <div class="s-head fu">
+      <span class="s-label">Trust &amp; Safety</span>
+      <h2 class="s-title">Protection built<br>into every trip.</h2>
+      <p class="s-desc">BloomGo is designed so both owners and renters have full evidence, identity verification, and a complete audit trail for every booking.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card fu d1">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </div>
+        <h3 class="trust-t">Pre/Post Journey Photos</h3>
+        <p class="trust-d">Mandatory photo uploads at handover and return. Visual evidence for every trip — clear protection against disputes.</p>
+      </div>
+      <div class="trust-card fu d2">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+        </div>
+        <h3 class="trust-t">Mileage Tracking</h3>
+        <p class="trust-d">Odometer readings logged before and after every journey. Accurate mileage records per booking, every time.</p>
+      </div>
+      <div class="trust-card fu d3">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h3 class="trust-t">Google-Verified Identities</h3>
+        <p class="trust-d">Every owner and renter is authenticated through Google OAuth. No anonymous accounts — real people, verified identities.</p>
+      </div>
+      <div class="trust-card fu d4">
+        <div class="trust-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3 class="trust-t">Booking Dispute Trail</h3>
+        <p class="trust-d">Full booking history, status log, inspection records, and in-app chat — a complete audit trail if a dispute ever arises.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CTA ═════════════════════════════════ -->
+<section class="cta-sec" id="cta">
+  <div class="blob" style="top:-60px;right:8%;width:400px;height:400px;background:rgba(255,107,0,.12);position:absolute;filter:blur(90px);"></div>
+  <div class="container cta-inner">
+    <div class="s-head fu" style="margin-bottom:2.25rem;">
+      <span class="s-label" style="color:rgba(255,255,255,.5)">Get Started</span>
+      <h2 class="cta-t">Ready to earn<br>or explore?</h2>
+      <p class="cta-d">Join BloomGo — Sri Lanka's peer-to-peer car rental marketplace. List your vehicle and start earning, or find your next ride from a real local owner.</p>
+    </div>
+
+    <div class="cta-btns fu d1">
+      <a href="#home" class="btn-white">
+        List My Car
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#home" class="btn-ghost">Find a Car</a>
+    </div>
+
+    <div class="cta-contacts fu d2">
+      <div class="cta-contact-tile">
+        <div class="cta-contact-tile-ico" style="background:#16a34a;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tile-lbl">WhatsApp</div>
+          <a href="https://wa.me/94701234567" target="_blank" rel="noopener noreferrer" class="tile-val" onmouseover="this.style.color='#4ade80'" onmouseout="this.style.color='#fff'">Chat with Us →</a>
+        </div>
+      </div>
+      <div class="cta-contact-tile">
+        <div class="cta-contact-tile-ico" style="background:var(--orange);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tile-lbl">Email</div>
+          <a href="mailto:hello@bloomtech.lk" class="tile-val" onmouseover="this.style.color='var(--orange)'" onmouseout="this.style.color='#fff'">hello@bloomtech.lk</a>
+        </div>
+      </div>
+      <div class="cta-contact-tile">
+        <div class="cta-contact-tile-ico" style="background:#2563eb;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="tile-lbl">Serving</div>
+          <span class="tile-val">25+ Cities · Sri Lanka</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ══════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <a href="#home" class="footer-brand">
+      <div class="footer-brand-ico">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/>
+          <rect x="9" y="11" width="14" height="10" rx="2"/>
+          <circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        </svg>
+      </div>
+      <span class="footer-brand-t">Bloom<span>Go</span></span>
+    </a>
+    <p class="footer-tagline">Sri Lanka's peer-to-peer car rental marketplace — connecting private vehicle owners with renters directly. Your car. Your terms. Earn while it parks.</p>
+
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#features">Google Sign-In</a></li>
+          <li><a href="#features">List Your Vehicle</a></li>
+          <li><a href="#features">Smart Booking Engine</a></li>
+          <li><a href="#features">Booking Approval Flow</a></li>
+          <li><a href="#features">In-App Messaging</a></li>
+          <li><a href="#features">Vehicle Media Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>For Owners</h5>
+        <ul>
+          <li><a href="#owners">Earn from Your Car</a></li>
+          <li><a href="#owners">Approval Control</a></li>
+          <li><a href="#owners">Inspection Protection</a></li>
+          <li><a href="#owners">Hire Outs Dashboard</a></li>
+          <li><a href="#owners">Real-Time Notifications</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>For Renters</h5>
+        <ul>
+          <li><a href="#renters">Browse by Location</a></li>
+          <li><a href="#renters">Flexible Dates</a></li>
+          <li><a href="#renters">My Rides Dashboard</a></li>
+          <li><a href="#renters">Journey Inspection</a></li>
+          <li><a href="#trust">Trust &amp; Safety</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">BloomTech.lk</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#trust">Trust &amp; Safety</a></li>
+          <li><a href="#cta">Contact Us</a></li>
+          <li><a href="mailto:hello@bloomtech.lk">hello@bloomtech.lk</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">BloomTech</a> · All rights reserved</div>
+      <div class="footer-sub">Built by <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer">bloomtech.lk</a> · Mawaramandiya, Sri Lanka</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Navbar scroll shadow ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Mobile menu ──
+  const mobMenu = document.getElementById('mobMenu');
+  document.getElementById('hbtn').addEventListener('click', () => {
+    mobMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('mobClose').addEventListener('click', closeMenu);
+  function closeMenu() {
+    mobMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── How It Works tab switcher ──
+  function switchTab(role) {
+    document.querySelectorAll('.hiw-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.hiw-panel').forEach(p => p.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+    document.getElementById('panel-' + role).classList.add('active');
+    // re-trigger animations for the new panel
+    document.querySelectorAll('#panel-' + role + ' .fu').forEach(el => {
+      el.classList.remove('in');
+      void el.offsetWidth;
+      el.classList.add('in');
+    });
+  }
+
+  // ── Intersection Observer for .fu animations ──
+  const fus = document.querySelectorAll('.fu');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  fus.forEach(el => io.observe(el));
+
+  // ── Counter animation helper ──
+  function animCount(el, to, dur, prefix, suffix) {
+    let start = null;
+    const formatted = (n) => prefix + (to >= 1000 ? n.toLocaleString() : n) + suffix;
+    (function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = formatted(Math.floor(eased * to));
+      if (p < 1) requestAnimationFrame(step);
+    })(performance.now());
+  }
+
+  // ── Wire up hero counters ──
+  const counterDefs = [
+    { id: 'ctr-owners',  to: 500,  prefix: '',  suffix: '+' },
+    { id: 'ctr-rentals', to: 1200, prefix: '',  suffix: '+' },
+    { id: 'ctr-cities',  to: 25,   prefix: '',  suffix: ''  },
+  ];
+
+  counterDefs.forEach(({ id, to, prefix, suffix }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animCount(el, to, 1600, prefix, suffix);
+        obs.disconnect();
+      }
+    }, { threshold: 0.5 });
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

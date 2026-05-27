@@ -26,7 +26,8 @@ import {
   CustomCRMContent,
   ProfessionalITConsultingContent,
   SecurityDataProtectionContent,
-  CustomWebAppContent
+  CustomWebAppContent,
+  BloomAuditContent
 } from '../components/service-details';
 
 // Lazy load the modal
@@ -85,26 +86,43 @@ const ServiceDetails = () => {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+
+        {/* Full-bleed background image with gradient blends */}
+        {config.heroBgImage && (
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${config.heroBgImage})` }}
+            />
+            {/* Left-to-right: navy over text, image visible on right */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1a36] via-[#0c1a36]/90 to-[#0c1a36]/30" />
+            {/* Top edge: blend from page navbar area */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0c1a36]/70 via-transparent to-transparent" />
+            {/* Bottom edge: blend into the page below */}
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0c1a36] to-transparent" />
+          </>
+        )}
+
         <div className="max-w-[1200px] mx-auto px-6 xl:px-0">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
+
             {/* Left Column: Content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               className="flex flex-col items-start relative z-10"
             >
               <ServiceBreadcrumb serviceName={service.name} />
-              
+
               {config.tagline && (
                 <ServiceTagline icon={config.tagline.icon} text={config.tagline.text} />
               )}
-              
+
               <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-6 max-w-4xl drop-shadow-2xl">
                 {config.heroTitle || service.name}
               </h1>
-              
+
               <p className="text-xl lg:text-2xl text-blue-50/90 font-medium leading-relaxed max-w-3xl mb-12 drop-shadow-md">
                 {config.heroDescription || service.desc}
               </p>
@@ -122,8 +140,10 @@ const ServiceDetails = () => {
               />
             </motion.div>
 
-            {/* Right Column: Image */}
-            <ServiceHeroImage imageUrl={service.imageUrl} serviceName={service.name} />
+            {/* Right Column: card image only when no full-bleed bg */}
+            {!config.heroBgImage && (
+              <ServiceHeroImage imageUrl={service.imageUrl} serviceName={service.name} />
+            )}
           </div>
         </div>
       </section>
@@ -189,6 +209,9 @@ function renderServiceContent(service: ServiceItem, onOpenModal: () => void) {
 
     case 'custom-web-applications':
       return <CustomWebAppContent onOpenModal={onOpenModal} />;
+
+    case 'bloomaudit':
+      return <BloomAuditContent onOpenModal={onOpenModal} />;
 
     default:
       // Services without custom content use the default layout

@@ -25,3 +25,4 @@ export { CustomCRMContent } from './services/CustomCRMContent';
 export { ProfessionalITConsultingContent } from './services/ProfessionalITConsultingContent';
 export { SecurityDataProtectionContent } from './services/SecurityDataProtectionContent';
 export { CustomWebAppContent } from './services/CustomWebAppContent';
+export { BloomAuditContent } from './services/BloomAuditContent';

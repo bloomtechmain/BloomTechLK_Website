@@ -8,17 +8,26 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',           // Local development
+    'https://bloomtechusa.com',        // Production domain
+    'https://*.pages.dev'              // Cloudflare preview deployments
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Import Routes
 import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import expertRoutes from './routes/expertRoutes';
+import portfolioRoutes from './routes/portfolioRoutes';
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/expert', expertRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Basic Route
 app.get('/', (_req, res) => {

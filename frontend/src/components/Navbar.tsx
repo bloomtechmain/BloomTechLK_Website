@@ -73,14 +73,21 @@ const Navbar = memo(() => {
             <div className={`absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#ff6b00] to-[#cc4400] transition-all duration-300 transform rounded-t-full ${activeMenu === 'services' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></div>
           </div>
 
-          <Link 
+          <Link
             to="/company"
             className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
           >
             About Us
           </Link>
 
-          <Link 
+          <Link
+            to="/portfolio"
+            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
+          >
+            Portfolio
+          </Link>
+
+          <Link
             to="/contact"
             className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
           >
@@ -302,6 +309,7 @@ const Navbar = memo(() => {
               </div>
 
               <Link to="/company" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">About Us</Link>
+              <Link to="/portfolio" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-[#ff6b00] transition-colors">Portfolio</Link>
               <Link to="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">Contact Us</Link>
             </div>
             {!user ? (

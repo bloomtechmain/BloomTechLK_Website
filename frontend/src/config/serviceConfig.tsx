@@ -1,4 +1,4 @@
-import { LucideIcon, Zap, Shield, Cpu, Bot, Sparkles, Package, ShieldAlert, BrainCircuit, Layers, Search, PenTool, Rocket, TrendingUp } from 'lucide-react';
+import { LucideIcon, Zap, Shield, Cpu, Bot, Sparkles, Package, ShieldAlert, BrainCircuit, Layers, Search, PenTool, Rocket, TrendingUp, BarChart3 } from 'lucide-react';
 
 /**
  * Service Configuration
@@ -12,6 +12,7 @@ export interface ServiceConfig {
   };
   heroTitle: string;
   heroDescription: string;
+  heroBgImage?: string;
   primaryCTA: {
     text: string;
     icon: LucideIcon;
@@ -22,6 +23,22 @@ export interface ServiceConfig {
 }
 
 export const serviceConfigs: Record<string, ServiceConfig> = {
+  'bloomaudit': {
+    tagline: {
+      icon: BarChart3,
+      text: 'Audit & Reporting · Strategic Advisory · Management Services'
+    },
+    heroTitle: 'Master Your Financial Destiny.',
+    heroDescription: 'Bloom Audit is Sri Lanka\'s most complete cloud accounting and financial management platform — built for SMEs, growing businesses, and accounting firms that demand more than basic bookkeeping.',
+    heroBgImage: '/images/bloomaudit-hero.jpg',
+    primaryCTA: {
+      text: 'Get Started',
+      icon: BarChart3
+    },
+    secondaryCTA: {
+      text: 'Learn More'
+    }
+  },
   'asset-lifecycle-management': {
     tagline: {
       icon: Package,

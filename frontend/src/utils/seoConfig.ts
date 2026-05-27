@@ -12,18 +12,18 @@ export interface SEOConfig {
   schema?: any;
 }
 
-const baseUrl = 'https://www.bloomtechusa.com';
+const baseUrl = 'https://www.bloomtech.lk';
 const defaultOGImage = `${baseUrl}/bloomtech-logo.png`;
 
 // Social Media URLs
 export const socialMedia = {
-  facebook: 'https://www.facebook.com/profile.php?id=61563215399815',
+  facebook: 'https://www.facebook.com/share/1GvpBckS4Y/',
   twitter: 'https://x.com/BloomtechU8895',
-  linkedin: 'https://linkedin.com/company/bloomtech-usa',
-  instagram: 'https://www.instagram.com/bloomtech_usa',
-  whatsapp: '17373298158', // Format for WhatsApp link
-  phone: '+1 737 329 8158',
-  email: 'info@bloomtechusa.com'
+  linkedin: 'https://linkedin.com/company/bloomtech-lk',
+  instagram: 'https://www.instagram.com/bloomtech.lk?igsh=dWJvNjhiOGFiejlv',
+  whatsapp: '17373298158', // Format for WhatsApp link — update with Sri Lankan number when available
+  phone: '+94 77 916 0704',
+  email: 'info@bloomtech.lk'
 };
 
 // Organization Schema (used globally)
@@ -34,7 +34,7 @@ export const organizationSchema = {
   alternateName: 'BloomTech Corporation',
   url: baseUrl,
   logo: `${baseUrl}/bloomtech-logo.png`,
-  description: 'Enterprise IT Solutions, AI Development, Cloud Infrastructure, and Custom Server Design',
+  description: 'Sri Lanka\'s leading technology company — delivering AI solutions, enterprise software, custom IT infrastructure, and digital transformation services for businesses across the island.',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'XXPG+VXF, Makola - Udupila Rd',
@@ -47,8 +47,8 @@ export const organizationSchema = {
     '@type': 'ContactPoint',
     telephone: socialMedia.phone,
     contactType: 'Customer Service',
-    areaServed: 'Worldwide',
-    availableLanguage: 'English'
+    areaServed: ['LK', 'AE', 'SG'],
+    availableLanguage: ['English', 'Sinhala']
   },
   sameAs: [
     socialMedia.facebook,
@@ -98,48 +98,64 @@ export const localBusinessSchema = {
 // SEO Configurations for each page
 export const seoConfigs: Record<string, SEOConfig> = {
   home: {
-    title: 'BloomTech.lk - AI Machine Learning & Enterprise Infrastructure Solutions',
-    description: 'BloomTech.lk delivers custom AI machine learning solutions, enterprise infrastructure services, and custom server design. Expert machine learning and infrastructure services for business growth.',
-    keywords: 'AI machine learning, machine learning, custom AI, enterprise infrastructure, custom server, infrastructure services, custom server design, AI solutions, Sri Lanka',
+    title: 'BloomTech.lk — Sri Lanka\'s Premier Technology Partner | AI, Software & IT Infrastructure',
+    description: 'BloomTech.lk is Sri Lanka\'s leading technology company delivering AI solutions, custom enterprise software, and IT infrastructure for businesses across the island — from Colombo to Kandy. Sinhala & English support.',
+    keywords: 'IT company Sri Lanka, AI solutions Sri Lanka, software development Sri Lanka, enterprise software, custom CRM Sri Lanka, IT infrastructure Sri Lanka, digital transformation Sri Lanka, technology company Sri Lanka, BloomTech, bloomtech.lk',
     canonical: `${baseUrl}/`,
     ogImage: defaultOGImage,
     ogType: 'website',
     schema: localBusinessSchema
   },
   company: {
-    title: 'About BloomTech.lk - AI Machine Learning & Enterprise Infrastructure Experts',
-    description: 'Learn about BloomTech.lk\'s mission to deliver AI machine learning solutions, enterprise infrastructure services, and custom server design. CISA-certified machine learning and infrastructure experts.',
-    keywords: 'AI machine learning, enterprise infrastructure, custom server, machine learning services, infrastructure solutions, AI experts Sri Lanka, company profile',
+    title: 'About BloomTech.lk — Sri Lanka\'s Technology Partner | Our Mission & Team',
+    description: 'Learn about BloomTech.lk — Sri Lanka\'s trusted technology partner headquartered in Mawaramandiya. CISA-certified experts delivering AI, enterprise software, and IT infrastructure for Sri Lankan businesses.',
+    keywords: 'BloomTech Sri Lanka, IT company Mawaramandiya, technology company Western Province, CISA certified Sri Lanka, AI experts Sri Lanka, enterprise IT Sri Lanka, about BloomTech.lk',
     canonical: `${baseUrl}/company`,
     ogImage: defaultOGImage,
     ogType: 'website'
   },
   contact: {
-    title: 'Contact BloomTech.lk - AI Machine Learning & Enterprise Infrastructure Consultation',
-    description: 'Get in touch with BloomTech.lk for AI machine learning solutions, enterprise infrastructure services, and custom server design. Located in Mawaramandiya, Sri Lanka. Call (737) 329-8158 for machine learning and infrastructure consulting.',
-    keywords: 'contact bloomtech, AI machine learning, enterprise infrastructure, custom server, machine learning consultation, infrastructure services, Sri Lanka IT company',
+    title: 'Contact BloomTech.lk — Talk to a Sri Lankan Tech Expert Today',
+    description: 'Contact BloomTech.lk for AI solutions, custom software, and IT infrastructure services. Headquartered in Mawaramandiya, Sri Lanka. Full Sinhala and English support. Get a free consultation today.',
+    keywords: 'contact BloomTech Sri Lanka, IT consultation Sri Lanka, tech support Sri Lanka, software quote Sri Lanka, AI consultation Sri Lanka, Mawaramandiya technology company',
     canonical: `${baseUrl}/contact`,
     ogImage: defaultOGImage,
     ogType: 'website',
     schema: localBusinessSchema
   },
   login: {
-    title: 'Client Login - BloomTech.lk Portal Access',
-    description: 'Access your BloomTech.lk client portal for project management, service requests, and account information.',
+    title: 'Client Login — BloomTech.lk Portal',
+    description: 'Access your BloomTech.lk client portal to manage projects, submit service requests, and view your IT solutions.',
     canonical: `${baseUrl}/login`,
     ogImage: defaultOGImage
   },
   register: {
-    title: 'Register - Create Your BloomTech.lk Account',
-    description: 'Create your BloomTech.lk account to access our client portal, request services, and manage your IT projects.',
+    title: 'Register — Create Your BloomTech.lk Account',
+    description: 'Create your BloomTech.lk account to access our client portal, request technology services, and manage your IT projects across Sri Lanka.',
     canonical: `${baseUrl}/register`,
     ogImage: defaultOGImage
   },
   dashboard: {
-    title: 'Dashboard - BloomTech.lk Client Portal',
-    description: 'Manage your BloomTech.lk services, view projects, and access expert support through your client dashboard.',
+    title: 'Dashboard — BloomTech.lk Client Portal',
+    description: 'Manage your BloomTech.lk services, track projects, and access expert support through your personalised client dashboard.',
     canonical: `${baseUrl}/dashboard`,
     ogImage: defaultOGImage
+  },
+  portfolio: {
+    title: 'Project Portfolio — BloomTech.lk | Real Solutions. Measurable Outcomes.',
+    description: 'Explore BloomTech.lk\'s project portfolio — AI forecasting engines, enterprise PMS platforms, cybersecurity overhauls, and more. Real technology solutions delivered across Sri Lanka.',
+    keywords: 'BloomTech portfolio, IT projects Sri Lanka, AI projects Sri Lanka, enterprise software portfolio, technology case studies Sri Lanka, software development projects',
+    canonical: `${baseUrl}/portfolio`,
+    ogImage: defaultOGImage,
+    ogType: 'website',
+    schema: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'BloomTech.lk Project Portfolio',
+      description: 'Technology projects delivered by BloomTech.lk across Sri Lanka — AI, enterprise software, cybersecurity, and digital transformation.',
+      url: `${baseUrl}/portfolio`,
+      publisher: organizationSchema,
+    }
   }
 };
 

@@ -46,7 +46,8 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
     setError(null);
 
     try {
-      await axios.post('http://localhost:5000/api/expert/submit', {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_URL}/api/expert/submit`, {
         ...formData,
         serviceSlug,
       });

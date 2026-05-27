@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Linkedin, Phone, MapPin, Network, Layout, MessageCircle } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, Phone, Mail, MapPin, Network, Layout, MessageCircle } from 'lucide-react';
 import { socialMedia } from '../utils/seoConfig';
 
 const Footer = () => {
@@ -113,14 +113,20 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-start gap-2 text-sm opacity-60">
                 <Phone size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <a href={`tel:${socialMedia.phone}`} className="font-bold hover:text-[#ff6b00] transition-colors">
+                <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="font-bold hover:text-[#ff6b00] transition-colors">
                   {socialMedia.phone}
+                </a>
+              </div>
+              <div className="flex items-start gap-2 text-sm opacity-60">
+                <Mail size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
+                <a href={`mailto:${socialMedia.email}`} className="font-bold hover:text-[#ff6b00] transition-colors">
+                  {socialMedia.email}
                 </a>
               </div>
               <div className="flex items-start gap-2 text-sm opacity-60">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
                 <span className="font-bold">
-                  XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka
+                  Mawaramandiya, Western Province, Sri Lanka
                 </span>
               </div>
             </div>

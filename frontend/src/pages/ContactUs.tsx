@@ -13,15 +13,15 @@ const ContactUs = () => {
     interests: [] as string[],
     message: ''
   });
-  
+
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const interestOptions = [
-    'Business Applications (Salesforce/SAP/Oracle)',
-    'System Integration (MuleSoft/Boomi)',
-    'Cloud Strategy (AWS/Azure/GCP)',
-    'Data & AI Solutions',
-    'Professional Staffing / Augmentation'
+    'Custom Software Development (CRM / ERP / Web / Mobile App)',
+    'AI, Automation & Machine Learning',
+    'IT Infrastructure, Networking & Cybersecurity',
+    'Digital Marketing & SEO (Sinhala / English)',
+    'Cloud Hosting & Managed IT Services'
   ];
 
   const handleInterestToggle = (interest: string) => {
@@ -35,11 +35,9 @@ const ContactUs = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log('Form submitted:', formData);
     setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
+
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
@@ -56,30 +54,44 @@ const ContactUs = () => {
     {
       icon: Phone,
       title: 'Phone',
-      content: '(737) 329-8158',
-      link: 'tel:+17373298158',
+      content: socialMedia.phone,
+      link: `tel:${socialMedia.phone.replace(/\s/g, '')}`,
       color: 'from-blue-500 to-cyan-500'
+    },
+    {
+      icon: MessageCircle,
+      title: 'WhatsApp',
+      content: 'Chat with our team on WhatsApp — quick responses in Sinhala or English',
+      link: `https://wa.me/${socialMedia.whatsapp}`,
+      color: 'from-green-500 to-emerald-500'
     },
     {
       icon: Mail,
       title: 'Email',
-      content: 'info@bloomtechusa.com',
-      link: 'mailto:info@bloomtechusa.com',
+      content: socialMedia.email,
+      link: `mailto:${socialMedia.email}`,
       color: 'from-[#ff6b00] to-orange-600'
     },
     {
       icon: MapPin,
       title: 'Office Location',
-      content: 'BloomTech Corporation\nXXPG+VXF, Makola - Udupila Rd\nMawaramandiya, Sri Lanka',
-      link: 'https://www.google.com/maps/search/?api=1&query=XXPG%2BVXF+Makola+Udupila+Rd+Mawaramandiya+Sri+Lanka',
-      color: 'from-green-500 to-emerald-500'
+      content: 'BloomTech.lk\nXXPG+VXF, Makola - Udupila Rd\nMawaramandiya, Sri Lanka',
+      link: 'https://maps.app.goo.gl/Zvg7bWkgNqJ77Fek6',
+      color: 'from-purple-500 to-pink-500'
+    },
+    {
+      icon: Clock,
+      title: 'Business Hours',
+      content: 'Monday – Friday\n8:30 AM – 5:30 PM (SLST)\nSaturday: 9:00 AM – 1:00 PM',
+      link: null,
+      color: 'from-amber-500 to-yellow-500'
     }
   ];
 
   return (
     <div className="bg-white">
       <SEO config={seoConfigs.contact} />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#0c1a36] pt-24">
         {/* Background Effects */}
@@ -100,16 +112,16 @@ const ContactUs = () => {
           >
             <div className="inline-flex items-center gap-3 px-6 py-2.5 mb-8 text-[12px] font-bold tracking-[0.3em] text-white uppercase bg-[#ff6b00]/20 backdrop-blur-md border border-[#ff6b00]/30 rounded-full">
               <Mail className="w-4 h-4" />
-              Get In Touch
+              Talk to a Sri Lankan Tech Expert
             </div>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter text-white">
-              AI Machine Learning & <br />
-              <span className="text-[#ff6b00]">Enterprise Infrastructure Consulting</span>
+              Let's Build Something <br />
+              <span className="text-[#ff6b00]">Great Together.</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed font-medium max-w-4xl mx-auto">
-              We're ready to deliver AI machine learning solutions and enterprise infrastructure services tailored to your needs. Whether you need custom server design, machine learning consulting, or infrastructure services, our team of certified experts specializes in transforming businesses through technology.
+              Whether you need AI automation, a custom web application, a new IT network, or a complete digital transformation strategy — our Mawaramandiya-based team is ready to help. We respond in Sinhala and English, usually within the same business day.
             </p>
           </motion.div>
         </div>
@@ -118,7 +130,7 @@ const ContactUs = () => {
       {/* Contact Information Cards */}
       <section className="py-20 px-6 bg-white relative -mt-20 z-20">
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {contactInfo.map((info, i) => {
               const Icon = info.icon;
               return (
@@ -141,12 +153,12 @@ const ContactUs = () => {
                       href={info.link}
                       target={info.link.startsWith('http') ? '_blank' : undefined}
                       rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-[#0c1a36] font-bold text-lg leading-relaxed hover:text-[#ff6b00] transition-colors whitespace-pre-line block"
+                      className="text-[#0c1a36] font-bold text-base leading-relaxed hover:text-[#ff6b00] transition-colors whitespace-pre-line block"
                     >
                       {info.content}
                     </a>
                   ) : (
-                    <p className="text-[#0c1a36] font-bold text-lg leading-relaxed whitespace-pre-line">
+                    <p className="text-[#0c1a36] font-bold text-base leading-relaxed whitespace-pre-line">
                       {info.content}
                     </p>
                   )}
@@ -161,7 +173,7 @@ const ContactUs = () => {
       <section className="py-32 px-6 bg-gray-50">
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            {/* Left Column - Information */}
+            {/* Left Column — Information */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -172,11 +184,29 @@ const ContactUs = () => {
                 Let's Connect
               </span>
               <h2 className="text-4xl md:text-6xl font-black text-[#0c1a36] mb-6 leading-tight">
-                Request AI Machine Learning & Infrastructure Services
+                Tell Us About Your Business
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed font-medium mb-8">
-                Looking for AI machine learning solutions, custom server design, or enterprise infrastructure services? Contact us to explore how our machine learning expertise and infrastructure servers can transform your business. Our solution architects respond within 24 hours.
+                Looking for custom software, AI automation, IT infrastructure, or a complete digital overhaul? Fill in the form and one of our Sri Lankan technology experts will respond within one business day — in Sinhala or English, whichever you prefer.
               </p>
+
+              {/* WhatsApp Highlight */}
+              <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mb-8 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
+                  <MessageCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="font-black text-green-800 mb-1">Prefer WhatsApp?</p>
+                  <a
+                    href={`https://wa.me/${socialMedia.whatsapp}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-600 font-bold hover:text-green-700 transition-colors underline underline-offset-2"
+                  >
+                    Message us directly — we respond in Sinhala and English
+                  </a>
+                </div>
+              </div>
 
               {/* Office Location Highlight */}
               <div className="bg-gradient-to-br from-[#0c1a36] to-[#1a305c] rounded-3xl p-8 relative overflow-hidden">
@@ -186,12 +216,12 @@ const ContactUs = () => {
                     Our Location
                   </h3>
                   <p className="text-white font-bold text-xl mb-6 leading-relaxed">
-                    Located in Mawaramandiya, Sri Lanka.
+                    Mawaramandiya, Western Province, Sri Lanka
                   </p>
                   <div className="flex items-start gap-3 text-gray-300">
                     <MapPin className="w-5 h-5 text-[#ff6b00] mt-1 shrink-0" />
                     <div>
-                      <p className="font-medium">BloomTech Corporation</p>
+                      <p className="font-medium">BloomTech.lk</p>
                       <p className="font-medium">XXPG+VXF, Makola - Udupila Rd</p>
                       <p className="font-medium">Mawaramandiya, Sri Lanka</p>
                     </div>
@@ -200,7 +230,7 @@ const ContactUs = () => {
               </div>
             </motion.div>
 
-            {/* Right Column - Form */}
+            {/* Right Column — Form */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -215,7 +245,7 @@ const ContactUs = () => {
                   </div>
                   <h3 className="text-3xl font-black text-[#0c1a36] mb-4">Message Sent!</h3>
                   <p className="text-gray-600 text-center font-medium">
-                    Thank you for reaching out. We'll get back to you within 24 hours.
+                    Thank you for reaching out. A member of our team will get back to you within one business day.
                   </p>
                 </div>
               ) : (
@@ -223,7 +253,7 @@ const ContactUs = () => {
                   {/* Name Field */}
                   <div>
                     <label htmlFor="name" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
-                      Name (First & Last)
+                      Your Name
                     </label>
                     <input
                       type="text"
@@ -232,14 +262,14 @@ const ContactUs = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
-                      placeholder="John Doe"
+                      placeholder="Kamal Perera"
                     />
                   </div>
 
                   {/* Email Field */}
                   <div>
                     <label htmlFor="email" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
-                      Business Email
+                      Email Address
                     </label>
                     <input
                       type="email"
@@ -248,17 +278,17 @@ const ContactUs = () => {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
-                      placeholder="john.doe@company.com"
+                      placeholder="kamal@yourcompany.lk"
                     />
                     <p className="text-xs text-gray-500 mt-2 font-medium">
-                      So we can send you relevant technical documentation
+                      We'll use this to send you relevant information and proposals
                     </p>
                   </div>
 
                   {/* Company Field */}
                   <div>
                     <label htmlFor="company" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
-                      Company Name
+                      Company / Organisation
                     </label>
                     <input
                       type="text"
@@ -267,14 +297,14 @@ const ContactUs = () => {
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
-                      placeholder="Your Company"
+                      placeholder="Your Business or Organisation"
                     />
                   </div>
 
                   {/* Area of Interest */}
                   <div>
                     <label className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-3">
-                      Area of Interest
+                      I'm Interested In
                     </label>
                     <div className="space-y-3">
                       {interestOptions.map((interest, i) => (
@@ -299,7 +329,7 @@ const ContactUs = () => {
                   {/* Message Field */}
                   <div>
                     <label htmlFor="message" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
-                      Message
+                      Tell Us About Your Project
                     </label>
                     <textarea
                       id="message"
@@ -308,7 +338,7 @@ const ContactUs = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36] resize-none"
-                      placeholder="Briefly describe your project goals or challenges"
+                      placeholder="Briefly describe what you're trying to achieve or the challenge you're facing"
                     />
                   </div>
 
@@ -344,51 +374,61 @@ const ContactUs = () => {
               Connect With Us
             </span>
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-              Follow Our Journey
+              Follow BloomTech.lk
             </h2>
             <p className="text-xl text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed font-medium">
-              Stay updated with the latest insights, innovations, and success stories from BloomTech.lk.
+              Stay updated with the latest technology insights, success stories, and innovations from Sri Lanka's premier technology partner.
             </p>
 
             {/* Social Media Icons */}
             <div className="flex flex-wrap items-center justify-center gap-6">
               <a
-                href="#linkedin"
+                href={socialMedia.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-500 hover:to-cyan-500 hover:border-transparent transition-all"
               >
                 <Linkedin className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="#twitter"
+                href={socialMedia.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-400 hover:to-blue-600 hover:border-transparent transition-all"
               >
                 <Twitter className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="#facebook"
+                href={socialMedia.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:border-transparent transition-all"
               >
                 <Facebook className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="#instagram"
+                href={socialMedia.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 hover:border-transparent transition-all"
               >
                 <Instagram className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
               </a>
               <a
-                href="#youtube"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-red-500 hover:to-red-700 hover:border-transparent transition-all"
+                href={`https://wa.me/${socialMedia.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:border-transparent transition-all"
               >
-                <Youtube className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
+                <MessageCircle className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
               </a>
             </div>
 
-            {/* Social Media Placeholder Note */}
+            {/* Note */}
             <div className="mt-16 max-w-2xl mx-auto">
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
                 <p className="text-gray-300 font-medium leading-relaxed">
-                  <span className="text-[#ff6b00] font-black">Coming Soon:</span> Join our growing community across all major social platforms. Get exclusive insights, behind-the-scenes content, and be the first to know about our latest innovations and thought leadership.
+                  <span className="text-[#ff6b00] font-black">Coming Soon:</span> Follow us across social platforms for exclusive technology insights, behind-the-scenes content, Sri Lankan business success stories, and the latest innovations from BloomTech.lk.
                 </p>
               </div>
             </div>
@@ -410,18 +450,21 @@ const ContactUs = () => {
                 Visit Us
               </span>
               <h2 className="text-4xl md:text-5xl font-black text-[#0c1a36] mb-4 leading-tight">
-                Find Us in Sri Lanka
+                Find Us in Mawaramandiya
               </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+                Conveniently located in the Western Province — easily accessible from Colombo, Kandy, and across the island.
+              </p>
             </div>
 
             <div className="rounded-[32px] overflow-hidden shadow-2xl border-4 border-gray-100">
               <div className="p-6 bg-gradient-to-r from-[#ff6b00] to-orange-600 flex items-center justify-between">
                 <div>
-                  <h3 className="text-white font-black text-lg mb-1">Sri Lanka Headquarters</h3>
+                  <h3 className="text-white font-black text-lg mb-1">BloomTech.lk — Sri Lanka Headquarters</h3>
                   <p className="text-white/80 text-sm font-medium">XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</p>
                 </div>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=XXPG%2BVXF+Makola+Udupila+Rd+Mawaramandiya+Sri+Lanka"
+                  href="https://maps.app.goo.gl/Zvg7bWkgNqJ77Fek6"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-white text-[#ff6b00] rounded-xl font-black text-sm uppercase tracking-wider hover:bg-gray-100 transition-all"
@@ -431,14 +474,14 @@ const ContactUs = () => {
               </div>
               <div className="h-[500px] bg-gray-100">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.0!2d80.0130!3d7.0850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zWFhQRytWWEYrTWFrb2xhK1VkdXBpbGErUmQrTWF3YXJhbWFuZGl5YStTcmkrTGFua2E!5e0!3m2!1sen!2slk!4v1234567890123!5m2!1sen!2slk"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962!2d80.013!3d7.085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f9000ffceaed%3A0xd3ff39b6e7954358!2sBloomTech%20Pvt%20Ltd!5e0!3m2!1sen!2slk!4v1746000000000!5m2!1sen!2slk"
                   width="100%"
                   height="100%"
                   className="w-full h-full borderless-iframe"
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="BloomTech Sri Lanka Office Location"
+                  title="BloomTech.lk Sri Lanka Headquarters — Mawaramandiya"
                 />
               </div>
             </div>

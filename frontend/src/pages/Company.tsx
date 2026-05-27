@@ -10,47 +10,47 @@ const Company = () => {
   const services = [
     {
       number: '01',
-      title: 'Enterprise Business Applications',
+      title: 'Enterprise Software for Sri Lankan Businesses',
       items: [
-        'Ecosystem Management for Salesforce, Microsoft Dynamics 365, SAP, and Oracle',
-        'Solution Architecture designed for scalability',
-        'Proactive maintenance and feature enhancement'
+        'Custom CRM and ERP systems tailored to the unique workflows of Sri Lankan SMEs and corporates — eliminating spreadsheet dependency',
+        'Business process automation integrating with local accounting systems, banking APIs, and government digital services',
+        'Scalable architecture designed to grow from 5-person startups to 500-person enterprises without system replacement'
       ]
     },
     {
       number: '02',
-      title: 'Advanced System Integrations',
+      title: 'AI & Intelligent Automation',
       items: [
-        'Middleware Mastery with MuleSoft, Dell Boomi, and Informatica Cloud',
-        'Enterprise Application Integration (EAI)',
-        'Seamless data flow between legacy and cloud-native applications'
+        'AI document processing for customs, banking, legal, and insurance sectors — turning paper-heavy workflows into structured digital data',
+        'Machine learning models for demand forecasting, inventory optimisation, and predictive maintenance in Sri Lankan manufacturing and retail',
+        'Conversational AI and chatbot development for Sri Lankan businesses serving both Sinhala and English-speaking customers'
       ]
     },
     {
       number: '03',
-      title: 'Data Management & Decision Intelligence',
+      title: 'IT Infrastructure & Network Engineering',
       items: [
-        'Robust ETL/ELT pipeline design and deployment',
-        'BI Reporting via Tableau, Power BI, and Qlik Sense',
-        'Data-backed decision-making through immersive dashboards'
+        'Enterprise LAN/WAN, fibre optic, and managed Wi-Fi deployments for Sri Lankan offices, hotels, factories, and campuses',
+        'Custom server design, NAS storage, and data centre fit-outs built for local data sovereignty and business continuity',
+        'Cloud migration and hybrid infrastructure management with 24/7 monitoring and local on-site support response'
       ]
     },
     {
       number: '04',
-      title: 'Artificial Intelligence & Machine Learning',
+      title: 'Digital Presence & Online Growth',
       items: [
-        'Predictive modeling for market trends and operational insights',
-        'Process automation for high-volume tasks',
-        'AI integration into business operations'
+        'SEO-optimised websites in both Sinhala and English — reaching Sri Lanka\'s growing smartphone-first internet audience',
+        'Google Ads, Facebook, and Instagram campaign management targeting Sri Lankan demographics and regional audiences',
+        'Custom web and mobile applications for the Sri Lankan consumer market — from e-commerce platforms to service booking apps'
       ]
     },
     {
       number: '05',
-      title: 'Cloud Strategy & Infrastructure',
+      title: 'Cybersecurity & Strategic Advisory',
       items: [
-        'Multi-cloud expertise across AWS, Azure, and Google Cloud Platform',
-        'Strategic migration and management services',
-        'Cloud optimization for cost-efficiency and security'
+        'IT risk assessments and security audits aligned with CBSL, SEC, and international frameworks including ISO 27001 and NIST',
+        'Zero Trust architecture implementation, EDR deployment, and comprehensive incident response planning for Sri Lankan organisations',
+        'Fractional CTO and CISO services — giving fast-growing Sri Lankan companies executive-level technology leadership without the full-time cost'
       ]
     }
   ];
@@ -59,64 +59,55 @@ const Company = () => {
     {
       icon: Lightbulb,
       title: 'The Architects',
-      description: 'Visionaries specialized in Solution, Cloud, Data, and Integration Architecture who design the blueprints for digital success.',
+      description: 'Visionaries specialised in Solution, Cloud, Data, and Integration Architecture who design the digital blueprints for Sri Lankan business success — balancing local constraints with global best practices.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: Code,
       title: 'The Engineers',
-      description: 'Technical powerhouses focused on Data Engineering, AI/MLOps, DevOps, and QA Automation to ensure code is resilient, scalable, and secure.',
+      description: 'Technical powerhouses focused on AI/MLOps, DevOps, Data Engineering, and QA Automation — ensuring every system we build is resilient, scalable, and ready for Sri Lanka\'s growth trajectory.',
       color: 'from-[#ff6b00] to-orange-600'
     },
     {
       icon: Wrench,
       title: 'The Specialists',
-      description: 'Domain experts including Power BI Specialists, Operations Analysts, and Training Leads who ensure technology is adopted to its full potential.',
+      description: 'Domain experts including BI Analysts, Network Engineers, Security Specialists, and Client Success Leads — ensuring our technology is fully adopted and continuously delivering value for Sri Lankan businesses.',
       color: 'from-purple-500 to-pink-500'
     }
   ];
 
   const stats = [
-    { value: '2026', label: 'Founded' },
-    { value: '100+', label: 'Expert Consultants' },
-    { value: '4', label: 'Global Hubs' },
+    { value: '2026', label: 'Founded in Sri Lanka' },
+    { value: '50+', label: 'Local Clients Served' },
+    { value: '3', label: 'Global Hubs' },
     { value: '99.9%', label: 'Client Satisfaction' }
   ];
 
   const globalHubs = [
     {
       id: 'sri-lanka',
-      name: 'Sri Lanka Hub',
-      location: 'Mawaramandiya, Sri Lanka',
+      name: 'Sri Lanka Headquarters',
+      location: 'Mawaramandiya, Western Province',
       address: 'XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka',
-      description: 'Headquarters & primary operations center',
+      description: 'Our home base — primary engineering team, client management, and full on-site support for Sri Lankan businesses',
       color: 'from-[#ff6b00] to-orange-600',
       mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.0!2d80.0130!3d7.0850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zTWF3YXJhbWFuZGl5YStTcmkrTGFua2E!5e0!3m2!1sen!2slk!4v1234567890123!5m2!1sen!2slk'
     },
     {
       id: 'uae',
       name: 'UAE Hub',
-      location: 'Dubai, UAE',
+      location: 'Dubai, United Arab Emirates',
       address: 'New Mall Limited, Dragon Mart 2 - Dubai - United Arab Emirates',
-      description: 'Middle East operations center',
+      description: 'Middle East operations centre — serving Sri Lankan diaspora businesses and regional enterprise clients',
       color: 'from-blue-500 to-cyan-500',
       mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.0586!2d55.4028!3d25.1728!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f8b8b8b8b8b%3A0x1234567890abcdef!2sDragon%20Mart%202%2C%20Dubai!5e0!3m2!1sen!2sae!4v1234567890123!5m2!1sen!2sae'
-    },
-    {
-      id: 'srilanka',
-      name: 'Sri Lanka Hub',
-      location: 'Mawaramandiya, Sri Lanka',
-      address: 'XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka',
-      description: 'South Asia operations center',
-      color: 'from-purple-500 to-pink-500',
-      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5234!2d80.0866!3d7.2377!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2fb9f9f9f9f9f%3A0x1234567890abcdef!2sMawaramandiya%2C%20Sri%20Lanka!5e0!3m2!1sen!2slk!4v1234567890123!5m2!1sen!2slk'
     },
     {
       id: 'singapore',
       name: 'Singapore Hub',
       location: 'Singapore',
       address: '21 Bukit Batok Cres, #09-79, Singapore 658065',
-      description: 'Southeast Asia operations center',
+      description: 'Southeast Asia operations centre — ASEAN market development and regional technology partnerships',
       color: 'from-green-500 to-emerald-500',
       mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7654!2d103.7504!3d1.3379!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da10f7c7c7c7c7%3A0x1234567890abcdef!2s21%20Bukit%20Batok%20Cres%2C%20Singapore%20658065!5e0!3m2!1sen!2ssg!4v1234567890123!5m2!1sen!2ssg'
     }
@@ -127,7 +118,7 @@ const Company = () => {
   return (
     <div className="bg-white">
       <SEO config={seoConfigs.company} />
-      
+
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#0c1a36] pt-24">
         {/* Background Effects */}
@@ -152,23 +143,23 @@ const Company = () => {
             </div>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter text-white">
-              AI Machine Learning & <br />
-              <span className="text-[#ff6b00]">Enterprise Infrastructure Experts</span>
+              Sri Lanka's Trusted <br />
+              <span className="text-[#ff6b00]">Technology Partner</span>
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed font-medium max-w-4xl mx-auto">
-              A premier provider of AI machine learning solutions and enterprise infrastructure services, dedicated to delivering custom server design and machine learning expertise through innovative technology and strategic consulting.
+              Headquartered in Mawaramandiya, BloomTech.lk is built by Sri Lankans for Sri Lankan businesses — combining international expertise with genuine local knowledge to deliver technology that drives real, measurable growth.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link 
-                to="/services/ai-machine-learning" 
+              <Link
+                to="/services/ai-machine-learning"
                 className="px-10 py-5 bg-[#ff6b00] text-white rounded-2xl font-black text-base hover:bg-[#e65c00] hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] transition-all flex items-center gap-3 group"
               >
                 Explore Our Services <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <a 
-                href="#mission" 
+              <a
+                href="#mission"
                 className="px-10 py-5 bg-white/10 backdrop-blur-md text-white border-2 border-white/20 rounded-2xl font-black text-base hover:bg-white hover:text-[#0c1a36] transition-all"
               >
                 Our Mission
@@ -213,10 +204,10 @@ const Company = () => {
                 <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">Our Mission</h2>
               </div>
               <h3 className="text-4xl md:text-5xl font-black text-[#0c1a36] mb-6 leading-tight">
-                AI Machine Learning & Custom Server Solutions for Business Growth
+                Accelerating Sri Lanka's Digital Transformation
               </h3>
               <p className="text-lg text-gray-600 leading-relaxed font-medium">
-                To empower clients with AI machine learning solutions and enterprise infrastructure services that transform data into actionable insights. BloomTech delivers custom server design and machine learning expertise with security-first architecture, ensuring seamless integration from C-suite executives to end-users through measurable value and operational excellence.
+                To make enterprise-grade technology accessible to every Sri Lankan business — empowering local companies with AI-powered solutions, custom software, and world-class IT infrastructure. BloomTech.lk combines international expertise with deep local knowledge to deliver measurable value and sustainable digital growth for clients across the island.
               </p>
             </motion.div>
 
@@ -236,10 +227,10 @@ const Company = () => {
                 <h2 className="text-sm font-black uppercase tracking-widest text-gray-400">Our Vision</h2>
               </div>
               <h3 className="text-4xl md:text-5xl font-black text-[#0c1a36] mb-6 leading-tight">
-                Leading the Digital Future
+                Sri Lanka's Most Trusted Technology Company
               </h3>
               <p className="text-lg text-gray-600 leading-relaxed font-medium">
-                To establish BloomTech as the preeminent technology solutions provider within the United States, while aggressively expanding our global footprint to serve as a cornerstone of international digital infrastructure.
+                To be the cornerstone of Sri Lanka's digital economy — driving innovation that enables local businesses to compete confidently on the world stage, while building a technology ecosystem that uplifts communities, creates skilled employment, and fuels national prosperity across the island.
               </p>
             </motion.div>
           </div>
@@ -258,10 +249,10 @@ const Company = () => {
           >
             <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">Our Philosophy</span>
             <h2 className="text-4xl md:text-6xl font-black text-[#0c1a36] mb-6 leading-tight">
-              Machine Learning & Enterprise Infrastructure Services
+              How We Deliver for Sri Lankan Businesses
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
-              Our AI machine learning solutions and enterprise infrastructure services combine technical expertise with security-first design. BloomTech's certified consultants deliver custom server solutions and machine learning infrastructure that integrate data protection at every level, ensuring every technical implementation supports your business objectives.
+              Every engagement is built on three principles: deep technical mastery, genuine understanding of your business goals, and an unwavering focus on outcomes that matter to your bottom line and your people.
             </p>
           </motion.div>
 
@@ -278,7 +269,7 @@ const Company = () => {
               </div>
               <h4 className="text-2xl font-black text-[#0c1a36] mb-4">Technical Mastery</h4>
               <p className="text-gray-600 leading-relaxed font-medium">
-                Our consultants possess certifications and deep expertise across all major platforms, ensuring world-class technical execution.
+                Our certified consultants possess deep expertise across AI, cloud, infrastructure, and security — bringing world-class technical execution to every Sri Lankan engagement.
               </p>
             </motion.div>
 
@@ -292,9 +283,9 @@ const Company = () => {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-2xl font-black text-[#0c1a36] mb-4">Business Acumen</h4>
+              <h4 className="text-2xl font-black text-[#0c1a36] mb-4">Local Business Acumen</h4>
               <p className="text-gray-600 leading-relaxed font-medium">
-                We don't just build technology—we understand your business objectives and align every solution to drive measurable outcomes.
+                We understand Sri Lanka's industries, regulatory landscape, and business culture — aligning every technology solution to drive outcomes that matter in the local context.
               </p>
             </motion.div>
 
@@ -308,9 +299,9 @@ const Company = () => {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6">
                 <Target className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-2xl font-black text-[#0c1a36] mb-4">Outcome-Driven</h4>
+              <h4 className="text-2xl font-black text-[#0c1a36] mb-4">Outcome-Driven Delivery</h4>
               <p className="text-gray-600 leading-relaxed font-medium">
-                Every project is designed with clear KPIs and business outcomes in mind, ensuring tangible ROI and competitive advantage.
+                Every project is designed around clear KPIs — reduced costs, eliminated manual work, and competitive advantage — ensuring tangible ROI for Sri Lankan businesses of every size.
               </p>
             </motion.div>
           </div>
@@ -332,7 +323,7 @@ const Company = () => {
               Comprehensive Service Offerings
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-medium">
-              A holistic suite of IT services designed to maximize Return on Investment (ROI) and future-proof organizational workflows.
+              A complete suite of technology services built around the real needs of Sri Lankan businesses — designed to maximise ROI and future-proof your organisation in a rapidly evolving digital landscape.
             </p>
           </motion.div>
 
@@ -388,10 +379,10 @@ const Company = () => {
           >
             <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">Our Team</span>
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-              Elite Technical Expertise
+              Elite Sri Lankan Technical Talent
             </h2>
             <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-medium">
-              BloomTech distinguishes itself through a rigorous talent acquisition process, maintaining a bench of elite professionals.
+              BloomTech.lk attracts and retains Sri Lanka's best technology professionals — a team that combines local market insight with world-class technical credentials.
             </p>
           </motion.div>
 
@@ -434,19 +425,19 @@ const Company = () => {
           >
             <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">Where We Operate</span>
             <h2 className="text-4xl md:text-6xl font-black text-[#0c1a36] mb-6 leading-tight">
-              Global Delivery Model
+              Rooted in Sri Lanka, <br />Reaching the World
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-medium mb-4 max-w-4xl mx-auto">
-              With headquarters located at <span className="font-black text-[#0c1a36]">XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</span>, BloomTech.lk leverages a distributed delivery model with key operational hubs across the globe.
+              Headquartered at <span className="font-black text-[#0c1a36]">XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</span>, BloomTech.lk serves Sri Lankan businesses locally while supporting regional growth through our global hub network.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed font-medium max-w-4xl mx-auto">
-              This geographic diversity allows for localized support and a broad talent pool, ensuring that BloomTech can scale resources rapidly to meet the demands of any project, regardless of size or complexity.
+              Our geographic presence enables local on-site support across Sri Lanka, combined with the capacity to deliver projects for the Sri Lankan diaspora and international market.
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Hub Cards - Left Side */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {globalHubs.map((hub, index) => (
                 <motion.div
                   key={hub.id}
@@ -463,9 +454,7 @@ const Company = () => {
                 >
                   <div className="flex items-start gap-3 mb-3">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                      selectedHub.id === hub.id
-                        ? 'bg-white/20'
-                        : 'bg-white'
+                      selectedHub.id === hub.id ? 'bg-white/20' : 'bg-white'
                     }`}>
                       <MapPin className={`w-5 h-5 ${
                         selectedHub.id === hub.id ? 'text-white' : 'text-[#ff6b00]'
@@ -529,7 +518,7 @@ const Company = () => {
                       </a>
                     </div>
                   </div>
-                  
+
                   <motion.div
                     key={selectedHub.id}
                     initial={{ opacity: 0 }}
@@ -575,20 +564,20 @@ const Company = () => {
             className="text-center"
           >
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-              Ready to Transform Your Business?
+              Ready to Grow with Sri Lanka's Best Tech Team?
             </h2>
             <p className="text-xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-              Let's discuss how BloomTech.lk can empower your organization with innovative technology solutions.
+              Let's discuss how BloomTech.lk can empower your organisation with technology that's built for Sri Lanka and engineered for growth.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a 
-                href="#contact" 
+              <Link
+                to="/contact"
                 className="px-12 py-5 bg-white text-[#0c1a36] rounded-2xl font-black text-base hover:bg-gray-100 hover:shadow-2xl transition-all flex items-center gap-3"
               >
                 Get in Touch <ChevronRight className="w-5 h-5" />
-              </a>
-              <Link 
-                to="/services/ai-machine-learning" 
+              </Link>
+              <Link
+                to="/services/ai-machine-learning"
                 className="px-12 py-5 bg-transparent text-white border-2 border-white/30 rounded-2xl font-black text-base hover:bg-white/10 transition-all"
               >
                 View Our Services
