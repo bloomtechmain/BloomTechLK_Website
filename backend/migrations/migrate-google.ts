@@ -1,4 +1,4 @@
-import { query } from './db';
+import { query } from '../db';
 
 const migrateGoogleAuth = async (): Promise<void> => {
   const sql = `
