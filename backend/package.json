@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "nodemon --exec ts-node index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "init-db": "ts-node init-db.ts",
-    "migrate": "ts-node migrate-google.ts",
+    "migrate": "ts-node migrations/migrate-google.ts",
     "test-auth": "ts-node test-auth.ts"
   },
   "keywords": [],
