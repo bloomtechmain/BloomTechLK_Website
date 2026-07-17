@@ -11,8 +11,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     'http://localhost:5173',           // Local development
-    'https://bloomtechusa.com',        // Production domain
-    'https://*.pages.dev'              // Cloudflare preview deployments
+    'https://bloomtech.lk',            // Production domain
+    'https://www.bloomtech.lk',        // Production domain (www)
+    /^https:\/\/.*\.pages\.dev$/       // Cloudflare preview deployments
   ],
   credentials: true
 }));
