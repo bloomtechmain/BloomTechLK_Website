@@ -23,11 +23,14 @@ import userRoutes from './routes/userRoutes';
 import authRoutes from './routes/authRoutes';
 import expertRoutes from './routes/expertRoutes';
 import portfolioRoutes from './routes/portfolioRoutes';
+import contactRoutes from './routes/contactRoutes';
+import './mailer';
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/expert', expertRoutes);
 app.use('/api/portfolio', portfolioRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Basic Route
 app.get('/', (_req, res) => {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, Clock, MapPin, Send, CheckCircle, Linkedin, Twitter, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import axios from 'axios';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
@@ -15,6 +16,8 @@ const ContactUs = () => {
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const interestOptions = [
     'Custom Software Development (CRM / ERP / Web / Mobile App)',
@@ -33,21 +36,31 @@ const ContactUs = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
+    setLoading(true);
+    setError(null);
 
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        interests: [],
-        message: ''
-      });
-    }, 3000);
+    try {
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      await axios.post(`${API_URL}/api/contact/submit`, formData);
+      setIsSubmitted(true);
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          interests: [],
+          message: ''
+        });
+      }, 3000);
+    } catch (err: any) {
+      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const contactInfo = [
@@ -342,13 +355,25 @@ const ContactUs = () => {
                     />
                   </div>
 
+                  {/* Error Message */}
+                  {error && (
+                    <p className="text-red-600 text-sm font-bold">{error}</p>
+                  )}
+
                   {/* Submit Button */}
                   <button
                     type="submit"
-                    className="w-full px-8 py-5 bg-[#ff6b00] text-white rounded-2xl font-black text-lg hover:bg-[#e65c00] hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] transition-all flex items-center justify-center gap-3 group"
+                    disabled={loading}
+                    className="w-full px-8 py-5 bg-[#ff6b00] text-white rounded-2xl font-black text-lg hover:bg-[#e65c00] hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none transition-all flex items-center justify-center gap-3 group"
                   >
-                    Send Message
-                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    {loading ? (
+                      <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                      <>
+                        Send Message
+                        <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}
