@@ -22,17 +22,20 @@ Go to: **Cloudflare Pages Dashboard** → **Your Project** → **Settings** → 
 | **Build command** | `npm run build` |
 | **Build output directory** | `dist/client` |
 | **Root directory** | `frontend` |
-| **Node version** | `18` (set as environment variable below) |
+| **Node version** | `20` (also set via `.node-version`; `NODE_VERSION` env var optional) |
 
 ### Environment Variables
 
-Go to: **Settings** → **Environment variables** → **Production**
+Go to: **Settings** → **Environment variables** → **Production** (and **Preview**)
 
 | Variable | Value |
 |----------|-------|
-| `NODE_VERSION` | `18` |
-| `VITE_API_URL` | `https://your-railway-backend.up.railway.app` |
-| `VITE_GOOGLE_CLIENT_ID` | `664605079979-g31lo74cfiue4tlict3do3cpi24ikcv.apps.googleusercontent.com` |
+| `NODE_VERSION` | `20` |
+| `VITE_EMAILJS_SERVICE_ID` | `service_7sn9k2o` |
+| `VITE_EMAILJS_TEMPLATE_ID` | `template_t0z9bew` |
+| `VITE_EMAILJS_PUBLIC_KEY` | `dMrkwmOZ00UAvahin` |
+
+There is no backend anymore — the Express/Postgres API has been removed, and the Contact/Expert forms send email directly via EmailJS from the browser. `VITE_API_URL` and `VITE_GOOGLE_CLIENT_ID` no longer apply.
 
 ---
 
@@ -51,7 +54,7 @@ When you push to GitHub, Cloudflare will:
    │
    ├─→ build:client   (creates dist/client with template)
    ├─→ build:server   (creates dist/server with SSR bundle)
-   ├─→ prerender      (renders all 21 routes as HTML)
+   ├─→ prerender      (renders all 20 routes as HTML)
    └─→ build:verify   (confirms build succeeded)
    ↓
 5. .cfignore filters what gets deployed:
@@ -108,7 +111,7 @@ node_modules/            (dependencies)
 ### Issue: Build fails with "Cannot find module"
 **Cause**: Missing dependencies or wrong Node version
 **Fix**: 
-1. Ensure `NODE_VERSION=18` is set in environment variables
+1. Ensure Node 20 is used (`.node-version` already sets this; `NODE_VERSION` env var is optional)
 2. All build dependencies must be in `dependencies`, not `devDependencies`
 
 ### Issue: Pages show empty content
@@ -125,12 +128,12 @@ node_modules/            (dependencies)
 
 After deployment, verify:
 
-- [ ] Site loads at https://bloomtechusa.com
+- [ ] Site loads at https://www.bloomtech.lk
 - [ ] No Cloudflare errors
 - [ ] View page source - should see full HTML content (not empty `<div id="root">`)
 - [ ] All navigation links work
 - [ ] Images load correctly
-- [ ] Check Cloudflare build logs - should show "Pre-rendering complete! Success: 21/21 routes"
+- [ ] Check Cloudflare build logs - should show "Pre-rendering complete! Success: 20/20 routes"
 
 ---
 
@@ -147,11 +150,11 @@ Successful build should show:
    ✓ Saved to: /company/index.html
 📄 Pre-rendering: /contact
    ✓ Saved to: /contact/index.html
-... (18 more routes)
+... (17 more routes)
 
 ============================================================
 ✅ Pre-rendering complete!
-   Success: 21/21 routes
+   Success: 20/20 routes
 ============================================================
 
 ✓ All critical pages verified
@@ -172,7 +175,7 @@ Build output directory: dist/client   ← CORRECT
 ```
 
 ### ❌ Missing Environment Variables
-Forgetting to set `NODE_VERSION=18` causes builds to fail with modern syntax
+Node 20 is required (set via `.node-version` or the `NODE_VERSION` env var) — older Node versions fail on modern syntax
 
 ### ❌ Running server.js in Production
 This creates tunnel errors. Use `.cfignore` to prevent deployment.
@@ -203,7 +206,7 @@ If deployment fails:
 Your deployment is successful when:
 
 ✅ Build completes without errors
-✅ All 21 routes pre-rendered
+✅ All 20 routes pre-rendered
 ✅ Site loads instantly
 ✅ View Source shows full HTML content
 ✅ SEO audit score 90-100%
