@@ -26,8 +26,6 @@ export default defineConfig(({ command, mode, isSsrBuild }) => ({
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           // Framer Motion (large animation library)
           'animation': ['framer-motion'],
-          // Auth and API
-          'auth': ['@react-oauth/google', 'axios'],
           // Icons
           'icons': ['lucide-react'],
         },

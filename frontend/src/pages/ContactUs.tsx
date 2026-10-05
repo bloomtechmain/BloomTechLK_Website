@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, Clock, MapPin, Send, CheckCircle, Linkedin, Twitter, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
-import axios from 'axios';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
+import { sendInquiryEmail } from '../utils/emailjs';
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -42,8 +42,13 @@ const ContactUs = () => {
     setError(null);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      await axios.post(`${API_URL}/api/contact/submit`, formData);
+      await sendInquiryEmail({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        interests: formData.interests.length ? formData.interests.join(', ') : undefined,
+        message: formData.message,
+      });
       setIsSubmitted(true);
 
       setTimeout(() => {
@@ -57,7 +62,7 @@ const ContactUs = () => {
         });
       }, 3000);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      setError('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,7 @@
-import { useState, useEffect, useCallback, memo } from 'react';
-import { Menu, X, ChevronDown, User, ShieldCheck, LogOut } from 'lucide-react';
+import { useState, useEffect, memo } from 'react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import { megaMenuData, ServiceItem } from '../data/servicesData';
 
 const Navbar = memo(() => {
@@ -10,11 +9,7 @@ const Navbar = memo(() => {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [hoveredService, setHoveredService] = useState<ServiceItem | null>(null);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
 
   // Debounced scroll handler for better performance
   useEffect(() => {
@@ -25,19 +20,13 @@ const Navbar = memo(() => {
         setScrolled(window.scrollY > 20);
       }, 10);
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, []);
-
-  const handleLogout = useCallback(() => {
-    logout();
-    navigate('/login');
-    setShowUserMenu(false);
-  }, [logout, navigate]);
 
   return (
     <nav
@@ -95,57 +84,11 @@ const Navbar = memo(() => {
           </Link>
         </div>
 
-        {/* Action Buttons / User Menu */}
+        {/* Action Button */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          {!user ? (
-            <>
-              <Link to="/login" className="font-bold transition-all text-[13px] uppercase tracking-widest px-3 text-[#0c1a36] hover:text-[#ff6b00]">
-                Login
-              </Link>
-              <Link to="/register" className="border-[2.5px] rounded-xl font-black text-[13px] uppercase tracking-widest transition-all active:scale-95 px-8 py-2.5 border-[#0c1a36] text-[#0c1a36] hover:bg-[#0c1a36] hover:text-white">
-                Register
-              </Link>
-            </>
-          ) : (
-            <div className="relative">
-              <button
-                onClick={() => setShowUserMenu(!showUserMenu)}
-                className="w-11 h-11 rounded-full flex items-center justify-center transition-all border-2 bg-gray-50 border-gray-100"
-              >
-                <User size={20} className="text-[#0c1a36]" />
-              </button>
-
-              <AnimatePresence>
-                {showUserMenu && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 top-full mt-4 w-64 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden py-4"
-                  >
-                    <div className="px-6 py-4 border-b border-gray-50 mb-2">
-                       <p className="text-[10px] font-black text-[#ff6b00] uppercase tracking-widest mb-1">Authenticated</p>
-                       <p className="text-sm font-black text-[#0c1a36] truncate">{user.name}</p>
-                       <p className="text-[11px] font-medium text-gray-500 truncate">{user.email}</p>
-                    </div>
-                    <button className="w-full text-left px-6 py-3 text-[12px] font-bold text-[#0c1a36] hover:bg-gray-50 flex items-center gap-3 transition-colors">
-                       <User size={16} className="text-gray-400" /> Account Settings
-                    </button>
-                    <Link to="/dashboard" onClick={() => setShowUserMenu(false)} className="w-full text-left px-6 py-3 text-[12px] font-bold text-[#0c1a36] hover:bg-gray-50 flex items-center gap-3 transition-colors">
-                       <ShieldCheck size={16} className="text-gray-400" /> Identity Hub
-                    </Link>
-                    <div className="mx-6 my-2 border-t border-gray-50"></div>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-6 py-3 text-[12px] font-bold text-red-500 hover:bg-red-50 flex items-center gap-3 transition-colors"
-                    >
-                       <LogOut size={16} /> Secure Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
+          <Link to="/contact" className="border-[2.5px] rounded-xl font-black text-[13px] uppercase tracking-widest transition-all active:scale-95 px-8 py-2.5 border-[#0c1a36] text-[#0c1a36] hover:bg-[#0c1a36] hover:text-white">
+            Get Started
+          </Link>
         </div>
 
         {/* Mobile Hamburger */}
@@ -312,20 +255,9 @@ const Navbar = memo(() => {
               <Link to="/portfolio" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-[#ff6b00] transition-colors">Portfolio</Link>
               <Link to="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">Contact Us</Link>
             </div>
-            {!user ? (
-               <div className="mt-auto grid grid-cols-1 gap-4">
-                  <Link to="/login" onClick={() => setIsOpen(false)} className="py-5 bg-gray-50 font-bold rounded-[20px] text-gray-700 text-center">Login</Link>
-                  <Link to="/register" onClick={() => setIsOpen(false)} className="py-5 bg-[#ff6b00] text-white font-black rounded-[20px] shadow-xl shadow-orange-200 text-center">Get Start</Link>
-               </div>
-            ) : (
-               <div className="mt-auto flex flex-col gap-4">
-                  <div className="p-6 bg-gray-50 rounded-[24px]">
-                     <p className="text-xs font-black text-[#ff6b00] uppercase mb-1">Authenticated</p>
-                     <p className="text-xl font-black text-[#0c1a36]">{user.name}</p>
-                  </div>
-                  <button onClick={handleLogout} className="py-5 bg-red-50 text-red-600 font-black rounded-[20px]">Secure Sign Out</button>
-               </div>
-            )}
+            <div className="mt-auto">
+               <Link to="/contact" onClick={() => setIsOpen(false)} className="block py-5 bg-[#ff6b00] text-white font-black rounded-[20px] shadow-xl shadow-orange-200 text-center">Get Started</Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

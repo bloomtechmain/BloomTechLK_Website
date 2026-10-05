@@ -15,10 +15,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-oauth/google": "^0.13.4",
+    "@emailjs/browser": "^4.4.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@tailwindcss/vite": "^4.2.1",
-    "axios": "^1.13.6",
     "compression": "^1.7.4",
     "express": "^4.21.2",
     "framer-motion": "^12.35.2",

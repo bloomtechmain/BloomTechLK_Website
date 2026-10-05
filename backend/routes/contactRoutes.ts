@@ -1,8 +1,0 @@
-import { Router } from 'express';
-import { submitContactInquiry } from '../controllers/contactController';
-
-const router = Router();
-
-router.post('/submit', submitContactInquiry);
-
-export default router;

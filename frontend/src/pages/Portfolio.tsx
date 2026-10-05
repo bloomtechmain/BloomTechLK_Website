@@ -11,7 +11,6 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { getSEOConfig } from '../utils/seoConfig';
-import axios from 'axios';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -953,31 +952,12 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 const Portfolio = () => {
-  const [clientProjects, setClientProjects] = useState<ClientProject[]>([]);
-  const [loading, setLoading]               = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery]       = useState('');
   const [selectedProject, setSelectedProject] = useState<ClientProject | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<BloomProduct | null>(null);
 
-  // Slugs that belong to BloomTech products (exclude from client grid)
-  const PRODUCT_SLUGS = new Set(['bloomaudit-enterprise-platform', 'bloomswift-pos-retail-chain', 'bloomgo-field-service']);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const apiUrl = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000';
-        const res = await axios.get<{ projects: ClientProject[] }>(`${apiUrl}/api/portfolio`);
-        const filtered = res.data.projects.filter((p) => !PRODUCT_SLUGS.has(p.slug));
-        setClientProjects(filtered.length ? filtered : CLIENT_PROJECTS);
-      } catch {
-        setClientProjects(CLIENT_PROJECTS);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetch();
-  }, []);
+  const clientProjects = CLIENT_PROJECTS;
 
   const filtered = useMemo(() => clientProjects.filter((p) => {
     const matchCat = activeCategory === 'All' || p.category === activeCategory;
@@ -1245,9 +1225,7 @@ const Portfolio = () => {
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 py-12">
           <div className="flex items-center justify-between mb-8">
             <p className="text-[13px] font-semibold text-gray-500">
-              {loading ? 'Loading solutions...' : (
-                <>Showing <span className="font-black text-[#0c1a36]">{filtered.length}</span> of <span className="font-black text-[#0c1a36]">{clientProjects.length}</span> solutions</>
-              )}
+              Showing <span className="font-black text-[#0c1a36]">{filtered.length}</span> of <span className="font-black text-[#0c1a36]">{clientProjects.length}</span> solutions
             </p>
             {(activeCategory !== 'All' || searchQuery) && (
               <button onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
@@ -1257,22 +1235,7 @@ const Portfolio = () => {
             )}
           </div>
 
-          {loading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {Array.from({ length: 3 }).map((_, i) => (
-                <div key={i} className="bg-white rounded-3xl overflow-hidden border border-gray-100 animate-pulse">
-                  <div className="aspect-[16/9] bg-gray-200" />
-                  <div className="p-6 space-y-3">
-                    <div className="h-3 w-24 bg-gray-200 rounded-full" />
-                    <div className="h-5 w-3/4 bg-gray-200 rounded-full" />
-                    <div className="h-3 w-full bg-gray-100 rounded-full" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {!loading && filtered.length === 0 && (
+          {filtered.length === 0 && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-2xl font-black text-[#0c1a36] mb-2">No solutions found</h3>
@@ -1284,7 +1247,7 @@ const Portfolio = () => {
             </motion.div>
           )}
 
-          {!loading && filtered.length > 0 && (
+          {filtered.length > 0 && (
             <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
                 {filtered.map((p, i) => <ClientCard key={p.id} project={p} index={i} onOpen={openProject} />)}
