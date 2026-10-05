@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { mergeAppHtml } from './ssr-html.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -64,19 +65,8 @@ async function prerender() {
       console.log(`📄 Pre-rendering: ${route}`);
       
       // Render the route
-      const { html: appHtml, helmetContext } = render(route);
-      const { helmet } = helmetContext;
-      
-      // Inject the app HTML into template
-      let html = template.replace('<!--app-html-->', appHtml);
-      
-      // Inject helmet meta tags if available
-      if (helmet) {
-        html = html.replace(
-          '</head>',
-          `${helmet.title?.toString() || ''}${helmet.meta?.toString() || ''}${helmet.link?.toString() || ''}${helmet.script?.toString() || ''}</head>`
-        );
-      }
+      const { html: appHtml } = render(route);
+      const html = mergeAppHtml(template, appHtml);
 
       // Determine output path
       const routePath = route === '/' ? '/index.html' : `${route}/index.html`;

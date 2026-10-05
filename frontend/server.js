@@ -3,6 +3,7 @@ import express from 'express';
 import compression from 'compression';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { mergeAppHtml } from './ssr-html.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -58,21 +59,8 @@ app.use('*', async (req, res) => {
     }
 
     // Render the app HTML
-    const rendered = render(url, {});
-    const { html: appHtml, helmetContext } = rendered;
-    
-    // Get helmet data
-    const { helmet } = helmetContext;
-    
-    // Inject the app-rendered HTML and helmet data into the template
-    let html = template
-      .replace('<!--app-html-->', appHtml);
-    
-    // If helmet exists, inject meta tags
-    if (helmet) {
-      html = html
-        .replace('</head>', `${helmet.title?.toString() || ''}${helmet.meta?.toString() || ''}${helmet.link?.toString() || ''}${helmet.script?.toString() || ''}</head>`);
-    }
+    const { html: appHtml } = render(url, {});
+    const html = mergeAppHtml(template, appHtml);
 
     res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
   } catch (e) {
