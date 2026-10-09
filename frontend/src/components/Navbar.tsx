@@ -42,43 +42,43 @@ const Navbar = memo(() => {
           <div className="w-9 h-9 rounded-[8px] flex items-center justify-center shadow-md transform group-hover:scale-110 transition-all duration-500 overflow-hidden">
              <img src="/bloomtech-logo.png" alt="BloomTech Logo" className="w-full h-full object-cover" />
           </div>
-          <span className="text-[22px] font-black tracking-tighter transition-all group-hover:tracking-normal text-[#0c1a36]">
+          <span className="text-[22px] font-bold tracking-tighter transition-all group-hover:tracking-normal text-[#101D36]">
             BloomTech<span className="text-[#ff6b00]">LK</span>
           </span>
         </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden lg:flex items-center gap-9">
-          <Link to="/" className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]">Home</Link>
+          <Link to="/" className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#101D36] hover:text-[#ff6b00]">Home</Link>
 
           <div
             className="group relative h-[64px] flex items-center"
             onMouseEnter={() => setActiveMenu('services')}
             onMouseLeave={() => {setActiveMenu(null); setHoveredService(null);}}
           >
-            <button className={`flex items-center gap-1 font-bold transition-all text-[13px] uppercase tracking-wide ${activeMenu === 'services' ? 'text-[#ff6b00]' : 'text-[#0c1a36] hover:text-[#ff6b00]'}`}>
+            <button className={`flex items-center gap-1 font-bold transition-all text-[13px] uppercase tracking-wide ${activeMenu === 'services' ? 'text-[#ff6b00]' : 'text-[#101D36] hover:text-[#ff6b00]'}`}>
               Services & Solutions <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeMenu === 'services' ? 'rotate-180' : ''}`} />
             </button>
-            <div className={`absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#ff6b00] to-[#cc4400] transition-all duration-300 transform rounded-t-full ${activeMenu === 'services' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></div>
+            <div className={`absolute bottom-0 left-0 right-0 h-[2px] bg-[#FF6B00] transition-all duration-300 transform ${activeMenu === 'services' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></div>
           </div>
 
           <Link
             to="/company"
-            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
+            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#101D36] hover:text-[#ff6b00]"
           >
             About Us
           </Link>
 
           <Link
             to="/portfolio"
-            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
+            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#101D36] hover:text-[#ff6b00]"
           >
             Portfolio
           </Link>
 
           <Link
             to="/contact"
-            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#0c1a36] hover:text-[#ff6b00]"
+            className="font-bold transition-colors text-[13px] uppercase tracking-wide text-[#101D36] hover:text-[#ff6b00]"
           >
             Contact Us
           </Link>
@@ -86,13 +86,13 @@ const Navbar = memo(() => {
 
         {/* Action Button */}
         <div className="hidden lg:flex items-center gap-4 shrink-0">
-          <Link to="/contact" className="border-[2.5px] rounded-xl font-black text-[13px] uppercase tracking-widest transition-all active:scale-95 px-8 py-2.5 border-[#0c1a36] text-[#0c1a36] hover:bg-[#0c1a36] hover:text-white">
+          <Link to="/contact" className="border-2 rounded-lg font-semibold text-[13px] uppercase tracking-wide transition-all active:scale-95 px-7 py-2.5 border-[#101D36] text-[#101D36] hover:bg-[#101D36] hover:text-white">
             Get Started
           </Link>
         </div>
 
         {/* Mobile Hamburger */}
-        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 focus:outline-none text-[#0c1a36]">
+        <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-2 focus:outline-none text-[#101D36]">
           {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -114,7 +114,7 @@ const Navbar = memo(() => {
               <div className="py-6 grid grid-cols-4 gap-8">
                  {megaMenuData.map((col, idx) => (
                    <div key={idx} className="flex flex-col gap-3">
-                     <h4 className="text-[#0c1a36] font-black text-[11px] uppercase tracking-[0.15em] border-b border-gray-100 pb-2 flex items-center justify-between">
+                     <h4 className="text-[#101D36] font-semibold text-[11px] uppercase tracking-wide border-b border-gray-100 pb-2 flex items-center justify-between">
                        {col.title}
                        <ChevronDown className="w-3 h-3 text-gray-300 -rotate-90" />
                      </h4>
@@ -122,7 +122,7 @@ const Navbar = memo(() => {
                        {col.items.map((item, i) => (
                          <li
                            key={i}
-                           className="group/item relative -ml-2 px-2 py-1.5 rounded-xl transition-all hover:bg-blue-50/50 cursor-pointer"
+                           className="group/item relative -ml-2 px-2 py-1.5 rounded-md transition-all hover:bg-orange-50 cursor-pointer"
                            onMouseEnter={() => setHoveredService(item)}
                          >
                            <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ const Navbar = memo(() => {
                      {/* Render secondary section if it exists */}
                      {col.secondarySection && (
                        <div className="flex flex-col gap-3 mt-4">
-                         <h4 className="text-[#0c1a36] font-black text-[11px] uppercase tracking-[0.15em] border-b border-gray-100 pb-2 flex items-center justify-between">
+                         <h4 className="text-[#101D36] font-semibold text-[11px] uppercase tracking-wide border-b border-gray-100 pb-2 flex items-center justify-between">
                            {col.secondarySection.title}
                            <ChevronDown className="w-3 h-3 text-gray-300 -rotate-90" />
                          </h4>
@@ -146,7 +146,7 @@ const Navbar = memo(() => {
                            {col.secondarySection.items.map((item, i) => (
                              <li
                                key={i}
-                               className="group/item relative -ml-2 px-2 py-1.5 rounded-xl transition-all hover:bg-blue-50/50 cursor-pointer"
+                               className="group/item relative -ml-2 px-2 py-1.5 rounded-md transition-all hover:bg-orange-50 cursor-pointer"
                                onMouseEnter={() => setHoveredService(item)}
                              >
                                <div className="flex items-center gap-2">
@@ -179,17 +179,17 @@ const Navbar = memo(() => {
             className="fixed inset-0 bg-white z-[70] lg:hidden p-8 flex flex-col"
           >
             <div className="flex justify-between items-center mb-16">
-               <span className="text-2xl font-black text-[#0c1a36] tracking-tighter">BloomTech<span className="text-blue-600">LK</span></span>
+               <span className="text-2xl font-bold text-[#101D36] tracking-tighter">BloomTech<span className="text-[#FF6B00]">LK</span></span>
                <button onClick={() => setIsOpen(false)} className="p-3 bg-gray-50 rounded-full border border-gray-100"><X size={24} /></button>
             </div>
             <div className="flex flex-col gap-8">
-              <Link to="/" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">Home</Link>
+              <Link to="/" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-[#101D36] hover:text-[#FF6B00] transition-colors">Home</Link>
               
               {/* Services with Expandable Submenu */}
               <div className="flex flex-col">
                 <button 
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)} 
-                  className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors text-left flex items-center justify-between"
+                  className="text-4xl font-bold text-[#101D36] hover:text-[#FF6B00] transition-colors text-left flex items-center justify-between"
                 >
                   Services
                   <ChevronDown className={`w-8 h-8 transition-transform duration-300 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
@@ -207,7 +207,7 @@ const Navbar = memo(() => {
                       <div className="flex flex-col gap-3 mt-6 ml-6 max-h-[400px] overflow-y-auto">
                         {megaMenuData.map((column, colIdx) => (
                           <div key={colIdx} className="flex flex-col gap-2">
-                            <h4 className="text-xs font-black text-[#ff6b00] uppercase tracking-widest mb-1">
+                            <h4 className="text-xs font-semibold text-[#FF6B00] uppercase tracking-wide mb-1">
                               {column.title}
                             </h4>
                             {column.items.map((service, idx) => (
@@ -225,7 +225,7 @@ const Navbar = memo(() => {
                             ))}
                             {column.secondarySection && (
                               <>
-                                <h4 className="text-xs font-black text-[#ff6b00] uppercase tracking-widest mb-1 mt-3">
+                                <h4 className="text-xs font-semibold text-[#FF6B00] uppercase tracking-wide mb-1 mt-3">
                                   {column.secondarySection.title}
                                 </h4>
                                 {column.secondarySection.items.map((service, idx) => (
@@ -251,12 +251,12 @@ const Navbar = memo(() => {
                 </AnimatePresence>
               </div>
 
-              <Link to="/company" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">About Us</Link>
-              <Link to="/portfolio" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-[#ff6b00] transition-colors">Portfolio</Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-black text-[#0c1a36] hover:text-blue-600 transition-colors">Contact Us</Link>
+              <Link to="/company" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-[#101D36] hover:text-[#FF6B00] transition-colors">About Us</Link>
+              <Link to="/portfolio" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-[#101D36] hover:text-[#ff6b00] transition-colors">Portfolio</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-[#101D36] hover:text-[#FF6B00] transition-colors">Contact Us</Link>
             </div>
             <div className="mt-auto">
-               <Link to="/contact" onClick={() => setIsOpen(false)} className="block py-5 bg-[#ff6b00] text-white font-black rounded-[20px] shadow-xl shadow-orange-200 text-center">Get Started</Link>
+               <Link to="/contact" onClick={() => setIsOpen(false)} className="block py-5 bg-[#FF6B00] text-white font-semibold rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] text-center">Get Started</Link>
             </div>
           </motion.div>
         )}

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, Clock, MapPin, Send, CheckCircle, Linkedin, Twitter, Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import { Phone, Mail, Clock, MapPin, Send, CheckCircle, Linkedin, Twitter, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
 import { sendInquiryEmail } from '../utils/emailjs';
+import { NAVY, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS } from '../styles/designTokens';
+
+const vp = { once: true, margin: '-80px' } as const;
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -74,71 +77,59 @@ const ContactUs = () => {
       title: 'Phone',
       content: socialMedia.phone,
       link: `tel:${socialMedia.phone.replace(/\s/g, '')}`,
-      color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: MessageCircle,
       title: 'WhatsApp',
       content: 'Chat with our team on WhatsApp — quick responses in Sinhala or English',
       link: `https://wa.me/${socialMedia.whatsapp}`,
-      color: 'from-green-500 to-emerald-500'
     },
     {
       icon: Mail,
       title: 'Email',
       content: socialMedia.email,
       link: `mailto:${socialMedia.email}`,
-      color: 'from-[#ff6b00] to-orange-600'
     },
     {
       icon: MapPin,
       title: 'Office Location',
       content: 'BloomTech.lk\nXXPG+VXF, Makola - Udupila Rd\nMawaramandiya, Sri Lanka',
       link: 'https://maps.app.goo.gl/Zvg7bWkgNqJ77Fek6',
-      color: 'from-purple-500 to-pink-500'
     },
     {
       icon: Clock,
       title: 'Business Hours',
       content: 'Monday – Friday\n8:30 AM – 5:30 PM (SLST)\nSaturday: 9:00 AM – 1:00 PM',
       link: null,
-      color: 'from-amber-500 to-yellow-500'
     }
   ];
 
   return (
-    <div className="bg-white">
+    <div style={{ fontFamily: FONT_SANS }}>
       <SEO config={seoConfigs.contact} />
 
       {/* Hero Section */}
-      <section className="relative min-h-[75vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#0c1a36] pt-24">
-        {/* Background Effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-20 w-96 h-96 bg-[#ff6b00]/20 rounded-full blur-[120px] animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse delay-1000"></div>
-        </div>
-
-        {/* Grid Pattern Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
-
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10 py-20">
+      <section className="relative pt-40 pb-28 overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-5xl mx-auto"
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 mb-8 text-[12px] font-bold tracking-[0.3em] text-white uppercase bg-[#ff6b00]/20 backdrop-blur-md border border-[#ff6b00]/30 rounded-full">
-              <Mail className="w-4 h-4" />
-              Talk to a Sri Lankan Tech Expert
+            <div className="flex items-center justify-center gap-3 mb-5">
+              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
+              <p className="text-sm font-semibold tracking-wide inline-flex items-center gap-2" style={{ color: ORANGE_LIGHT }}>
+                <Mail className="w-4 h-4" /> Talk to a Sri Lankan Tech Expert
+              </p>
+              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
             </div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter text-white">
-              Let's Build Something <br />
-              <span className="text-[#ff6b00]">Great Together.</span>
+            <h1 className="text-[2.75rem] md:text-[3.4rem] font-bold mb-6 leading-[1.08] tracking-tight text-white">
+              Let's build something <span style={{ color: ORANGE }}>great together</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed font-medium max-w-4xl mx-auto">
+            <p className="text-lg text-white/72 leading-relaxed max-w-2xl mx-auto">
               Whether you need AI automation, a custom web application, a new IT network, or a complete digital transformation strategy — our Mawaramandiya-based team is ready to help. We respond in Sinhala and English, usually within the same business day.
             </p>
           </motion.div>
@@ -146,24 +137,24 @@ const ContactUs = () => {
       </section>
 
       {/* Contact Information Cards */}
-      <section className="py-20 px-6 bg-white relative -mt-20 z-20">
+      <section className="px-6 bg-white relative -mt-16 z-20">
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             {contactInfo.map((info, i) => {
               const Icon = info.icon;
               return (
                 <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
+                  key={info.title}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all border-2 border-gray-100 hover:border-[#ff6b00]/30 text-center"
+                  viewport={vp}
+                  transition={{ duration: 0.5, delay: i * 0.07 }}
+                  className="bg-white rounded-xl p-7 border border-gray-200 shadow-[0_8px_24px_-12px_rgba(16,29,54,0.15)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.22)] hover:-translate-y-1 transition-all text-center"
                 >
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${info.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform mx-auto`}>
-                    <Icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-5 mx-auto">
+                    <Icon className="w-5 h-5" style={{ color: ORANGE }} />
                   </div>
-                  <h3 className="text-sm font-black uppercase tracking-widest text-gray-400 mb-3">
+                  <h3 className="text-xs font-semibold uppercase tracking-[0.1em] text-gray-400 mb-3">
                     {info.title}
                   </h3>
                   {info.link ? (
@@ -171,12 +162,13 @@ const ContactUs = () => {
                       href={info.link}
                       target={info.link.startsWith('http') ? '_blank' : undefined}
                       rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-[#0c1a36] font-bold text-base leading-relaxed hover:text-[#ff6b00] transition-colors whitespace-pre-line block"
+                      className="font-semibold text-[15px] leading-relaxed hover:opacity-70 transition-opacity whitespace-pre-line block"
+                      style={{ color: NAVY }}
                     >
                       {info.content}
                     </a>
                   ) : (
-                    <p className="text-[#0c1a36] font-bold text-base leading-relaxed whitespace-pre-line">
+                    <p className="font-semibold text-[15px] leading-relaxed whitespace-pre-line" style={{ color: NAVY }}>
                       {info.content}
                     </p>
                   )}
@@ -188,38 +180,38 @@ const ContactUs = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-32 px-6 bg-gray-50">
+      <section className="py-24" style={{ backgroundColor: GREY }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-14 items-start">
             {/* Left Column — Information */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: 0.6 }}
             >
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>
                 Let's Connect
-              </span>
-              <h2 className="text-4xl md:text-6xl font-black text-[#0c1a36] mb-6 leading-tight">
-                Tell Us About Your Business
+              </p>
+              <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-5" style={{ color: NAVY }}>
+                Tell us about your business
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed font-medium mb-8">
+              <p className="text-gray-600 leading-relaxed mb-8 text-[15px]">
                 Looking for custom software, AI automation, IT infrastructure, or a complete digital overhaul? Fill in the form and one of our Sri Lankan technology experts will respond within one business day — in Sinhala or English, whichever you prefer.
               </p>
 
               {/* WhatsApp Highlight */}
-              <div className="bg-green-50 border-2 border-green-200 rounded-2xl p-6 mb-8 flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-6 h-6 text-white" />
+              <div className="bg-white border border-gray-200 rounded-xl p-5 mb-5 flex items-center gap-4">
+                <div className="w-11 h-11 rounded-lg bg-green-50 ring-1 ring-green-100 flex items-center justify-center shrink-0">
+                  <MessageCircle className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-black text-green-800 mb-1">Prefer WhatsApp?</p>
+                  <p className="font-semibold text-[15px] mb-0.5" style={{ color: NAVY }}>Prefer WhatsApp?</p>
                   <a
                     href={`https://wa.me/${socialMedia.whatsapp}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-green-600 font-bold hover:text-green-700 transition-colors underline underline-offset-2"
+                    className="text-green-600 font-medium text-sm hover:text-green-700 transition-colors underline underline-offset-2"
                   >
                     Message us directly — we respond in Sinhala and English
                   </a>
@@ -227,22 +219,19 @@ const ContactUs = () => {
               </div>
 
               {/* Office Location Highlight */}
-              <div className="bg-gradient-to-br from-[#0c1a36] to-[#1a305c] rounded-3xl p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff6b00]/20 rounded-full blur-3xl"></div>
-                <div className="relative">
-                  <h3 className="text-sm font-black uppercase tracking-widest text-gray-400 mb-4">
-                    Our Location
-                  </h3>
-                  <p className="text-white font-bold text-xl mb-6 leading-relaxed">
-                    Mawaramandiya, Western Province, Sri Lanka
-                  </p>
-                  <div className="flex items-start gap-3 text-gray-300">
-                    <MapPin className="w-5 h-5 text-[#ff6b00] mt-1 shrink-0" />
-                    <div>
-                      <p className="font-medium">BloomTech.lk</p>
-                      <p className="font-medium">XXPG+VXF, Makola - Udupila Rd</p>
-                      <p className="font-medium">Mawaramandiya, Sri Lanka</p>
-                    </div>
+              <div className="rounded-xl p-7" style={{ backgroundColor: NAVY }}>
+                <h3 className="text-xs font-semibold uppercase tracking-[0.1em] text-white/45 mb-3">
+                  Our Location
+                </h3>
+                <p className="text-white font-semibold text-lg mb-5 leading-relaxed">
+                  Mawaramandiya, Western Province, Sri Lanka
+                </p>
+                <div className="flex items-start gap-3 text-white/65">
+                  <MapPin className="w-4 h-4 mt-1 shrink-0" style={{ color: ORANGE }} />
+                  <div className="text-sm leading-relaxed">
+                    <p>BloomTech.lk</p>
+                    <p>XXPG+VXF, Makola - Udupila Rd</p>
+                    <p>Mawaramandiya, Sri Lanka</p>
                   </div>
                 </div>
               </div>
@@ -250,27 +239,27 @@ const ContactUs = () => {
 
             {/* Right Column — Form */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="bg-white rounded-3xl p-10 shadow-2xl border-2 border-gray-100"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white rounded-xl p-8 md:p-10 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)]"
             >
               {isSubmitted ? (
                 <div className="flex flex-col items-center justify-center py-20">
-                  <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mb-6">
-                    <CheckCircle className="w-10 h-10 text-green-600" />
+                  <div className="w-16 h-16 rounded-full bg-green-50 ring-1 ring-green-100 flex items-center justify-center mb-6">
+                    <CheckCircle className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="text-3xl font-black text-[#0c1a36] mb-4">Message Sent!</h3>
-                  <p className="text-gray-600 text-center font-medium">
+                  <h3 className="text-2xl font-bold mb-3" style={{ color: NAVY }}>Message Sent!</h3>
+                  <p className="text-gray-500 text-center text-[15px]">
                     Thank you for reaching out. A member of our team will get back to you within one business day.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Name Field */}
                   <div>
-                    <label htmlFor="name" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
                       Your Name
                     </label>
                     <input
@@ -279,14 +268,15 @@ const ContactUs = () => {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
+                      className="w-full px-4 py-3.5 rounded-lg border border-gray-300 focus:border-[#FF6B00] focus:outline-none focus:ring-1 focus:ring-[#FF6B00] transition-colors text-[15px]"
+                      style={{ color: NAVY }}
                       placeholder="Kamal Perera"
                     />
                   </div>
 
                   {/* Email Field */}
                   <div>
-                    <label htmlFor="email" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                       Email Address
                     </label>
                     <input
@@ -295,17 +285,18 @@ const ContactUs = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
+                      className="w-full px-4 py-3.5 rounded-lg border border-gray-300 focus:border-[#FF6B00] focus:outline-none focus:ring-1 focus:ring-[#FF6B00] transition-colors text-[15px]"
+                      style={{ color: NAVY }}
                       placeholder="kamal@yourcompany.lk"
                     />
-                    <p className="text-xs text-gray-500 mt-2 font-medium">
+                    <p className="text-xs text-gray-400 mt-1.5">
                       We'll use this to send you relevant information and proposals
                     </p>
                   </div>
 
                   {/* Company Field */}
                   <div>
-                    <label htmlFor="company" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
+                    <label htmlFor="company" className="block text-sm font-semibold text-gray-700 mb-2">
                       Company / Organisation
                     </label>
                     <input
@@ -314,17 +305,18 @@ const ContactUs = () => {
                       required
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36]"
+                      className="w-full px-4 py-3.5 rounded-lg border border-gray-300 focus:border-[#FF6B00] focus:outline-none focus:ring-1 focus:ring-[#FF6B00] transition-colors text-[15px]"
+                      style={{ color: NAVY }}
                       placeholder="Your Business or Organisation"
                     />
                   </div>
 
                   {/* Area of Interest */}
                   <div>
-                    <label className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
                       I'm Interested In
                     </label>
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                       {interestOptions.map((interest, i) => (
                         <label
                           key={i}
@@ -334,9 +326,9 @@ const ContactUs = () => {
                             type="checkbox"
                             checked={formData.interests.includes(interest)}
                             onChange={() => handleInterestToggle(interest)}
-                            className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-[#ff6b00] focus:ring-[#ff6b00] cursor-pointer"
+                            className="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#FF6B00] focus:ring-[#FF6B00] cursor-pointer"
                           />
-                          <span className="text-gray-700 font-medium group-hover:text-[#ff6b00] transition-colors">
+                          <span className="text-gray-600 text-sm group-hover:text-[#0c1a36] transition-colors">
                             {interest}
                           </span>
                         </label>
@@ -346,7 +338,7 @@ const ContactUs = () => {
 
                   {/* Message Field */}
                   <div>
-                    <label htmlFor="message" className="block text-sm font-black uppercase tracking-wider text-gray-700 mb-2">
+                    <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
                       Tell Us About Your Project
                     </label>
                     <textarea
@@ -355,28 +347,30 @@ const ContactUs = () => {
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-[#ff6b00] focus:outline-none transition-colors font-medium text-[#0c1a36] resize-none"
+                      className="w-full px-4 py-3.5 rounded-lg border border-gray-300 focus:border-[#FF6B00] focus:outline-none focus:ring-1 focus:ring-[#FF6B00] transition-colors text-[15px] resize-none"
+                      style={{ color: NAVY }}
                       placeholder="Briefly describe what you're trying to achieve or the challenge you're facing"
                     />
                   </div>
 
                   {/* Error Message */}
                   {error && (
-                    <p className="text-red-600 text-sm font-bold">{error}</p>
+                    <p className="text-red-600 text-sm font-medium">{error}</p>
                   )}
 
                   {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full px-8 py-5 bg-[#ff6b00] text-white rounded-2xl font-black text-lg hover:bg-[#e65c00] hover:shadow-[0_0_40px_rgba(255,107,0,0.6)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none transition-all flex items-center justify-center gap-3 group"
+                    className="w-full px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] transition-all flex items-center justify-center gap-2 group"
+                    style={{ backgroundColor: ORANGE }}
                   >
                     {loading ? (
-                      <div className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                     ) : (
                       <>
                         Send Message
-                        <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
                   </button>
@@ -388,77 +382,53 @@ const ContactUs = () => {
       </section>
 
       {/* Social Media Section */}
-      <section className="py-32 px-6 bg-[#0c1a36] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
-        <div className="absolute top-20 right-20 w-96 h-96 bg-[#ff6b00]/10 rounded-full blur-[120px]"></div>
-
+      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={vp}
+            transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>
               Connect With Us
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+            </p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-5 text-white">
               Follow BloomTech.lk
             </h2>
-            <p className="text-xl text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-white/60 leading-relaxed mb-12 max-w-2xl mx-auto text-[15px]">
               Stay updated with the latest technology insights, success stories, and innovations from Sri Lanka's premier technology partner.
             </p>
 
             {/* Social Media Icons */}
-            <div className="flex flex-wrap items-center justify-center gap-6">
-              <a
-                href={socialMedia.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-500 hover:to-cyan-500 hover:border-transparent transition-all"
-              >
-                <Linkedin className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
-              </a>
-              <a
-                href={socialMedia.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-400 hover:to-blue-600 hover:border-transparent transition-all"
-              >
-                <Twitter className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
-              </a>
-              <a
-                href={socialMedia.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-blue-500 hover:to-blue-700 hover:border-transparent transition-all"
-              >
-                <Facebook className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
-              </a>
-              <a
-                href={socialMedia.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500 hover:border-transparent transition-all"
-              >
-                <Instagram className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
-              </a>
-              <a
-                href={`https://wa.me/${socialMedia.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group w-20 h-20 rounded-2xl bg-white/5 backdrop-blur-sm border-2 border-white/10 flex items-center justify-center hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:border-transparent transition-all"
-              >
-                <MessageCircle className="w-9 h-9 text-white group-hover:scale-110 transition-transform" />
-              </a>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {[
+                { icon: Linkedin, href: socialMedia.linkedin, label: 'LinkedIn' },
+                { icon: Twitter, href: socialMedia.twitter, label: 'X (Twitter)' },
+                { icon: Facebook, href: socialMedia.facebook, label: 'Facebook' },
+                { icon: Instagram, href: socialMedia.instagram, label: 'Instagram' },
+                { icon: MessageCircle, href: `https://wa.me/${socialMedia.whatsapp}`, label: 'WhatsApp' },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="group w-14 h-14 rounded-lg flex items-center justify-center border border-white/10 hover:border-white/25 transition-all"
+                  style={{ backgroundColor: 'rgba(255,107,0,0.1)' }}
+                >
+                  <Icon className="w-6 h-6" style={{ color: ORANGE }} />
+                </a>
+              ))}
             </div>
 
             {/* Note */}
-            <div className="mt-16 max-w-2xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8">
-                <p className="text-gray-300 font-medium leading-relaxed">
-                  <span className="text-[#ff6b00] font-black">Coming Soon:</span> Follow us across social platforms for exclusive technology insights, behind-the-scenes content, Sri Lankan business success stories, and the latest innovations from BloomTech.lk.
+            <div className="mt-12 max-w-2xl mx-auto">
+              <div className="rounded-xl p-6 border border-white/10" style={{ backgroundColor: '#16233F' }}>
+                <p className="text-white/60 leading-relaxed text-sm">
+                  <span className="font-semibold" style={{ color: ORANGE }}>Coming Soon:</span> Follow us across social platforms for exclusive technology insights, behind-the-scenes content, Sri Lankan business success stories, and the latest innovations from BloomTech.lk.
                 </p>
               </div>
             </div>
@@ -467,42 +437,43 @@ const ContactUs = () => {
       </section>
 
       {/* Map Section */}
-      <section className="py-20 px-6 bg-white">
+      <section className="py-24 bg-white">
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            viewport={vp}
+            transition={{ duration: 0.6 }}
           >
-            <div className="text-center mb-12">
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4 block">
+            <div className="text-center mb-10 max-w-2xl mx-auto">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>
                 Visit Us
-              </span>
-              <h2 className="text-4xl md:text-5xl font-black text-[#0c1a36] mb-4 leading-tight">
-                Find Us in Mawaramandiya
+              </p>
+              <h2 className="text-3xl md:text-[2.25rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
+                Find us in Mawaramandiya
               </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto font-medium">
+              <p className="text-gray-500 leading-relaxed text-[15px]">
                 Conveniently located in the Western Province — easily accessible from Colombo, Kandy, and across the island.
               </p>
             </div>
 
-            <div className="rounded-[32px] overflow-hidden shadow-2xl border-4 border-gray-100">
-              <div className="p-6 bg-gradient-to-r from-[#ff6b00] to-orange-600 flex items-center justify-between">
+            <div className="rounded-xl overflow-hidden border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)]">
+              <div className="p-5 flex items-center justify-between gap-4" style={{ backgroundColor: NAVY }}>
                 <div>
-                  <h3 className="text-white font-black text-lg mb-1">BloomTech.lk — Sri Lanka Headquarters</h3>
-                  <p className="text-white/80 text-sm font-medium">XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</p>
+                  <h3 className="text-white font-semibold text-[15px] mb-0.5">BloomTech.lk — Sri Lanka Headquarters</h3>
+                  <p className="text-white/55 text-sm">XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</p>
                 </div>
                 <a
                   href="https://maps.app.goo.gl/Zvg7bWkgNqJ77Fek6"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-white text-[#ff6b00] rounded-xl font-black text-sm uppercase tracking-wider hover:bg-gray-100 transition-all"
+                  className="px-5 py-2.5 bg-white rounded-lg font-semibold text-sm hover:bg-gray-100 transition-all shrink-0"
+                  style={{ color: NAVY }}
                 >
                   Open in Maps
                 </a>
               </div>
-              <div className="h-[500px] bg-gray-100">
+              <div className="h-[460px] bg-gray-100">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962!2d80.013!3d7.085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f9000ffceaed%3A0xd3ff39b6e7954358!2sBloomTech%20Pvt%20Ltd!5e0!3m2!1sen!2slk!4v1746000000000!5m2!1sen!2slk"
                   width="100%"

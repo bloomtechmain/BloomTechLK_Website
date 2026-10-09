@@ -3,16 +3,22 @@ import { motion } from 'framer-motion';
 import {
   BookOpen, Clock, CreditCard, BarChart3, Users, Layers, Package,
   FileText, Bell, Shield, Lock, ArrowRight, TrendingUp,
-  Database, Briefcase, PieChart, Building2, UserCheck, Zap, Star,
+  Database, Briefcase, Building2, UserCheck, Zap, Star,
 } from 'lucide-react';
+import { NAVY_RAISED } from '../../../styles/designTokens';
 
 interface BloomAuditContentProps {
   onOpenModal: () => void;
 }
 
+// BloomAudit keeps its own established product-brand accent (teal/blue),
+// distinct from the parent BloomTech.lk navy/orange identity — preserved
+// as-is; only the card structure/effects were restyled to the house system.
 const TEAL = '#00cba9';
 const TEAL_DIM = 'rgba(0,203,169,0.12)';
 const BLUE = '#1c3bd8';
+
+const vp = { once: true, margin: '-80px' } as const;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -160,25 +166,25 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
   return (
     <section className="py-20 relative">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div className="max-w-[1200px] mx-auto px-6 xl:px-0">
 
         {/* ── FEATURES GRID ─────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-20 mt-10"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="h-10 w-2 rounded-full" style={{ background: TEAL }} />
-            <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-8 w-1 rounded-full" style={{ background: TEAL }} />
+            <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
               10 Modules. One Platform.
-              <span className="block text-xl text-white/50 font-medium mt-1 tracking-normal">Click any card to learn more</span>
+              <span className="block text-base text-white/50 font-normal mt-1.5">Click any card to learn more</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
             {features.map((f, i) => {
               const Icon = f.icon;
               const isOpen = openFeature === i;
@@ -186,20 +192,21 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
                 <div
                   key={i}
                   onClick={() => setOpenFeature(isOpen ? null : i)}
-                  className={`bg-white/5 backdrop-blur-md border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:-translate-y-1 ${
-                    isOpen ? 'border-[#00cba9]/50 bg-white/10' : 'border-white/10 hover:border-[#00cba9]/30'
-                  } ${isOpen ? 'col-span-2 md:col-span-3 lg:col-span-2' : ''}`}
+                  className={`rounded-xl p-5 cursor-pointer border transition-colors ${
+                    isOpen ? 'col-span-2 md:col-span-3 lg:col-span-2' : ''
+                  }`}
+                  style={{ backgroundColor: NAVY_RAISED, borderColor: isOpen ? 'rgba(0,203,169,0.4)' : 'rgba(255,255,255,0.1)' }}
                 >
                   <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-colors"
+                    className="w-10 h-10 rounded-lg flex items-center justify-center mb-3.5 transition-colors"
                     style={{ background: isOpen ? TEAL : TEAL_DIM }}
                   >
-                    <Icon size={20} color={isOpen ? '#fff' : TEAL} />
+                    <Icon size={18} color={isOpen ? '#fff' : TEAL} />
                   </div>
-                  <h3 className="text-sm font-black text-white mb-1">{f.title}</h3>
-                  <p className="text-xs text-white/50 font-medium leading-relaxed">{f.short}</p>
+                  <h3 className="text-sm font-semibold text-white mb-1">{f.title}</h3>
+                  <p className="text-xs text-white/50 leading-relaxed">{f.short}</p>
                   {isOpen && (
-                    <p className="text-xs text-white/70 font-medium leading-relaxed mt-3 pt-3 border-t border-white/10">
+                    <p className="text-xs text-white/65 leading-relaxed mt-3 pt-3 border-t border-white/10">
                       {f.detail}
                     </p>
                   )}
@@ -211,38 +218,36 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── ADD-ONS ───────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="flex items-center gap-3 mb-12">
-            <div className="h-10 w-2 rounded-full" style={{ background: BLUE }} />
-            <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-8 w-1 rounded-full" style={{ background: BLUE }} />
+            <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
               Extend With Add-Ons
-              <span className="block text-xl text-white/50 font-medium mt-1 tracking-normal">Available as optional extras on any plan</span>
+              <span className="block text-base text-white/50 font-normal mt-1.5">Available as optional extras on any plan</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
             {addons.map((addon, i) => {
               const Icon = addon.icon;
               return (
                 <div
                   key={i}
-                  className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-white/10 hover:border-[#00cba9]/30 transition-all duration-300 hover:-translate-y-1"
+                  className="rounded-xl p-5 border border-white/10 hover:border-white/20 transition-colors"
+                  style={{ backgroundColor: NAVY_RAISED }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: TEAL_DIM }}
-                  >
-                    <Icon size={18} style={{ color: TEAL }} />
+                  <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3.5" style={{ background: TEAL_DIM }}>
+                    <Icon size={16} style={{ color: TEAL }} />
                   </div>
-                  <h4 className="text-sm font-black text-white mb-2">{addon.name}</h4>
-                  <p className="text-xs font-medium text-white/50 leading-relaxed">{addon.desc}</p>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">{addon.name}</h4>
+                  <p className="text-xs text-white/50 leading-relaxed">{addon.desc}</p>
                   <span
-                    className="inline-block mt-3 text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded"
+                    className="inline-block mt-3 text-[10px] font-semibold uppercase tracking-wide px-2 py-0.5 rounded"
                     style={{ color: TEAL, background: TEAL_DIM }}
                   >
                     Available Add-On
@@ -255,49 +260,46 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── FOR ACCOUNTANTS ──────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <span
-              className="inline-block text-[10px] font-black uppercase tracking-[0.3em] mb-4 px-4 py-1 rounded-full border"
+              className="inline-block text-xs font-semibold uppercase tracking-[0.12em] mb-4 px-3.5 py-1 rounded-full border"
               style={{ color: TEAL, background: TEAL_DIM, borderColor: 'rgba(0,203,169,0.3)' }}
             >
               For Accountants
             </span>
-            <h2 className="text-3xl lg:text-5xl font-black text-white tracking-tighter mb-3">
+            <h2 className="text-2xl lg:text-[2.5rem] font-bold text-white tracking-tight mb-3">
               A Dedicated Suite for<br />
               <span style={{ color: TEAL }}>Accounting Professionals</span>
             </h2>
-            <p className="text-white/50 font-medium max-w-2xl mx-auto">
+            <p className="text-white/55 max-w-2xl mx-auto text-[15px]">
               Bloom Audit goes beyond a single business. Firms get a full command centre to manage multiple clients, workpapers, and analytics.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {accountantTools.map((tool, i) => {
               const Icon = tool.icon;
               return (
                 <div
                   key={i}
-                  className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 overflow-hidden group hover:bg-white/8 hover:border-[#00cba9]/25 transition-all duration-300"
+                  className="rounded-xl p-7 border border-white/10 hover:border-white/20 transition-colors"
+                  style={{ backgroundColor: NAVY_RAISED }}
                 >
                   <div
-                    className="absolute top-0 right-0 w-24 h-24 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ background: 'rgba(0,203,169,0.18)' }}
-                  />
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform"
-                    style={{ background: `linear-gradient(135deg, ${TEAL}, #00e8c4)` }}
+                    className="w-12 h-12 rounded-lg flex items-center justify-center mb-5"
+                    style={{ background: TEAL_DIM }}
                   >
-                    <Icon size={26} color="#fff" />
+                    <Icon size={22} style={{ color: TEAL }} />
                   </div>
-                  <h3 className="text-lg font-black text-white mb-1">{tool.name}</h3>
-                  <p className="text-[10px] font-black uppercase tracking-widest mb-4" style={{ color: TEAL }}>{tool.sub}</p>
-                  <p className="text-sm font-medium text-white/60 leading-relaxed">{tool.desc}</p>
+                  <h3 className="text-lg font-semibold text-white mb-1">{tool.name}</h3>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide mb-3" style={{ color: TEAL }}>{tool.sub}</p>
+                  <p className="text-sm text-white/60 leading-relaxed">{tool.desc}</p>
                 </div>
               );
             })}
@@ -306,26 +308,25 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-white tracking-tighter mb-3">
+          <div className="text-center mb-14">
+            <h2 className="text-2xl lg:text-[2.5rem] font-bold text-white tracking-tight mb-3">
               Up and Running in Three Steps
             </h2>
-            <p className="text-white/50 font-medium max-w-xl mx-auto">
+            <p className="text-white/55 max-w-xl mx-auto text-[15px]">
               We make onboarding seamless — from your first consultation to full platform access.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Connector line on desktop */}
             <div
-              className="hidden md:block absolute top-14 left-[22%] right-[22%] h-0.5"
-              style={{ background: `linear-gradient(90deg, ${TEAL}, ${BLUE})` }}
+              className="hidden md:block absolute top-10 left-[22%] right-[22%] h-px"
+              style={{ background: `linear-gradient(90deg, ${TEAL}, ${BLUE})`, opacity: 0.4 }}
             />
             {[
               { n: '1', title: 'Book a Consultation', desc: 'Schedule a one-on-one session for a thorough analysis of your financial requirements, business size, and goals.' },
@@ -334,13 +335,13 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
             ].map((step, i) => (
               <div key={i} className="text-center relative z-10">
                 <div
-                  className="w-28 h-28 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl font-black text-white"
-                  style={{ background: `linear-gradient(135deg, ${TEAL}, #00e8c4)`, boxShadow: `0 12px 32px rgba(0,203,169,0.35)` }}
+                  className="w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-5 text-2xl font-bold text-white border"
+                  style={{ backgroundColor: NAVY_RAISED, borderColor: TEAL }}
                 >
                   {step.n}
                 </div>
-                <h3 className="text-xl font-black text-white mb-3">{step.title}</h3>
-                <p className="text-sm font-medium text-white/60 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
+                <h3 className="text-lg font-semibold text-white mb-2.5">{step.title}</h3>
+                <p className="text-sm text-white/55 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -348,21 +349,21 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── BUSINESS TYPES ───────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="flex items-center gap-3 mb-12">
-            <div className="h-10 w-2 rounded-full" style={{ background: TEAL }} />
-            <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight">
+          <div className="flex items-center gap-3 mb-10">
+            <div className="h-8 w-1 rounded-full" style={{ background: TEAL }} />
+            <h2 className="text-2xl lg:text-3xl font-bold text-white tracking-tight">
               Built for Every Stage of Growth
-              <span className="block text-xl text-white/50 font-medium mt-1 tracking-normal">From solo freelancers to enterprise firms</span>
+              <span className="block text-base text-white/50 font-normal mt-1.5">From solo freelancers to enterprise firms</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
             {[
               { icon: Users, title: 'Freelancers', desc: 'Simple income tracking and professional reports without accountant fees. Start with Basic from LKR 7,499/mo.' },
               { icon: Briefcase, title: 'Small Teams', desc: 'Multi-user access, vendor management, and project tracking for teams up to 5. The Standard plan covers everything.' },
@@ -373,16 +374,14 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
               return (
                 <div
                   key={i}
-                  className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-7 text-center hover:bg-white/10 hover:border-[#00cba9]/30 transition-all duration-300 hover:-translate-y-2 group"
+                  className="rounded-xl p-6 text-center border border-white/10 hover:border-white/20 transition-colors"
+                  style={{ backgroundColor: NAVY_RAISED }}
                 >
-                  <div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:scale-105 transition-transform"
-                    style={{ background: TEAL_DIM }}
-                  >
-                    <Icon size={28} style={{ color: TEAL }} />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4" style={{ background: TEAL_DIM }}>
+                    <Icon size={22} style={{ color: TEAL }} />
                   </div>
-                  <h4 className="text-base font-black text-white mb-2">{biz.title}</h4>
-                  <p className="text-xs font-medium text-white/55 leading-relaxed">{biz.desc}</p>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">{biz.title}</h4>
+                  <p className="text-xs text-white/55 leading-relaxed">{biz.desc}</p>
                 </div>
               );
             })}
@@ -391,39 +390,40 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-black text-white tracking-tighter mb-3">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl lg:text-[2.5rem] font-bold text-white tracking-tight">
               Trusted by Sri Lankan Businesses
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {testimonials.map((t, i) => (
               <div
                 key={i}
-                className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 flex flex-col hover:bg-white/10 hover:border-[#00cba9]/30 transition-all duration-300 hover:-translate-y-1"
+                className="rounded-xl p-7 flex flex-col border border-white/10 hover:border-white/20 transition-colors"
+                style={{ backgroundColor: NAVY_RAISED }}
               >
-                <div className="flex gap-1 mb-5">
+                <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, s) => (
-                    <Star key={s} size={14} fill="#f59e0b" color="#f59e0b" />
+                    <Star key={s} size={13} fill="#f59e0b" color="#f59e0b" />
                   ))}
                 </div>
-                <p className="text-sm font-medium text-white/70 leading-relaxed italic flex-1 mb-6">{t.quote}</p>
-                <div className="flex items-center gap-4 pt-5 border-t border-white/10">
+                <p className="text-sm text-white/65 leading-relaxed italic flex-1 mb-6">{t.quote}</p>
+                <div className="flex items-center gap-3.5 pt-5 border-t border-white/10">
                   <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-black text-white shrink-0"
-                    style={{ background: `linear-gradient(135deg, ${TEAL}, #00e8c4)` }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold text-white shrink-0"
+                    style={{ background: TEAL }}
                   >
                     {t.initials}
                   </div>
                   <div>
-                    <p className="text-sm font-black text-white">{t.name}</p>
-                    <p className="text-[10px] font-black uppercase tracking-wider" style={{ color: TEAL }}>{t.role}</p>
+                    <p className="text-sm font-semibold text-white">{t.name}</p>
+                    <p className="text-[11px] uppercase tracking-wide" style={{ color: TEAL }}>{t.role}</p>
                   </div>
                 </div>
               </div>
@@ -433,41 +433,39 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── TRUST & SECURITY ─────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-32"
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-24"
         >
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <span
-              className="inline-block text-[10px] font-black uppercase tracking-[0.3em] mb-4 px-4 py-1 rounded-full border"
+              className="inline-block text-xs font-semibold uppercase tracking-[0.12em] mb-4 px-3.5 py-1 rounded-full border"
               style={{ color: TEAL, background: TEAL_DIM, borderColor: 'rgba(0,203,169,0.3)' }}
             >
               Trust &amp; Security
             </span>
-            <h2 className="text-3xl lg:text-5xl font-black text-white tracking-tighter mb-3">
+            <h2 className="text-2xl lg:text-[2.5rem] font-bold text-white tracking-tight">
               Your Financial Data is{' '}
               <span style={{ color: TEAL }}>Secured at Every Layer</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {securityItems.map((item, i) => {
               const Icon = item.icon;
               return (
                 <div
                   key={i}
-                  className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-[#00cba9]/25 transition-all duration-300"
+                  className="rounded-xl p-6 border border-white/10 hover:border-white/20 transition-colors"
+                  style={{ backgroundColor: NAVY_RAISED }}
                 >
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: TEAL_DIM }}
-                  >
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center mb-3.5" style={{ background: TEAL_DIM }}>
                     <Icon size={18} style={{ color: TEAL }} />
                   </div>
-                  <h4 className="text-sm font-black text-white mb-2">{item.title}</h4>
-                  <p className="text-xs font-medium text-white/55 leading-relaxed">{item.desc}</p>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">{item.title}</h4>
+                  <p className="text-xs text-white/55 leading-relaxed">{item.desc}</p>
                 </div>
               );
             })}
@@ -476,44 +474,34 @@ export const BloomAuditContent = ({ onOpenModal }: BloomAuditContentProps) => {
 
         {/* ── FINAL CTA ────────────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative overflow-hidden rounded-[50px] border border-white/10 p-10 lg:p-20 text-center"
-          style={{ background: `linear-gradient(135deg, rgba(0,203,169,0.12) 0%, rgba(14,59,94,0.6) 50%, rgba(28,59,216,0.1) 100%)` }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={vp}
+          transition={{ duration: 0.5 }}
+          className="mb-10 rounded-xl border border-white/10 p-10 lg:p-16 text-center"
+          style={{ backgroundColor: NAVY_RAISED }}
         >
-          <div
-            className="absolute -top-24 -right-24 w-96 h-96 rounded-full blur-[120px] pointer-events-none"
-            style={{ background: 'rgba(0,203,169,0.12)' }}
-          />
-          <div
-            className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full blur-[120px] pointer-events-none"
-            style={{ background: 'rgba(28,59,216,0.1)' }}
-          />
-          <div className="relative z-10">
-            <h2 className="text-4xl lg:text-7xl font-black text-white tracking-tighter mb-6 leading-[1.0]">
-              Ready to <span style={{ color: TEAL }}>Master</span><br />Your Finances?
-            </h2>
-            <p className="text-lg text-white/60 font-medium max-w-xl mx-auto mb-10">
-              Start with a free consultation — no commitment required. Our team will match you to the right plan.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <button
-                onClick={onOpenModal}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-black text-white transition-all hover:opacity-90 active:scale-95"
-                style={{ background: TEAL }}
-              >
-                Get Started Free
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={onOpenModal}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-base font-black text-white border border-white/20 transition-all hover:bg-white/10"
-              >
-                Book a Consultation
-              </button>
-            </div>
+          <h2 className="text-3xl lg:text-5xl font-bold text-white tracking-tight mb-5 leading-[1.1]">
+            Ready to <span style={{ color: TEAL }}>Master</span> Your Finances?
+          </h2>
+          <p className="text-lg text-white/60 max-w-xl mx-auto mb-9">
+            Start with a free consultation — no commitment required. Our team will match you to the right plan.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3.5">
+            <button
+              onClick={onOpenModal}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-lg text-base font-semibold text-white transition-all hover:opacity-90 active:scale-[0.98]"
+              style={{ background: TEAL, boxShadow: '0 8px 20px -6px rgba(0,203,169,0.45)' }}
+            >
+              Get Started Free
+              <ArrowRight size={18} />
+            </button>
+            <button
+              onClick={onOpenModal}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-lg text-base font-semibold text-white border border-white/20 transition-all hover:bg-white/10"
+            >
+              Book a Consultation
+            </button>
           </div>
         </motion.div>
 

@@ -13,33 +13,33 @@ interface DefaultServiceContentProps {
   benefits?: string[];
 }
 
-export const DefaultServiceContent = ({ 
-  serviceName, 
-  longDesc, 
-  features = [], 
-  benefits = [] 
+export const DefaultServiceContent = ({
+  serviceName,
+  longDesc,
+  features = [],
+  benefits = []
 }: DefaultServiceContentProps) => {
   return (
     <section className="py-20 relative">
-      <div className="max-w-[1200px] mx-auto px-6 xl:px-0 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-        
+      <div className="max-w-[1200px] mx-auto px-6 xl:px-0 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+
         {/* Left Column: Description & Features */}
         <div className="lg:col-span-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5 }}
           >
-            <h2 className="text-3xl font-black text-white mb-8 tracking-tight drop-shadow-sm">Overview</h2>
-            <p className="text-lg text-white/80 leading-relaxed mb-16">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 tracking-tight">Overview</h2>
+            <p className="text-white/65 leading-relaxed mb-14 text-[15px]">
               {longDesc || `Detailed information about ${serviceName} is currently being updated by our specialists. We deliver industry-leading solutions designed to accelerate your growth and secure your digital perimeter.`}
             </p>
 
             {features.length > 0 && (
-              <div className="mb-16">
-                <h3 className="text-2xl font-black text-white mb-8 tracking-tight drop-shadow-sm">Core Capabilities</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-7 tracking-tight">Core Capabilities</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {features.map((feature, idx) => (
                     <ServiceFeatureCard key={idx} feature={feature} index={idx} />
                   ))}
@@ -51,11 +51,11 @@ export const DefaultServiceContent = ({
 
         {/* Right Column: Benefits Sidebar */}
         <div className="lg:col-span-4">
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <ServiceBenefitsSidebar benefits={benefits} />
           </motion.div>

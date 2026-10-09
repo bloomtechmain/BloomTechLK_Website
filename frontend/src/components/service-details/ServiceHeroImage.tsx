@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { Shield, Cpu } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 /**
  * ServiceHeroImage Component
- * Hero image section with decorative overlay and badge
+ * Hero image section for service detail pages
  */
 interface ServiceHeroImageProps {
   imageUrl?: string;
@@ -13,29 +13,26 @@ interface ServiceHeroImageProps {
 export const ServiceHeroImage = ({ imageUrl, serviceName }: ServiceHeroImageProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, x: 30 }}
-      animate={{ opacity: 1, scale: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
+      initial={{ opacity: 0, x: 24 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 0.15 }}
       className="relative"
     >
-      <div className="relative z-10 rounded-[40px] overflow-hidden shadow-2xl border border-white/20 group">
+      <div className="relative rounded-xl overflow-hidden shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)] border border-white/10">
         {imageUrl ? (
-          <img 
-            src={imageUrl} 
-            alt={serviceName} 
-            className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+          <img
+            src={imageUrl}
+            alt={serviceName}
+            className="w-full h-full object-cover"
           />
         ) : (
-          <div className="w-full h-[400px] bg-gradient-to-br from-[#ff6b00]/20 to-[#0c1a36] flex items-center justify-center">
-            <Cpu size={80} className="text-white/20" />
+          <div className="w-full h-[400px] bg-[#16233F] flex items-center justify-center">
+            <Cpu size={64} className="text-white/15" />
           </div>
         )}
-        {/* Decorative overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c1a36]/60 via-transparent to-transparent opacity-60"></div>
+        {/* Flat scrim for any overlaid text/edge blending */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#101D36]/50 via-transparent to-transparent" />
       </div>
-
-      {/* Backglow for the image */}
-      <div className="absolute -inset-4 bg-gradient-to-tr from-[#ff6b00]/30 to-blue-500/30 blur-3xl -z-10 rounded-[40px]"></div>
     </motion.div>
   );
 };

@@ -4,20 +4,20 @@ import { socialMedia } from '../utils/seoConfig';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0c1a36] text-white py-24 px-6">
+    <footer className="bg-[#101D36] text-white py-20 px-6">
       <div className="max-w-[1550px] mx-auto px-6 xl:px-12 flex flex-col items-center">
         <div className="flex items-center gap-3 mb-16">
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden">
+          <div className="w-11 h-11 rounded-lg flex items-center justify-center overflow-hidden">
             <img src="/bloomtech-logo.png" alt="BloomTech Logo" className="w-full h-full object-cover" />
           </div>
-          <span className="text-4xl font-black tracking-tighter">BloomTech<span className="text-[#ff6b00]">LK</span></span>
+          <span className="text-3xl font-bold tracking-tight">BloomTech<span className="text-[#FF6B00]">LK</span></span>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 text-center md:text-left w-full border-y border-white/10 py-16 mb-12">
           {/* Services Column 1 — Consulting & Custom Software Solutions */}
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8">Services & Solutions</h5>
-            <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Services & Solutions</h5>
+            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
               <li><Link to="/services/professional-it-consulting" className="hover:text-[#ff6b00] transition-colors">Professional IT Consulting</Link></li>
               <li><Link to="/services/custom-crm-erp-solutions" className="hover:text-[#ff6b00] transition-colors">Custom CRM & ERP Solutions</Link></li>
               <li><Link to="/services/security-data-protection" className="hover:text-[#ff6b00] transition-colors">Security & Data Protection</Link></li>
@@ -28,8 +28,8 @@ const Footer = () => {
 
           {/* Services Column 2 — Suite of Applications */}
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8 opacity-0 pointer-events-none">Services</h5>
-            <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7 opacity-0 pointer-events-none">Services</h5>
+            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
               <li><Link to="/services/bloomaudit" className="hover:text-[#ff6b00] transition-colors">BloomAudit</Link></li>
               <li><Link to="/services/bloomlto" className="hover:text-[#ff6b00] transition-colors">BloomLTO</Link></li>
               <li><Link to="/services/bloomswift-pos" className="hover:text-[#ff6b00] transition-colors">BloomSwift POS</Link></li>
@@ -39,8 +39,8 @@ const Footer = () => {
 
           {/* Services Column 3 — Online Presence & AI Development */}
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8 opacity-0 pointer-events-none">Services</h5>
-            <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7 opacity-0 pointer-events-none">Services</h5>
+            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
               <li><Link to="/services/search-engine-optimization" className="hover:text-[#ff6b00] transition-colors">Search Engine Optimization</Link></li>
               <li><Link to="/services/custom-websites-design" className="hover:text-[#ff6b00] transition-colors">Custom Website Design</Link></li>
               <li><Link to="/services/online-marketing-services" className="hover:text-[#ff6b00] transition-colors">Online Marketing Services</Link></li>
@@ -49,15 +49,15 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8">Company</h5>
-            <ul className="space-y-4 text-sm font-bold opacity-60 uppercase">
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Company</h5>
+            <ul className="space-y-3 text-[13px] font-medium text-white/55">
               <li><Link to="/company" className="hover:text-[#ff6b00] transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-[#ff6b00] transition-colors">Contact</Link></li>
               <li><Link to="/company#mission" className="hover:text-[#ff6b00] transition-colors">Our Mission</Link></li>
             </ul>
           </div>
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8">Find Us On</h5>
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Find Us On</h5>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <a 
                 href={socialMedia.facebook}
@@ -107,23 +107,23 @@ const Footer = () => {
             </div>
           </div>
           <div>
-            <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8">Contact Us Directly</h5>
+            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Contact Us Directly</h5>
             <div className="space-y-4">
-              <div className="flex items-start gap-2 text-sm opacity-60">
+              <div className="flex items-start gap-2.5 text-sm text-white/55">
                 <Phone size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="font-bold hover:text-[#ff6b00] transition-colors">
+                <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="font-medium text-white hover:text-[#FF6B00] transition-colors">
                   {socialMedia.phone}
                 </a>
               </div>
-              <div className="flex items-start gap-2 text-sm opacity-60">
+              <div className="flex items-start gap-2.5 text-sm text-white/55">
                 <Mail size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <a href={`mailto:${socialMedia.email}`} className="font-bold hover:text-[#ff6b00] transition-colors">
+                <a href={`mailto:${socialMedia.email}`} className="font-medium text-white hover:text-[#FF6B00] transition-colors">
                   {socialMedia.email}
                 </a>
               </div>
-              <div className="flex items-start gap-2 text-sm opacity-60">
+              <div className="flex items-start gap-2.5 text-sm text-white/55">
                 <MapPin size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <span className="font-bold">
+                <span className="font-medium text-white">
                   Mawaramandiya, Western Province, Sri Lanka
                 </span>
               </div>
@@ -132,7 +132,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center w-full gap-8">
-          <div className="flex gap-6 text-[10px] font-black uppercase tracking-[0.2em] text-[#5b6e8a] items-center">
+          <div className="flex gap-6 text-xs font-medium uppercase tracking-wide text-white/40 items-center">
             <span>© 2026 BloomTech.lk</span>
             <a 
               href="https://bloomtech.lk" 

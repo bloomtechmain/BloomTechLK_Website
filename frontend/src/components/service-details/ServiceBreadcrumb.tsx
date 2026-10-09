@@ -11,13 +11,13 @@ interface ServiceBreadcrumbProps {
 
 export const ServiceBreadcrumb = ({ serviceName }: ServiceBreadcrumbProps) => {
   return (
-    <div className="flex items-center gap-2 text-sm font-bold text-[#ff6b00] uppercase tracking-widest mb-6 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-      <Link to="/" className="text-white/60 hover:text-white transition-colors">
+    <div className="flex items-center gap-2 text-sm font-medium text-white/50 mb-6">
+      <Link to="/" className="hover:text-white transition-colors">
         Home
       </Link>
-      <ChevronRight size={14} className="text-white/30" />
-      <span className="text-white/60">Services</span>
-      <ChevronRight size={14} className="text-white/30" />
+      <ChevronRight size={14} className="text-white/25" />
+      <span>Services</span>
+      <ChevronRight size={14} className="text-white/25" />
       <span className="truncate max-w-[150px] sm:max-w-none text-white">{serviceName}</span>
     </div>
   );

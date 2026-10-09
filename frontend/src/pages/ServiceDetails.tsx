@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { getSEOConfig } from '../utils/seoConfig';
+import { NAVY, ORANGE, FONT_SANS } from '../styles/designTokens';
 import {
   BackgroundGlows,
   ServiceBreadcrumb,
@@ -39,25 +40,23 @@ const ExpertFormModal = lazy(() => import('../components/ExpertFormModal'));
 
 const ServiceDetails = () => {
   const { serviceId } = useParams<{ serviceId: string }>();
-  const [service, setService] = useState<ServiceItem | null>(null);
+  const service: ServiceItem | null = useMemo(
+    () => (serviceId ? getServiceBySlug(serviceId) ?? null : null),
+    [serviceId]
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
-    if (serviceId) {
-      const foundService = getServiceBySlug(serviceId);
-      setService(foundService || null);
-    }
   }, [serviceId]);
 
   // Service not found page
   if (!service) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#ff6b00]/80 flex flex-col items-center justify-center pt-24 px-6">
-        <h1 className="text-4xl font-black text-white mb-4">Service Not Found</h1>
-        <p className="text-white/70 mb-8">The service you're looking for doesn't exist or has been moved.</p>
-        <Link to="/" className="flex items-center gap-2 bg-[#ff6b00] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#e65c00] transition-colors shadow-lg">
+      <div className="min-h-screen flex flex-col items-center justify-center pt-24 px-6" style={{ backgroundColor: NAVY, fontFamily: FONT_SANS }}>
+        <h1 className="text-4xl font-bold text-white mb-4">Service Not Found</h1>
+        <p className="text-white/60 mb-8">The service you're looking for doesn't exist or has been moved.</p>
+        <Link to="/" className="flex items-center gap-2 text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#e65c00] transition-colors shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)]" style={{ backgroundColor: ORANGE }}>
           <ArrowLeft size={18} /> Return Home
         </Link>
       </div>
@@ -68,7 +67,7 @@ const ServiceDetails = () => {
   const config = getServiceConfig(service.slug);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#ff6b00]/30 font-sans selection:bg-[#ff6b00] selection:text-white relative">
+    <div className="min-h-screen font-sans selection:bg-[#FF6B00] selection:text-white relative" style={{ backgroundColor: NAVY, fontFamily: FONT_SANS }}>
       <SEO 
         config={getSEOConfig('service', service.slug)}
         breadcrumbs={[
@@ -94,11 +93,11 @@ const ServiceDetails = () => {
               style={{ backgroundImage: `url(${config.heroBgImage})` }}
             />
             {/* Left-to-right: navy over text, image visible on right */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0c1a36] via-[#0c1a36]/90 to-[#0c1a36]/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#101D36] via-[#101D36]/90 to-[#101D36]/30" />
             {/* Top edge: blend from page navbar area */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0c1a36]/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#101D36]/70 via-transparent to-transparent" />
             {/* Bottom edge: blend into the page below */}
-            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0c1a36] to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#101D36] to-transparent" />
           </>
         )}
 
@@ -118,11 +117,11 @@ const ServiceDetails = () => {
                 <ServiceTagline icon={config.tagline.icon} text={config.tagline.text} />
               )}
 
-              <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.1] tracking-tighter mb-6 max-w-4xl drop-shadow-2xl">
+              <h1 className="text-4xl lg:text-[3.4rem] font-bold text-white leading-[1.1] tracking-tight mb-6 max-w-4xl">
                 {config.heroTitle || service.name}
               </h1>
 
-              <p className="text-xl lg:text-2xl text-blue-50/90 font-medium leading-relaxed max-w-3xl mb-12 drop-shadow-md">
+              <p className="text-lg lg:text-xl text-white/75 font-normal leading-relaxed max-w-3xl mb-10">
                 {config.heroDescription || service.desc}
               </p>
 

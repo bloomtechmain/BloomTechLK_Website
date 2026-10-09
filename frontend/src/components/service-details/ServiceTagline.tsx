@@ -11,8 +11,8 @@ interface ServiceTaglineProps {
 
 export const ServiceTagline = ({ icon: Icon, text }: ServiceTaglineProps) => {
   return (
-    <div className="text-[#ff6b00] font-black uppercase tracking-widest mb-4 flex items-center gap-2">
-      <Icon size={18} className="text-[#ff6b00]" />
+    <div className="text-[#FFB27A] text-sm font-semibold uppercase tracking-[0.12em] mb-4 flex items-center gap-2">
+      <Icon size={16} className="text-[#FFB27A]" />
       {text}
     </div>
   );

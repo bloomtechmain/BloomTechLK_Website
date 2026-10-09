@@ -18,17 +18,16 @@ interface ServiceCTAProps {
 
 export const ServiceCTA = ({ primaryButton, secondaryButton }: ServiceCTAProps) => {
   const PrimaryIcon = primaryButton.icon;
-  const SecondaryIcon = secondaryButton.icon;
 
   return (
-    <div className="flex flex-wrap items-center gap-4">
+    <div className="flex flex-wrap items-center gap-3.5">
       <button
         onClick={primaryButton.onClick}
-        className="bg-[#ff6b00] hover:bg-[#e65c00] text-white px-8 py-4 rounded-xl font-black text-[14px] uppercase tracking-widest transition-all shadow-lg shadow-orange-500/30 active:scale-95 flex items-center gap-2 group"
+        className="bg-[#FF6B00] hover:bg-[#e65c00] text-white px-8 py-4 rounded-lg font-semibold text-[15px] transition-all shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 active:scale-[0.98] flex items-center gap-2 group"
       >
-        {primaryButton.text} <PrimaryIcon size={18} className="group-hover:fill-white transition-all" />
+        {primaryButton.text} <PrimaryIcon size={18} />
       </button>
-      <button className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-black text-[14px] uppercase tracking-widest transition-all shadow-sm active:scale-95">
+      <button className="bg-white/[0.06] border border-white/25 hover:bg-white/[0.12] hover:border-white/40 text-white px-8 py-4 rounded-lg font-semibold text-[15px] transition-all active:scale-[0.98]">
         {secondaryButton.text}
       </button>
     </div>

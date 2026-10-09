@@ -2,14 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight, Brain, Server, Briefcase, Globe, ShieldCheck,
-  CheckCircle2, Zap, Award, Users, Target, Phone, MapPin,
+  CheckCircle2, Award, Target, Phone, MapPin,
   MessageCircle, Landmark, ShoppingBag, Heart, Package,
-  Factory, Building2, Cpu, ChevronRight
+  Cpu, ChevronRight
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
+import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS } from '../styles/designTokens';
 
 // Hero background videos - Desktop (1080p)
 import heroBg1 from '../assets/hero_bg_1.mp4';
@@ -32,7 +33,7 @@ import heroBg2Poster from '../assets/hero_bg_2.webp';
 import heroBg3Poster from '../assets/hero_bg_3.webp';
 
 // ─── animated counter hook ────────────────────────────────────────────────────
-function useCountUp(target: number, duration = 1800) {
+function useCountUp(target: number, duration = 1200) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -44,7 +45,7 @@ function useCountUp(target: number, duration = 1800) {
         const tick = (ts: number) => {
           if (!t0) t0 = ts;
           const p = Math.min((ts - t0) / duration, 1);
-          setCount(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+          setCount(Math.floor(p * target));
           if (p < 1) requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
@@ -58,13 +59,6 @@ function useCountUp(target: number, duration = 1800) {
 }
 
 // ─── data ─────────────────────────────────────────────────────────────────────
-const marqueeItems = [
-  'AI & Machine Learning', 'Custom ERP & CRM', 'BloomSwift POS',
-  'Cybersecurity', 'IT Infrastructure', 'Cloud Hosting',
-  'SEO & Digital Marketing', 'Network Engineering', 'BloomAudit',
-  'Custom Software', 'On-Premises AI', 'LTO Tape Archiving',
-];
-
 const trustIndustries = [
   { icon: Package,   label: 'Apparel & Garments' },
   { icon: Globe,     label: 'Tourism & Hospitality' },
@@ -80,43 +74,38 @@ const services = [
     title: 'AI & Machine Learning',
     desc: 'Custom AI agents, on-premise models, and document intelligence for Sri Lankan industries.',
     link: '/services/ai-machine-learning',
-    color: 'from-[#ff6b00] to-orange-500',
   },
   {
     icon: Server,
     title: 'Suite of Applications',
     desc: 'BloomSwift POS, BloomAudit, and BloomLTO — purpose-built for Sri Lankan businesses.',
     link: '/services/bloomswift-pos',
-    color: 'from-blue-500 to-cyan-500',
   },
   {
     icon: Briefcase,
     title: 'Strategic Business Applications',
     desc: 'Custom CRM, ERP, and cloud platforms that scale with your Sri Lankan enterprise.',
     link: '/services/custom-crm-erp-solutions',
-    color: 'from-purple-500 to-pink-500',
   },
   {
     icon: Globe,
     title: 'Digital Presence & Custom Software',
     desc: 'High-performance websites, QR/NFC apps, and SEO built for Sri Lanka\'s mobile-first audience.',
     link: '/services/custom-qr-nfc-applications',
-    color: 'from-green-500 to-emerald-500',
   },
   {
     icon: ShieldCheck,
     title: 'IT Advisory & Cybersecurity',
     desc: 'CISA-certified security, Zero Trust architecture, and compliance aligned with CBSL and SEC.',
     link: '/services/professional-it-consulting',
-    color: 'from-red-500 to-orange-500',
   },
 ];
 
 const sriLankaFeatures = [
-  { text: 'Bilingual Sinhala + English support across all products' },
-  { text: 'CBSL & SEC regulatory alignment for financial institutions' },
-  { text: 'Offline-capable applications built for intermittent connectivity' },
-  { text: 'On-site response across Colombo, Kandy, Galle and beyond' },
+  'Bilingual Sinhala + English support across all products',
+  'CBSL & SEC regulatory alignment for financial institutions',
+  'Offline-capable applications built for intermittent connectivity',
+  'On-site response across Colombo, Kandy, Galle and beyond',
 ];
 
 const industries = [
@@ -124,43 +113,31 @@ const industries = [
     icon: Package,
     name: 'Apparel & Garments',
     desc: 'Production tracking, ERP, and AI quality control for Sri Lanka\'s largest export sector.',
-    gradient: 'from-orange-500/10 to-amber-500/5',
-    border: 'hover:border-orange-400/40',
   },
   {
     icon: Globe,
     name: 'Tourism & Hospitality',
     desc: 'Hotel POS, QR menus, booking management, and smart workspace tech for Sri Lanka\'s resorts.',
-    gradient: 'from-blue-500/10 to-cyan-500/5',
-    border: 'hover:border-blue-400/40',
   },
   {
     icon: Landmark,
     name: 'Banking & Finance',
     desc: 'CBSL-aligned compliance software and AI document processing for banks and financial institutions.',
-    gradient: 'from-green-500/10 to-emerald-500/5',
-    border: 'hover:border-green-400/40',
   },
   {
     icon: Heart,
     name: 'Healthcare',
     desc: 'Patient management systems, medical record digitisation, and secure data infrastructure.',
-    gradient: 'from-red-500/10 to-rose-500/5',
-    border: 'hover:border-red-400/40',
   },
   {
     icon: ShoppingBag,
     name: 'Retail & E-Commerce',
     desc: 'Multi-location POS, inventory management, and e-commerce built for Sri Lankan retailers.',
-    gradient: 'from-purple-500/10 to-violet-500/5',
-    border: 'hover:border-purple-400/40',
   },
   {
     icon: Cpu,
     name: 'Manufacturing',
     desc: 'Production monitoring, asset tracking, and IoT integrations for factories across Sri Lanka.',
-    gradient: 'from-slate-500/10 to-zinc-500/5',
-    border: 'hover:border-slate-400/40',
   },
 ];
 
@@ -183,10 +160,12 @@ const advantages = [
 ];
 
 const differentiators = [
-  { num: '01', text: 'CISA-Certified Technology Team' },
-  { num: '02', text: 'Built for Sri Lanka\'s Infrastructure & Connectivity' },
-  { num: '03', text: '24/7 Remote + On-Site Support in English & Sinhala' },
+  'CISA-Certified Technology Team',
+  'Built for Sri Lanka\'s Infrastructure & Connectivity',
+  '24/7 Remote + On-Site Support in English & Sinhala',
 ];
+
+const vp = { once: true, margin: '-80px' } as const;
 
 // ─── component ────────────────────────────────────────────────────────────────
 const Home = () => {
@@ -222,24 +201,22 @@ const Home = () => {
     return () => clearInterval(timer);
   }, [videoSlides.length]);
 
-  const vp = { once: true, margin: '-40px' } as const;
-
   return (
-    <div className="bg-white">
+    <div style={{ fontFamily: FONT_SANS }}>
       <SEO config={seoConfigs.home} />
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="relative h-screen min-h-[800px] flex flex-col justify-center overflow-hidden">
+      <section className="relative min-h-[620px] h-[90vh] max-h-[760px] flex items-center overflow-hidden" style={{ backgroundColor: NAVY }}>
 
         {/* Video slideshow */}
-        <div className="absolute inset-0 z-0 bg-black">
+        <div className="absolute inset-0 z-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
-              initial={{ opacity: 0, scale: 1.08 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.04 }}
-              transition={{ duration: 1.4, ease: 'easeInOut' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8 }}
               className="absolute inset-0"
             >
               {isVideoLoaded ? (
@@ -268,48 +245,46 @@ const Home = () => {
               )}
             </motion.div>
           </AnimatePresence>
+          {/* Directional overlay for text contrast — single flat scrim, left-weighted */}
+          <div className="absolute inset-0" style={{ background: `linear-gradient(100deg, ${NAVY} 18%, rgba(16,29,54,0.78) 48%, rgba(16,29,54,0.42) 100%)` }} />
+          {/* Soft seam into the section below */}
+          <div className="absolute bottom-0 left-0 right-0 h-24" style={{ background: `linear-gradient(to top, ${NAVY}, transparent)`, opacity: 0.9 }} />
         </div>
 
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0c1a36]/92 via-[#0c1a36]/60 to-transparent z-10" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,_transparent_0%,_rgba(12,26,54,0.35)_100%)] z-10" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
-
         {/* Content */}
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12 relative z-20 w-full">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-20 w-full">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+            className="max-w-2xl"
           >
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2.5 px-5 py-2 mb-7 text-[11px] font-black tracking-[0.28em] text-white uppercase bg-[#ff6b00]/20 backdrop-blur-md border border-[#ff6b00]/30 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse shadow-[0_0_10px_#ff6b00]" />
-              <span>🇱🇰</span> Sri Lanka's Premier Technology Partner
+            <div className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
+              <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE_LIGHT }}>
+                Sri Lanka's Technology Partner
+              </p>
             </div>
 
-            {/* Headline — smaller, punchier */}
-            <h1 className="text-5xl md:text-7xl lg:text-[88px] font-black mb-5 leading-[0.88] tracking-[-0.04em] text-white">
-              Sri Lanka's<br />
-              <span className="text-[#ff6b00]">Technology Partner.</span>
+            <h1 className="text-[2.75rem] md:text-[3.4rem] font-bold mb-6 leading-[1.08] tracking-tight text-white">
+              Technology built for <span style={{ color: ORANGE }}>Sri Lankan businesses</span>
             </h1>
 
-            {/* One-line sub */}
-            <p className="max-w-xl text-white/80 text-lg md:text-xl mb-9 font-medium leading-relaxed">
-              AI, enterprise software, and custom IT infrastructure — built specifically for Sri Lankan businesses.
+            <p className="text-white/72 text-lg mb-10 leading-relaxed max-w-xl">
+              AI, enterprise software, and custom IT infrastructure — designed around how Sri Lankan companies actually operate.
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row gap-3.5">
               <Link
                 to="/services/ai-machine-learning"
-                className="w-full sm:w-auto px-10 py-4 bg-[#ff6b00] text-white rounded-2xl font-black text-base hover:bg-[#e65c00] hover:shadow-[0_0_40px_rgba(255,107,0,0.55)] transition-all flex items-center justify-center gap-3 group active:scale-[.97]"
+                className="px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
+                style={{ backgroundColor: ORANGE }}
               >
-                Explore Our Services <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Explore Our Services <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 to="/contact"
-                className="w-full sm:w-auto px-10 py-4 bg-white/10 backdrop-blur-md text-white border-2 border-white/20 rounded-2xl font-black text-base hover:bg-white hover:text-[#0c1a36] transition-all flex items-center justify-center"
+                className="px-8 py-4 bg-white/[0.06] text-white border border-white/25 rounded-lg font-semibold text-[15px] hover:bg-white/[0.12] hover:border-white/40 transition-all flex items-center justify-center"
               >
                 Book a Free Consultation
               </Link>
@@ -317,25 +292,14 @@ const Home = () => {
           </motion.div>
         </div>
 
-        {/* Marquee ticker strip */}
-        <div className="absolute bottom-16 left-0 right-0 z-20 overflow-hidden border-y border-white/8 bg-[#0c1a36]/40 backdrop-blur-sm py-3">
-          <div className="flex animate-marquee will-change-transform whitespace-nowrap">
-            {[...marqueeItems, ...marqueeItems].map((item, i) => (
-              <span key={i} className="inline-flex items-center gap-3 px-5 text-[12px] font-bold text-white/70 uppercase tracking-[0.15em]">
-                {item}
-                <span className="text-[#ff6b00] opacity-70">·</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
         {/* Slide indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
           {videoSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`h-1 rounded-full transition-all duration-500 ${i === currentSlide ? 'w-8 bg-[#ff6b00]' : 'w-2 bg-white/30'}`}
+              className={`h-1 rounded-full transition-all duration-500 ${i === currentSlide ? 'w-7' : 'w-1 bg-white/35 hover:bg-white/55'}`}
+              style={i === currentSlide ? { backgroundColor: ORANGE } : undefined}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
@@ -343,15 +307,17 @@ const Home = () => {
       </section>
 
       {/* ══════════════════════ TRUST STRIP ══════════════════════ */}
-      <div className="bg-gray-50 border-b border-gray-100">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12 py-8">
-          <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-5">
+      <div className="border-b border-gray-200" style={{ backgroundColor: GREY }}>
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 py-7">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.12em] text-gray-400 mb-5">
             Industries We Serve Across Sri Lanka
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {trustIndustries.map(({ icon: Icon, label }) => (
-              <div key={label} className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-sm text-[13px] font-700 text-[#0c1a36]">
-                <Icon className="w-4 h-4 text-[#ff6b00]" />
+              <div key={label} className="inline-flex items-center gap-2.5 px-4 py-2 bg-white border border-gray-200 rounded-full shadow-[0_1px_2px_rgba(16,29,54,0.05)] text-sm font-medium text-gray-700">
+                <span className="w-6 h-6 rounded-full bg-orange-50 flex items-center justify-center shrink-0">
+                  <Icon className="w-3.5 h-3.5" style={{ color: ORANGE }} />
+                </span>
                 {label}
               </div>
             ))}
@@ -360,86 +326,86 @@ const Home = () => {
       </div>
 
       {/* ══════════════════════ STATS ROW ══════════════════════ */}
-      <div className="bg-[#0c1a36]">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4">
-          {[
-            { ref: projectsRef, val: projectsCount, suffix: '+', label: 'Projects Delivered' },
-            { ref: industriesRef, val: industriesCount, suffix: '',  label: 'Industries Served' },
-            { ref: countriesRef,  val: countriesCount,  suffix: '',  label: 'Countries' },
-            { ref: null,          val: null,            suffix: '',  label: 'CISA Certified', fixed: 'Yes' },
-          ].map(({ ref, val, suffix, label, fixed }, i) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="px-8 py-10 text-center border-r border-white/8 last:border-r-0 [&:nth-child(2)]:border-r-0 md:[&:nth-child(2)]:border-r [&:nth-child(2)]:border-b [&:nth-child(1)]:border-b md:[&:nth-child(1)]:border-b-0 md:[&:nth-child(2)]:border-b-0"
-            >
-              <div className="text-[2.5rem] font-black text-[#ff6b00] leading-none tracking-[-0.04em] mb-1.5">
-                {fixed ?? (
-                  <span ref={ref ?? undefined}>{val}{suffix}</span>
-                )}
+      <div style={{ backgroundColor: NAVY }}>
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.08]">
+            {[
+              { ref: projectsRef, val: projectsCount, suffix: '+', label: 'Projects Delivered' },
+              { ref: industriesRef, val: industriesCount, suffix: '',  label: 'Industries Served' },
+              { ref: countriesRef,  val: countriesCount,  suffix: '',  label: 'Countries' },
+              { ref: null,          val: null,            suffix: '',  label: 'CISA Certified', fixed: 'Yes' },
+            ].map(({ ref, val, suffix, label, fixed }, i) => (
+              <div key={label} className={`px-4 py-10 text-center ${i >= 2 ? 'border-t border-white/[0.08] md:border-t-0' : ''}`}>
+                <div className="text-4xl font-bold text-white mb-2 tracking-tight">
+                  {fixed ?? (
+                    <span ref={ref ?? undefined}>{val}{suffix}</span>
+                  )}
+                </div>
+                <div className="inline-flex items-center gap-1.5">
+                  <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: ORANGE }} />
+                  <span className="text-[11px] text-white/50 uppercase tracking-[0.1em]">{label}</span>
+                </div>
               </div>
-              <div className="text-[11px] font-700 text-white/45 uppercase tracking-[0.18em]">{label}</div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ══════════════════════ SERVICES ══════════════════════ */}
-      <section className="py-28 bg-white">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
-          <div className="grid lg:grid-cols-[280px_1fr] gap-16 items-start">
+      <section className="py-24 bg-white">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <div className="grid lg:grid-cols-[320px_1fr] gap-12 items-start">
 
-            {/* Sticky label column */}
-            <div className="lg:sticky lg:top-28 lg:self-start">
-              <motion.div
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.7 }}
+            {/* Label column */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: 0.6 }}
+              className="lg:sticky lg:top-28"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>What We Build</p>
+              <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-5" style={{ color: NAVY }}>
+                Complete Technology Solutions
+              </h2>
+              <p className="text-gray-500 leading-relaxed mb-7 text-[15px]">
+                Five practice areas covering everything Sri Lankan businesses need to compete and grow.
+              </p>
+              <Link
+                to="/company"
+                className="inline-flex items-center gap-2 font-semibold text-sm group"
+                style={{ color: ORANGE }}
               >
-                <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4">What We Build</span>
-                <h2 className="text-4xl md:text-5xl font-black text-[#0c1a36] leading-[1.02] tracking-tight mb-5">
-                  Complete Technology Solutions
-                </h2>
-                <p className="text-base font-medium text-gray-500 leading-relaxed mb-8">
-                  Five practice areas covering everything Sri Lankan businesses need to compete and grow.
-                </p>
-                <Link
-                  to="/company"
-                  className="inline-flex items-center gap-2 text-[#ff6b00] font-black text-sm uppercase tracking-widest hover:gap-3 transition-all"
-                >
-                  About BloomTech.lk <ArrowRight className="w-4 h-4" />
-                </Link>
-              </motion.div>
-            </div>
+                About BloomTech.lk
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
 
-            {/* Service cards */}
-            <div className="space-y-4">
+            {/* Service list */}
+            <div className="rounded-xl border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] overflow-hidden">
               {services.map((svc, i) => {
                 const Icon = svc.icon;
                 return (
                   <motion.div
                     key={svc.title}
-                    initial={{ opacity: 0, y: 24 }}
+                    initial={{ opacity: 0, y: 14 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={vp}
-                    transition={{ duration: 0.55, delay: i * 0.07 }}
+                    transition={{ duration: 0.5, delay: i * 0.06 }}
                   >
                     <Link
                       to={svc.link}
-                      className="group flex items-center gap-6 bg-white rounded-[24px] p-6 border-2 border-gray-100 hover:border-[#ff6b00]/30 hover:shadow-xl transition-all"
+                      className={`group relative flex items-center gap-5 py-6 px-7 hover:bg-[#FBFBFC] transition-colors ${i !== 0 ? 'border-t border-gray-100' : ''}`}
                     >
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${svc.color} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-md`}>
-                        <Icon className="w-7 h-7 text-white" />
+                      <span className="absolute left-0 top-0 bottom-0 w-[3px] scale-y-0 group-hover:scale-y-100 transition-transform origin-center" style={{ backgroundColor: ORANGE }} />
+                      <div className="w-12 h-12 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                        <Icon className="w-5 h-5" style={{ color: ORANGE }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-black text-[#0c1a36] mb-1 group-hover:text-[#ff6b00] transition-colors">{svc.title}</h3>
-                        <p className="text-sm font-medium text-gray-500 leading-relaxed">{svc.desc}</p>
+                        <h3 className="text-base font-semibold mb-1" style={{ color: NAVY }}>{svc.title}</h3>
+                        <p className="text-sm text-gray-500 leading-relaxed">{svc.desc}</p>
                       </div>
-                      <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-[#ff6b00] group-hover:translate-x-1 transition-all shrink-0" />
+                      <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-[#FF6B00] group-hover:translate-x-0.5 transition-all shrink-0" />
                     </Link>
                   </motion.div>
                 );
@@ -450,287 +416,237 @@ const Home = () => {
       </section>
 
       {/* ══════════════════════ SRI LANKA FOCUS ══════════════════════ */}
-      <section className="py-28 bg-[#0c1a36] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="absolute top-[-60px] right-[8%] w-[500px] h-[500px] bg-[#ff6b00]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-60px] left-[5%] w-[380px] h-[380px] bg-blue-500/8 rounded-full blur-[100px]" />
+      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+        {/* subtle tonal depth — a single soft, low-opacity wash, not a glowing blob */}
+        <div className="absolute inset-y-0 right-0 w-1/2 pointer-events-none" style={{ background: `linear-gradient(90deg, transparent, ${NAVY_RAISED})`, opacity: 0.6 }} />
 
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12 relative z-10">
-          <div className="grid lg:grid-cols-[55fr_45fr] gap-16 items-center">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative">
+          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-16 items-center">
 
             {/* Left — text */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={vp}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-4">Sri Lanka First</span>
-              <h2 className="text-4xl md:text-5xl font-black text-white leading-[1.05] tracking-tight mb-6">
-                Built for how Sri Lankan<br />
-                <span className="text-[#ff6b00]">businesses actually operate.</span>
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>Sri Lanka First</p>
+              <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-5 text-white">
+                Built for how Sri Lankan businesses actually operate
               </h2>
-              <p className="text-white/65 text-base font-medium leading-relaxed mb-8 max-w-lg">
+              <p className="text-white/60 leading-relaxed mb-8 max-w-lg text-[15px]">
                 Every product we build accounts for the real constraints of running a business in Sri Lanka — from power reliability to regulatory compliance to the languages your team speaks.
               </p>
 
-              <div className="space-y-3 mb-10">
-                {sriLankaFeatures.map(({ text }) => (
-                  <div key={text} className="flex items-start gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/8">
-                    <CheckCircle2 className="w-5 h-5 text-[#ff6b00] mt-0.5 shrink-0" />
-                    <span className="text-white/80 font-medium text-sm leading-relaxed">{text}</span>
-                  </div>
+              <ul className="space-y-3.5 mb-9">
+                {sriLankaFeatures.map((text) => (
+                  <li key={text} className="flex items-start gap-3">
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                      <CheckCircle2 className="w-3.5 h-3.5" style={{ color: ORANGE }} />
+                    </span>
+                    <span className="text-white/75 text-[15px] leading-relaxed">{text}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-[#ff6b00] text-white font-black text-sm rounded-2xl hover:bg-[#e65c00] hover:shadow-[0_0_36px_rgba(255,107,0,0.5)] transition-all active:scale-[.97]"
+                className="inline-flex items-center gap-2 px-8 py-4 text-white font-semibold text-sm rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all"
+                style={{ backgroundColor: ORANGE }}
               >
                 Book a Free Consultation <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>
 
-            {/* Right — stacked glass cards */}
+            {/* Right — elevated info panel */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={vp}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="relative hidden lg:flex flex-col gap-4"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="hidden lg:block rounded-2xl p-9 border border-white/10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.5)]"
+              style={{ backgroundColor: NAVY_RAISED }}
             >
-              {/* Card 1 — HQ */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-white/8 backdrop-blur-md rounded-2xl p-6 border border-white/12"
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-9 h-9 rounded-xl bg-[#ff6b00]/20 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-[#ff6b00]" />
-                  </div>
-                  <span className="text-white font-black text-sm">🇱🇰 Mawaramandiya HQ</span>
+              <div className="flex items-start gap-4 mb-7 pb-7 border-b border-white/[0.08]">
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                  <MapPin className="w-5 h-5" style={{ color: ORANGE }} />
                 </div>
-                <p className="text-white/55 text-xs font-medium leading-relaxed">
-                  Based in Mawaramandiya, Western Province — serving clients from Colombo to Kandy to Galle.
-                </p>
-              </motion.div>
+                <div>
+                  <div className="text-white font-semibold text-[15px] mb-1.5">Mawaramandiya HQ</div>
+                  <p className="text-white/50 text-sm leading-relaxed">
+                    Based in the Western Province — serving clients from Colombo to Kandy to Galle, island-wide and internationally.
+                  </p>
+                </div>
+              </div>
 
-              {/* Card 2 — Coverage */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.6, delay: 0.32 }}
-                className="bg-white/8 backdrop-blur-md rounded-2xl p-6 border border-white/12 ml-8"
-              >
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-9 h-9 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                    <Globe className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <span className="text-white font-black text-sm">Island-Wide + International</span>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-white font-semibold text-[15px] mb-1">24/7 Local Support</div>
+                  <div className="text-white/50 text-sm">English &amp; Sinhala</div>
                 </div>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {['Colombo', 'Kandy', 'Galle', 'Negombo', 'Ratnapura', 'International'].map(city => (
-                    <span key={city} className="text-[11px] font-700 text-white/55 bg-white/8 px-2.5 py-1 rounded-full">{city}</span>
-                  ))}
+                <div className="text-right">
+                  <div className="font-bold text-[2.25rem] leading-none tracking-tight" style={{ color: ORANGE }}>99.9%</div>
+                  <div className="text-white/40 text-[10px] uppercase tracking-[0.1em] mt-1.5">Uptime</div>
                 </div>
-              </motion.div>
-
-              {/* Card 3 — Support */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.6, delay: 0.44 }}
-                className="bg-gradient-to-br from-[#ff6b00]/20 to-orange-600/10 backdrop-blur-md rounded-2xl p-6 border border-[#ff6b00]/25"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="text-white font-black text-sm mb-1">24/7 Local Support</div>
-                    <div className="text-white/55 text-xs font-medium">English & Sinhala</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[#ff6b00] font-black text-2xl leading-none">99.9%</div>
-                    <div className="text-white/45 text-[10px] font-700 uppercase tracking-wider mt-1">Uptime</div>
-                  </div>
-                </div>
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ══════════════════════ INDUSTRIES ══════════════════════ */}
-      <section className="py-28 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
+      <section className="py-24 bg-white">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={vp}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-14"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14 max-w-2xl mx-auto"
           >
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Sectors We Serve</span>
-            <h2 className="text-4xl md:text-5xl font-black text-[#0c1a36] leading-[1.05] tracking-tight mb-3">
-              Deep Expertise Across<br />Sri Lanka's Key Sectors
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Sectors We Serve</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
+              Deep expertise across Sri Lanka's key sectors
             </h2>
-            <p className="text-base font-medium text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-500 leading-relaxed text-[15px]">
               We understand the unique challenges, regulations, and opportunities in Sri Lanka's most important industries.
             </p>
           </motion.div>
 
-          {/* Horizontal scroll on mobile, grid on desktop */}
-          <div className="overflow-x-auto pb-4 -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible">
-            <div className="flex gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 w-max md:w-auto">
-              {industries.map(({ icon: Icon, name, desc, gradient, border }, i) => (
-                <motion.div
-                  key={name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={vp}
-                  transition={{ duration: 0.55, delay: (i % 3) * 0.08 }}
-                  className={`group w-[260px] md:w-auto bg-gradient-to-br ${gradient} bg-white rounded-2xl p-7 border-2 border-gray-100 ${border} hover:shadow-xl hover:-translate-y-1 transition-all snap-start`}
-                  style={{ backgroundColor: 'white' }}
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#ff6b00]/10 flex items-center justify-center mb-5 group-hover:bg-[#ff6b00] transition-colors">
-                    <Icon className="w-6 h-6 text-[#ff6b00] group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="text-base font-black text-[#0c1a36] mb-2">{name}</h3>
-                  <p className="text-sm font-medium text-gray-500 leading-relaxed">{desc}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {industries.map(({ icon: Icon, name, desc }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={vp}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.07 }}
+                className="group bg-white rounded-xl p-7 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:border-gray-300 hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-5 group-hover:bg-[#FF6B00] group-hover:ring-[#FF6B00] transition-colors duration-300">
+                  <Icon className="w-5 h-5 text-[#FF6B00] group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-base font-semibold mb-2" style={{ color: NAVY }}>{name}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ══════════════════════ WHY BLOOMTECH ══════════════════════ */}
-      <section className="py-28 bg-[#0c1a36] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="absolute top-20 right-16 w-[400px] h-[400px] bg-[#ff6b00]/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-20 left-16 w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px]" />
+      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <div className="absolute inset-x-0 top-0 h-1/2 pointer-events-none" style={{ background: `linear-gradient(180deg, ${NAVY_RAISED}, transparent)`, opacity: 0.5 }} />
 
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12 relative z-10">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={vp}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-16"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14 max-w-2xl mx-auto"
           >
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Why BloomTech.lk</span>
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-[1.05] tracking-tight mb-3">
-              Sri Lanka's Technology Partner<br />
-              <span className="text-[#ff6b00]">That Understands Your Business</span>
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>Why BloomTech.lk</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight text-white">
+              Sri Lanka's technology partner that understands your business
             </h2>
           </motion.div>
 
-          {/* 3 advantage cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-10">
+          <div className="grid md:grid-cols-3 gap-6 mb-14">
             {advantages.map(({ icon: Icon, title, desc }, i) => (
               <motion.div
                 key={title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={vp}
-                transition={{ duration: 0.6, delay: i * 0.12 }}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/9 transition-all overflow-hidden"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="rounded-xl p-8 border border-white/10 hover:border-white/20 transition-colors"
+                style={{ backgroundColor: NAVY_RAISED }}
               >
-                <div className="absolute top-0 right-0 w-28 h-28 bg-[#ff6b00]/15 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#ff6b00] to-orange-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <Icon className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-xl font-black text-white mb-3">{title}</h3>
-                  <p className="text-white/62 font-medium leading-relaxed text-sm">{desc}</p>
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
                 </div>
+                <h3 className="text-lg font-semibold text-white mb-3">{title}</h3>
+                <p className="text-white/55 leading-relaxed text-sm">{desc}</p>
               </motion.div>
             ))}
           </div>
 
-          {/* Differentiator rows */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            {differentiators.map(({ num, text }) => (
-              <div key={num} className="inline-flex items-center gap-3 px-5 py-3 bg-white/6 border border-white/10 rounded-full">
-                <span className="text-[#ff6b00] font-black text-xs">#{num}</span>
-                <span className="text-white/70 font-medium text-sm">{text}</span>
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 pt-10 border-t border-white/10">
+            {differentiators.map((text) => (
+              <div key={text} className="inline-flex items-center gap-2.5">
+                <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: ORANGE }} />
+                <span className="text-white/65 text-sm">{text}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* ══════════════════════ CTA ══════════════════════ */}
-      <section className="py-24 px-6 bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#ff6b00]">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.7 }}
-            className="text-center"
-          >
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-white/50 mb-4">Get Started</span>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight tracking-tight">
-              Ready to Transform Your<br />Sri Lankan Business?
-            </h2>
-            <p className="text-lg text-white/75 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
-              Connect with our Mawaramandiya team in Sinhala or English — at a pace that suits your business.
-            </p>
+      <section className="py-24 px-6" style={{ background: `linear-gradient(135deg, ${ORANGE}, #FF7A1A)` }}>
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
 
-            <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 flex items-center gap-4">
-                <div className="w-11 h-11 rounded-xl bg-[#ff6b00] flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-left">
-                  <p className="text-white/55 text-[10px] font-black uppercase tracking-widest mb-1">Phone</p>
-                  <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="text-white text-base font-black hover:text-[#ff6b00] transition-colors">
-                    {socialMedia.phone}
-                  </a>
-                </div>
+            {/* Left — message */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: 0.6 }}
+              className="text-center lg:text-left"
+            >
+              <h2 className="text-3xl md:text-[2.5rem] font-bold text-white mb-5 leading-[1.1] tracking-tight">
+                Ready to transform your Sri Lankan business?
+              </h2>
+              <p className="text-lg text-white/90 mb-9 leading-relaxed max-w-md mx-auto lg:mx-0">
+                Connect with our Mawaramandiya team in Sinhala or English — at a pace that suits your business.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+                <Link to="/contact" className="px-8 py-4 bg-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-8px_rgba(16,29,54,0.5)] hover:shadow-[0_10px_26px_-8px_rgba(16,29,54,0.6)] hover:-translate-y-0.5 transition-all flex items-center gap-2" style={{ color: NAVY }}>
+                  Get in Touch <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link to="/company" className="px-8 py-4 bg-transparent text-white border border-white/50 rounded-lg font-semibold text-[15px] hover:bg-white/10 transition-colors">
+                  About BloomTech.lk
+                </Link>
               </div>
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 flex items-center gap-4">
-                <div className="w-11 h-11 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
-                  <MessageCircle className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-left">
-                  <p className="text-white/55 text-[10px] font-black uppercase tracking-widest mb-1">WhatsApp</p>
-                  <a href={`https://wa.me/${socialMedia.whatsapp}`} target="_blank" rel="noopener noreferrer"
-                    className="text-white text-base font-black hover:text-green-400 transition-colors">
-                    Chat with Us
-                  </a>
-                </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 flex items-center gap-4">
-                <div className="w-11 h-11 rounded-xl bg-blue-500 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-white" />
-                </div>
-                <div className="text-left">
-                  <p className="text-white/55 text-[10px] font-black uppercase tracking-widest mb-1">Location</p>
-                  <p className="text-white text-base font-black">Mawaramandiya, Sri Lanka</p>
-                </div>
-              </div>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link to="/contact" className="px-10 py-4 bg-white text-[#0c1a36] rounded-2xl font-black text-base hover:bg-gray-100 hover:shadow-2xl transition-all flex items-center gap-3">
-                Get in Touch <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link to="/company" className="px-10 py-4 bg-transparent text-white border-2 border-white/30 rounded-2xl font-black text-base hover:bg-white/10 transition-all">
-                About BloomTech.lk
-              </Link>
-            </div>
-          </motion.div>
+            {/* Right — navy contact panel */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={vp}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="rounded-2xl p-3 shadow-[0_24px_60px_-20px_rgba(16,29,54,0.45)]"
+              style={{ backgroundColor: NAVY }}
+            >
+              {[
+                { icon: Phone, label: 'Phone', value: socialMedia.phone, href: `tel:${socialMedia.phone.replace(/\s/g, '')}` },
+                { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with Us', href: `https://wa.me/${socialMedia.whatsapp}`, external: true },
+                { icon: MapPin, label: 'Location', value: 'Mawaramandiya, Sri Lanka' },
+              ].map(({ icon: Icon, label, value, href, external }, i) => {
+                const inner = (
+                  <div className={`flex items-center gap-4 px-6 py-5 ${i !== 0 ? 'border-t border-white/[0.08]' : ''} ${href ? 'hover:bg-white/[0.04] transition-colors' : ''} rounded-lg`}>
+                    <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                      <Icon className="w-5 h-5" style={{ color: ORANGE }} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-white/45 text-[11px] font-semibold uppercase tracking-[0.1em] mb-0.5">{label}</p>
+                      <p className="text-white text-[15px] font-semibold">{value}</p>
+                    </div>
+                  </div>
+                );
+                return href ? (
+                  <a key={label} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={label}>{inner}</div>
+                );
+              })}
+            </motion.div>
+          </div>
         </div>
       </section>
 

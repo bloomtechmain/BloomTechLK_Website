@@ -4,19 +4,20 @@ import {
   ArrowRight, Package, BarChart3, MessageSquare, Users, Printer,
   Globe, Cloud, LayoutDashboard, ShoppingBag, Coffee, Building2,
   Pill, ShoppingCart, Briefcase, Code2, Shield, Zap, Phone,
-  MapPin, MessageCircle, ExternalLink, Star, CheckCircle2
+  MapPin, MessageCircle, ExternalLink, Star
 } from 'lucide-react';
 import Footer from '../components/Footer';
+import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS } from '../styles/designTokens';
 
 // ─── animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.65, ease: 'easeOut', delay: d } }),
+  hidden: { opacity: 0, y: 16 },
+  show: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut', delay: d } }),
 };
-const vp = { once: true, margin: '-40px' };
+const vp = { once: true, margin: '-80px' };
 
 // ─── counter hook ─────────────────────────────────────────────────────────────
-function useCountUp(target: number, duration = 1600) {
+function useCountUp(target: number, duration = 1200) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -28,7 +29,7 @@ function useCountUp(target: number, duration = 1600) {
         const tick = (ts: number) => {
           if (!t0) t0 = ts;
           const p = Math.min((ts - t0) / duration, 1);
-          setCount(Math.floor((1 - Math.pow(1 - p, 3)) * target));
+          setCount(Math.floor(p * target));
           if (p < 1) requestAnimationFrame(tick);
         };
         requestAnimationFrame(tick);
@@ -95,23 +96,13 @@ const projects = [
 // ─── component ───────────────────────────────────────────────────────────────
 const BloomSwiftPOS = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
-  const { count: projCount, ref: projRef } = useCountUp(20, 1600);
+  const { count: projCount, ref: projRef } = useCountUp(20, 1200);
 
   return (
-    <div className="bg-white overflow-x-hidden">
+    <div style={{ fontFamily: FONT_SANS }}>
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0c1a36]">
-
-        {/* grid mesh */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px]" />
-
-        {/* blobs */}
-        <div className="absolute top-[8%] right-[6%] w-[520px] h-[520px] bg-[#ff6b00]/[0.13] rounded-full blur-[110px] animate-pulse" />
-        <div className="absolute bottom-[6%] left-[3%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '7s', animationDirection: 'reverse' }} />
-
-        {/* gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0c1a36]/95 via-[#0c1a36]/75 to-[#ff6b00]/15" />
+      <section className="relative min-h-[640px] overflow-hidden" style={{ backgroundColor: NAVY }}>
 
         {/* Full-height POS image — right side, desktop only */}
         <div className="absolute right-0 top-0 h-full w-[48%] hidden lg:block">
@@ -120,71 +111,71 @@ const BloomSwiftPOS = () => {
             alt="BloomSwift POS in action"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#0c1a36] to-transparent pointer-events-none" />
         </div>
 
-        {/* bottom fade to white */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none" />
+        {/* single flat directional scrim for text contrast */}
+        <div className="absolute inset-0" style={{ background: `linear-gradient(100deg, ${NAVY} 24%, rgba(16,29,54,0.82) 52%, rgba(16,29,54,0.5) 100%)` }} />
+        <div className="absolute bottom-0 left-0 right-0 h-20" style={{ background: `linear-gradient(to top, ${NAVY}, transparent)`, opacity: 0.9 }} />
 
-        <div className="relative z-20 max-w-[1400px] mx-auto w-full px-6 xl:px-12 pt-24 pb-20">
-          <div className="lg:max-w-[55%]">
-          <motion.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.12 } } }}>
+        <div className="relative z-20 max-w-[1550px] mx-auto w-full px-6 xl:px-12 pt-32 pb-20">
+          <div className="lg:max-w-[56%]">
+          <motion.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.1 } } }}>
 
-            {/* badge */}
-            <motion.div variants={fadeUp} custom={0} className="inline-flex items-center gap-3 px-5 py-2 mb-5 text-[11px] font-bold tracking-[0.28em] text-white uppercase bg-[#ff6b00]/18 backdrop-blur-md border border-[#ff6b00]/35 rounded-full">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] shadow-[0_0_10px_#ff6b00] animate-pulse" />
-              20+ POS Projects Delivered Across Sri Lanka &amp; Beyond
+            <motion.div variants={fadeUp} custom={0} className="flex items-center gap-3 mb-5">
+              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
+              <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE_LIGHT }}>
+                20+ POS Projects Delivered Across Sri Lanka &amp; Beyond
+              </p>
             </motion.div>
 
-            {/* headline */}
-            <motion.h1 variants={fadeUp} custom={0.05} className="text-[clamp(3rem,7.5vw,6.5rem)] font-black leading-[0.88] tracking-[-0.045em] text-white mb-4">
-              Fast. Smart.<br />
-              <span className="text-[#ff6b00]">Built for<br />Business.</span>
+            <motion.h1 variants={fadeUp} custom={0.05} className="text-[2.75rem] md:text-[3.4rem] font-bold leading-[1.08] tracking-tight text-white mb-6">
+              Fast, smart, <span style={{ color: ORANGE }}>built for business</span>
             </motion.h1>
 
-            {/* subheadline */}
-            <motion.p variants={fadeUp} custom={0.1} className="max-w-[40rem] text-[clamp(1rem,1.8vw,1.3rem)] font-medium text-white/78 leading-[1.72] mb-4">
+            <motion.p variants={fadeUp} custom={0.1} className="max-w-xl text-lg text-white/72 leading-relaxed mb-8">
               BloomSwift POS is a custom-built point-of-sale platform engineered for retail, restaurants, hospitality, pharmacy, and enterprise — deployed across Sri Lanka and internationally.
             </motion.p>
 
-            {/* stack chips */}
-            <motion.div variants={fadeUp} custom={0.14} className="flex flex-wrap gap-2.5 mb-6">
+            <motion.div variants={fadeUp} custom={0.14} className="flex flex-wrap gap-2.5 mb-8">
               {['Cloud + Local Deploy', 'SMS Notifications', 'Thermal Printing'].map(t => (
-                <span key={t} className="px-3.5 py-1.5 bg-white/7 border border-white/12 rounded-full text-[12px] font-700 text-white/62 tracking-wide">{t}</span>
+                <span key={t} className="px-3.5 py-1.5 bg-white/[0.06] border border-white/15 rounded-full text-xs font-semibold text-white/65 tracking-wide">{t}</span>
               ))}
             </motion.div>
 
-            {/* CTAs */}
-            <motion.div variants={fadeUp} custom={0.18} className="flex flex-wrap gap-4 mb-6">
+            <motion.div variants={fadeUp} custom={0.18} className="flex flex-wrap gap-3.5 mb-10">
               <a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-[#ff6b00] text-white font-black text-base rounded-2xl hover:bg-[#e65c00] hover:shadow-[0_0_36px_rgba(255,107,0,.55)] transition-all active:scale-[.97]">
-                Get a Demo <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                className="inline-flex items-center gap-2 px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all"
+                style={{ backgroundColor: ORANGE }}>
+                Get a Demo <ArrowRight className="w-4 h-4" />
               </a>
               <a href="#projects"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-white/10 backdrop-blur-md text-white font-black text-base rounded-2xl border-2 border-white/20 hover:bg-white hover:text-[#0c1a36] transition-all">
+                className="inline-flex items-center gap-2 px-8 py-4 bg-white/[0.06] text-white border border-white/25 rounded-lg font-semibold text-[15px] hover:bg-white/[0.12] hover:border-white/40 transition-all">
                 View Projects
               </a>
             </motion.div>
 
             {/* live counters */}
-            <motion.div variants={fadeUp} custom={0.22} className="flex flex-wrap gap-3 mb-4">
+            <motion.div variants={fadeUp} custom={0.22} className="flex flex-wrap gap-8 mb-6">
               {[
-                { valEl: <span ref={projRef} className="text-[2.5rem] font-black text-[#ff6b00] leading-none tracking-[-0.04em]">{projCount}+</span>, label: 'POS Projects Delivered' },
-                { val: '6',     label: 'Industries Served' },
-                { val: '99.9%', label: 'Uptime' },
-              ].map(({ val, valEl, label }) => (
-                <div key={label} className="px-6 py-4 bg-white/6 backdrop-blur-md border border-white/10 rounded-[18px]">
-                  {valEl ?? <span className="block text-[2.5rem] font-black text-[#ff6b00] leading-none tracking-[-0.04em]">{val}</span>}
-                  <span className="block text-[11px] font-700 text-white/5 uppercase tracking-[0.18em] mt-1 text-white/50">{label}</span>
+                { valEl: <span ref={projRef}>{projCount}+</span>, label: 'POS Projects Delivered' },
+                { valEl: '6', label: 'Industries Served' },
+                { valEl: '99.9%', label: 'Uptime' },
+              ].map(({ valEl, label }) => (
+                <div key={label}>
+                  <div className="text-3xl font-bold text-white mb-1 tracking-tight">{valEl}</div>
+                  <div className="inline-flex items-center gap-1.5">
+                    <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: ORANGE }} />
+                    <span className="text-[11px] text-white/50 uppercase tracking-[0.1em]">{label}</span>
+                  </div>
                 </div>
               ))}
             </motion.div>
 
-            {/* sub-brand pill */}
-            <motion.div variants={fadeUp} custom={0.26} className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#ff6b00]/10 border border-[#ff6b00]/22 rounded-full">
-              <span className="text-[11px] font-700 text-white/45 uppercase tracking-[0.13em]">A Sub-Brand of</span>
+            {/* sub-brand line */}
+            <motion.div variants={fadeUp} custom={0.26} className="inline-flex items-center gap-2">
+              <span className="text-xs font-medium text-white/40 uppercase tracking-wide">A Sub-Brand of</span>
               <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer"
-                className="text-[11px] font-900 text-[#ff6b00] uppercase tracking-[0.13em] hover:underline">
+                className="text-xs font-bold uppercase tracking-wide hover:underline" style={{ color: ORANGE }}>
                 BloomTech.lk
               </a>
             </motion.div>
@@ -195,14 +186,14 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ FEATURES ══════════════════════ */}
-      <section id="features" className="py-28 scroll-mt-16">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
-          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-16">
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Platform Features</span>
-            <h2 className="text-[clamp(2rem,3.8vw,3.25rem)] font-black text-[#0c1a36] leading-[1.05] tracking-tight mb-4">
-              Everything Your Business Needs<br />in One POS Platform
+      <section id="features" className="py-24 bg-white scroll-mt-16">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-14 max-w-2xl mx-auto">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Platform Features</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
+              Everything your business needs in one POS platform
             </h2>
-            <p className="text-lg font-medium text-gray-500 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-500 leading-relaxed text-[15px]">
               Built from the ground up with modern technology — BloomSwift POS handles every aspect of your operations, from sales to inventory to reporting.
             </p>
           </motion.div>
@@ -212,14 +203,14 @@ const BloomSwiftPOS = () => {
               <motion.div
                 key={title}
                 initial="hidden" whileInView="show" viewport={vp}
-                variants={fadeUp} custom={(i % 4) * 0.08}
-                className="group bg-gray-50 rounded-[22px] p-7 border-2 border-gray-100 hover:border-[#ff6b00]/30 hover:shadow-xl hover:bg-white hover:-translate-y-1 transition-all"
+                variants={fadeUp} custom={(i % 4) * 0.06}
+                className="group bg-white rounded-xl p-6 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-13 h-13 rounded-[13px] bg-[#ff6b00]/10 flex items-center justify-center mb-5 group-hover:bg-[#ff6b00] transition-colors w-[52px] h-[52px]">
-                  <Icon className="w-6 h-6 text-[#ff6b00] group-hover:text-white transition-colors" />
+                <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-4 group-hover:bg-[#FF6B00] group-hover:ring-[#FF6B00] transition-colors duration-300">
+                  <Icon className="w-5 h-5 text-[#FF6B00] group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-[.9375rem] font-black text-[#0c1a36] mb-1.5">{title}</h3>
-                <p className="text-[.8125rem] font-medium text-gray-500 leading-[1.65]">{desc}</p>
+                <h3 className="text-[15px] font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -227,14 +218,14 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ INDUSTRIES ══════════════════════ */}
-      <section id="industries" className="py-28 bg-gray-50 scroll-mt-16">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
-          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-16">
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Industries We Serve</span>
-            <h2 className="text-[clamp(2rem,3.8vw,3.25rem)] font-black text-[#0c1a36] leading-[1.05] tracking-tight mb-4">
-              Tailored POS for Every Vertical
+      <section id="industries" className="py-24 bg-gray-50 scroll-mt-16">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-14 max-w-2xl mx-auto">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Industries We Serve</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
+              Tailored POS for every vertical
             </h2>
-            <p className="text-lg font-medium text-gray-500 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-500 leading-relaxed text-[15px]">
               BloomSwift POS is custom-built for each client — not a generic product. We understand the unique workflows, compliance, and realities of every sector we serve.
             </p>
           </motion.div>
@@ -244,14 +235,14 @@ const BloomSwiftPOS = () => {
               <motion.div
                 key={title}
                 initial="hidden" whileInView="show" viewport={vp}
-                variants={fadeUp} custom={(i % 3) * 0.08}
-                className="group bg-white rounded-[22px] p-7 border-2 border-gray-100 hover:border-[#ff6b00]/30 hover:shadow-xl hover:-translate-y-1 transition-all"
+                variants={fadeUp} custom={(i % 3) * 0.07}
+                className="group bg-white rounded-xl p-6 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-[52px] h-[52px] rounded-[13px] bg-[#ff6b00]/10 flex items-center justify-center mb-5 group-hover:bg-[#ff6b00] transition-colors">
-                  <Icon className="w-6 h-6 text-[#ff6b00] group-hover:text-white transition-colors" />
+                <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-4 group-hover:bg-[#FF6B00] group-hover:ring-[#FF6B00] transition-colors duration-300">
+                  <Icon className="w-5 h-5 text-[#FF6B00] group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="text-[1.0625rem] font-black text-[#0c1a36] mb-1.5">{title}</h3>
-                <p className="text-[.8125rem] font-medium text-gray-500 leading-[1.65]">{desc}</p>
+                <h3 className="text-base font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -259,39 +250,34 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ WHY BLOOMSWIFT ══════════════════════ */}
-      <section className="py-28 bg-[#0c1a36] relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
-        <div className="absolute top-[-80px] right-[4%] w-[480px] h-[480px] bg-[#ff6b00]/9 rounded-full blur-[110px]" />
-        <div className="absolute bottom-[-80px] left-[4%] w-[380px] h-[380px] bg-blue-500/9 rounded-full blur-[100px]" />
+      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+        <div className="absolute inset-x-0 top-0 h-1/2 pointer-events-none" style={{ background: `linear-gradient(180deg, ${NAVY_RAISED}, transparent)`, opacity: 0.5 }} />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 xl:px-12">
-          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-16">
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Why BloomSwift POS</span>
-            <h2 className="text-[clamp(2rem,3.8vw,3.25rem)] font-black text-white leading-[1.05] tracking-tight mb-4">
-              Not Off-the-Shelf.<br />
-              <span className="text-[#ff6b00]">Built for Your Business.</span>
+        <div className="relative z-10 max-w-[1550px] mx-auto px-6 xl:px-12">
+          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-14 max-w-2xl mx-auto">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>Why BloomSwift POS</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4 text-white">
+              Not off-the-shelf. <span style={{ color: ORANGE }}>Built for your business.</span>
             </h2>
-            <p className="text-lg font-medium text-white/62 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-white/60 leading-relaxed text-[15px]">
               Every BloomSwift POS deployment is a custom project — engineered around your specific workflows, hardware, and operational needs.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-7">
+          <div className="grid md:grid-cols-3 gap-6">
             {differentiators.map(({ icon: Icon, title, desc }, i) => (
               <motion.div
                 key={title}
                 initial="hidden" whileInView="show" viewport={vp}
-                variants={fadeUp} custom={i * 0.12}
-                className="group relative bg-white/5 backdrop-blur-sm rounded-[26px] p-9 border border-white/10 hover:bg-white/9 transition-all overflow-hidden"
+                variants={fadeUp} custom={i * 0.1}
+                className="rounded-xl p-8 border border-white/10 hover:border-white/20 transition-colors"
+                style={{ backgroundColor: NAVY_RAISED }}
               >
-                <div className="absolute top-0 right-0 w-28 h-28 bg-[#ff6b00]/15 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative">
-                  <div className="w-[60px] h-[60px] rounded-[15px] bg-gradient-to-br from-[#ff6b00] to-orange-400 flex items-center justify-center mb-6 group-hover:scale-[1.08] transition-transform shadow-lg">
-                    <Icon className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-[1.25rem] font-black text-white mb-3">{title}</h3>
-                  <p className="text-[.9375rem] font-medium text-white/62 leading-[1.72]">{desc}</p>
+                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
                 </div>
+                <h3 className="text-lg font-semibold text-white mb-3">{title}</h3>
+                <p className="text-white/55 leading-relaxed text-sm">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -299,14 +285,14 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ PROJECTS ══════════════════════ */}
-      <section id="projects" className="py-28 scroll-mt-16">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
-          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-16">
-            <span className="block text-[11px] font-black uppercase tracking-[0.3em] text-[#ff6b00] mb-3">Delivered Projects</span>
-            <h2 className="text-[clamp(2rem,3.8vw,3.25rem)] font-black text-[#0c1a36] leading-[1.05] tracking-tight mb-4">
-              20+ POS Systems Shipped<br />Across Sri Lanka &amp; Internationally
+      <section id="projects" className="py-24 bg-white scroll-mt-16">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center mb-14 max-w-2xl mx-auto">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Delivered Projects</p>
+            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
+              20+ POS systems shipped across Sri Lanka &amp; internationally
             </h2>
-            <p className="text-lg font-medium text-gray-500 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-gray-500 leading-relaxed text-[15px]">
               Each BloomSwift POS is custom-built for its client and industry. Here's a sample of what we've delivered.
             </p>
           </motion.div>
@@ -316,23 +302,23 @@ const BloomSwiftPOS = () => {
               <motion.div
                 key={title}
                 initial="hidden" whileInView="show" viewport={vp}
-                variants={fadeUp} custom={(i % 3) * 0.08}
-                className="group bg-gray-50 rounded-[22px] p-7 border-2 border-gray-100 hover:border-[#ff6b00]/30 hover:shadow-xl hover:bg-white hover:-translate-y-1 transition-all"
+                variants={fadeUp} custom={(i % 3) * 0.06}
+                className="group bg-white rounded-xl p-6 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all duration-300"
               >
-                {/* delivered badge */}
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200/60 rounded-full text-[10px] font-black uppercase tracking-[0.1em] text-emerald-700 mb-3">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  Delivered
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-emerald-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    Delivered
+                  </span>
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.08em]" style={{ color: ORANGE }}>
+                    · {sector}
+                  </span>
                 </div>
-                {/* sector */}
-                <div className="inline-flex px-2.5 py-1 bg-[#ff6b00]/8 rounded-full text-[10px] font-700 uppercase tracking-[0.08em] text-[#ff6b00] mb-2.5 ml-1.5">
-                  {sector}
-                </div>
-                <h3 className="text-[1.0625rem] font-black text-[#0c1a36] mb-1.5">{title}</h3>
-                <p className="text-[.8125rem] font-medium text-gray-500 leading-[1.65]">{desc}</p>
+                <h3 className="text-base font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
+                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
                 <div className="flex flex-wrap gap-1.5 mt-4 pt-4 border-t border-gray-100">
                   {tags.map(t => (
-                    <span key={t} className="text-[10px] font-700 text-gray-500 bg-gray-100 px-2 py-0.5 rounded-[6px]">{t}</span>
+                    <span key={t} className="text-[11px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">{t}</span>
                   ))}
                 </div>
               </motion.div>
@@ -342,98 +328,81 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ TESTIMONIAL ══════════════════════ */}
-      <section className="py-28 bg-gray-50">
-        <div className="max-w-[1400px] mx-auto px-6 xl:px-12">
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <motion.div
             initial="hidden" whileInView="show" viewport={vp} variants={fadeUp}
-            className="max-w-[54rem] mx-auto bg-white rounded-[30px] p-12 md:p-14 border-2 border-gray-100 shadow-[0_24px_60px_rgba(0,0,0,.06)] text-center"
+            className="max-w-3xl mx-auto bg-white rounded-xl p-10 md:p-12 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] text-center"
           >
-            {/* quote icon */}
-            <div className="w-[52px] h-[52px] rounded-full bg-gradient-to-br from-[#ff6b00] to-orange-400 flex items-center justify-center mx-auto mb-7">
-              <svg className="w-6 h-6 fill-white" viewBox="0 0 24 24">
-                <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-                <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
-              </svg>
-            </div>
-            {/* stars */}
-            <div className="flex justify-center gap-1.5 mb-5">
+            <div className="flex justify-center gap-1.5 mb-6">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <blockquote className="text-[clamp(1.0625rem,2vw,1.375rem)] font-semibold text-[#0c1a36] leading-[1.65] italic mb-7">
+            <blockquote className="text-lg md:text-xl font-medium leading-relaxed mb-7" style={{ color: NAVY }}>
               "BloomSwift POS transformed how we run our restaurant group. The system was built exactly around our workflow — not the other way around. Real-time dashboards, SMS alerts when inventory runs low, and receipts that print flawlessly every time. Best technology investment we've made."
             </blockquote>
-            <div className="text-[1rem] font-black text-[#0c1a36]">Gayan Weerasingha</div>
-            <div className="text-[.8125rem] font-700 text-[#ff6b00] uppercase tracking-[0.1em] mt-1">Weerasingha Hardware · Sri Lanka</div>
+            <div className="text-[15px] font-semibold" style={{ color: NAVY }}>Gayan Weerasingha</div>
+            <div className="text-xs font-semibold uppercase tracking-[0.1em] mt-1" style={{ color: ORANGE }}>Weerasingha Hardware · Sri Lanka</div>
           </motion.div>
         </div>
       </section>
 
       {/* ══════════════════════ CTA ══════════════════════ */}
-      <section id="contact" className="py-28 bg-gradient-to-br from-[#0c1a36] via-[#1a305c] to-[#b84a00] relative overflow-hidden scroll-mt-16">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px]" />
+      <section id="contact" className="py-24 px-6 scroll-mt-16" style={{ background: `linear-gradient(135deg, ${ORANGE}, #FF7A1A)` }}>
+        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 xl:px-12 text-center">
-          <motion.div initial="hidden" whileInView="show" viewport={vp} variants={{ show: { transition: { staggerChildren: 0.1 } } }}>
-
-            <motion.span variants={fadeUp} className="block text-[11px] font-black uppercase tracking-[0.3em] text-white/5 mb-3 text-white/50">Get Started</motion.span>
-            <motion.h2 variants={fadeUp} className="text-[clamp(2rem,3.8vw,3.25rem)] font-black text-white leading-[1.05] tracking-tight mb-4">
-              Ready to Build Your<br />Custom POS System?
-            </motion.h2>
-            <motion.p variants={fadeUp} className="text-[1.0625rem] font-medium text-white/78 max-w-[42rem] mx-auto leading-[1.72] mb-10">
-              Tell us about your business and we'll design a BloomSwift POS solution tailored to your industry, size, and budget. Typical deployments take 2–4 weeks.
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center mb-12">
-              <a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-white text-[#0c1a36] font-black text-base rounded-2xl hover:bg-gray-100 hover:shadow-[0_0_36px_rgba(255,255,255,.25)] transition-all">
-                Visit BloomSwift POS <ExternalLink className="w-4 h-4" />
-              </a>
-              <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-9 py-4 bg-transparent text-white font-black text-base rounded-2xl border-2 border-white/30 hover:bg-white/10 transition-all">
-                Explore BloomTech.lk
-              </a>
+            <motion.div initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} className="text-center lg:text-left">
+              <h2 className="text-3xl md:text-[2.5rem] font-bold text-white mb-5 leading-[1.1] tracking-tight">
+                Ready to build your custom POS system?
+              </h2>
+              <p className="text-lg text-white/90 mb-9 leading-relaxed max-w-md mx-auto lg:mx-0">
+                Tell us about your business and we'll design a BloomSwift POS solution tailored to your industry, size, and budget. Typical deployments take 2–4 weeks.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
+                <a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer"
+                  className="px-8 py-4 bg-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-8px_rgba(16,29,54,0.5)] hover:shadow-[0_10px_26px_-8px_rgba(16,29,54,0.6)] hover:-translate-y-0.5 transition-all flex items-center gap-2" style={{ color: NAVY }}>
+                  Visit BloomSwift POS <ExternalLink className="w-4 h-4" />
+                </a>
+                <a href="https://www.bloomtech.lk" target="_blank" rel="noopener noreferrer"
+                  className="px-8 py-4 bg-transparent text-white border border-white/50 rounded-lg font-semibold text-[15px] hover:bg-white/10 transition-colors">
+                  Explore BloomTech.lk
+                </a>
+              </div>
             </motion.div>
 
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-4 justify-center">
+            <motion.div
+              initial="hidden" whileInView="show" viewport={vp} variants={fadeUp} custom={0.1}
+              className="rounded-2xl p-3 shadow-[0_24px_60px_-20px_rgba(16,29,54,0.45)]"
+              style={{ backgroundColor: NAVY }}
+            >
               {[
-                {
-                  ico: <Phone className="w-5 h-5 text-white" />,
-                  bg: 'bg-[#ff6b00]',
-                  label: 'Call Us',
-                  val: '+94 70 123 4567',
-                  href: 'tel:+94701234567',
-                },
-                {
-                  ico: <MessageCircle className="w-5 h-5 text-white" />,
-                  bg: 'bg-green-600',
-                  label: 'WhatsApp',
-                  val: 'Chat with Us →',
-                  href: 'https://wa.me/94701234567',
-                },
-                {
-                  ico: <MapPin className="w-5 h-5 text-white" />,
-                  bg: 'bg-blue-600',
-                  label: 'Location',
-                  val: 'Sri Lanka & International',
-                  href: undefined,
-                },
-              ].map(({ ico, bg, label, val, href }) => (
-                <div key={label} className="flex items-center gap-3.5 px-5 py-3.5 bg-white/8 backdrop-blur-md border border-white/14 rounded-2xl">
-                  <div className={`w-10 h-10 ${bg} rounded-[10px] flex items-center justify-center shrink-0`}>{ico}</div>
-                  <div className="text-left">
-                    <div className="text-[10px] font-700 text-white/45 uppercase tracking-[0.15em] mb-0.5">{label}</div>
-                    {href
-                      ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer" className="text-[.9375rem] font-black text-white hover:text-[#ff6b00] transition-colors">{val}</a>
-                      : <span className="text-[.9375rem] font-black text-white">{val}</span>
-                    }
+                { icon: Phone, label: 'Call Us', value: '+94 70 123 4567', href: 'tel:+94701234567' },
+                { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with Us', href: 'https://wa.me/94701234567', external: true },
+                { icon: MapPin, label: 'Location', value: 'Sri Lanka & International' },
+              ].map(({ icon: Icon, label, value, href, external }, i) => {
+                const inner = (
+                  <div className={`flex items-center gap-4 px-6 py-5 ${i !== 0 ? 'border-t border-white/[0.08]' : ''} ${href ? 'hover:bg-white/[0.04] transition-colors' : ''} rounded-lg`}>
+                    <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
+                      <Icon className="w-5 h-5" style={{ color: ORANGE }} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-white/45 text-[11px] font-semibold uppercase tracking-[0.1em] mb-0.5">{label}</p>
+                      <p className="text-white text-[15px] font-semibold">{value}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+                return href ? (
+                  <a key={label} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>
+                    {inner}
+                  </a>
+                ) : (
+                  <div key={label}>{inner}</div>
+                );
+              })}
             </motion.div>
-
-          </motion.div>
+          </div>
         </div>
       </section>
 
