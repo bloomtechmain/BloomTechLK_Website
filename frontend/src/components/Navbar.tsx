@@ -3,6 +3,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { megaMenuData, ServiceItem } from '../data/servicesData';
+import { ORANGE_GRADIENT } from '../styles/designTokens';
 
 const Navbar = memo(() => {
   const [isOpen, setIsOpen] = useState(false);
@@ -256,7 +257,7 @@ const Navbar = memo(() => {
               <Link to="/contact" onClick={() => setIsOpen(false)} className="text-4xl font-bold text-[#101D36] hover:text-[#FF6B00] transition-colors">Contact Us</Link>
             </div>
             <div className="mt-auto">
-               <Link to="/contact" onClick={() => setIsOpen(false)} className="block py-5 bg-[#FF6B00] text-white font-semibold rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] text-center">Get Started</Link>
+               <Link to="/contact" onClick={() => setIsOpen(false)} className="block py-5 text-white font-semibold rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] text-center" style={{ background: ORANGE_GRADIENT }}>Get Started</Link>
             </div>
           </motion.div>
         )}

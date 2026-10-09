@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs } from '../utils/seoConfig';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS } from '../styles/designTokens';
+import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
 
 const vp = { once: true, margin: '-80px' } as const;
 
@@ -135,7 +135,7 @@ const Company = () => {
       <SEO config={seoConfigs.company} />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="relative pt-40 pb-20 overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -162,7 +162,7 @@ const Company = () => {
               <Link
                 to="/services/ai-machine-learning"
                 className="px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                style={{ backgroundColor: ORANGE }}
+                style={{ background: ORANGE_GRADIENT }}
               >
                 Explore Our Services <ChevronRight className="w-4 h-4" />
               </Link>
@@ -339,7 +339,7 @@ const Company = () => {
       </section>
 
       {/* Technical Expertise */}
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="py-24 relative overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="absolute inset-x-0 top-0 h-1/2 pointer-events-none" style={{ background: `linear-gradient(180deg, ${NAVY_RAISED}, transparent)`, opacity: 0.5 }} />
 
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative">
@@ -511,7 +511,7 @@ const Company = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6" style={{ background: `linear-gradient(135deg, ${ORANGE}, #FF7A1A)` }}>
+      <section className="py-20 px-6" style={{ background: ORANGE_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

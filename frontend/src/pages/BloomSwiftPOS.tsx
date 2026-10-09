@@ -7,7 +7,7 @@ import {
   MapPin, MessageCircle, ExternalLink, Star
 } from 'lucide-react';
 import Footer from '../components/Footer';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS } from '../styles/designTokens';
+import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
 
 // ─── animation helpers ───────────────────────────────────────────────────────
 const fadeUp = {
@@ -102,7 +102,7 @@ const BloomSwiftPOS = () => {
     <div style={{ fontFamily: FONT_SANS }}>
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="relative min-h-[640px] overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="relative min-h-[640px] overflow-hidden" style={{ background: NAVY_GRADIENT }}>
 
         {/* Full-height POS image — right side, desktop only */}
         <div className="absolute right-0 top-0 h-full w-[48%] hidden lg:block">
@@ -145,7 +145,7 @@ const BloomSwiftPOS = () => {
             <motion.div variants={fadeUp} custom={0.18} className="flex flex-wrap gap-3.5 mb-10">
               <a href="https://www.bloomswiftpos.com/" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all"
-                style={{ backgroundColor: ORANGE }}>
+                style={{ background: ORANGE_GRADIENT }}>
                 Get a Demo <ArrowRight className="w-4 h-4" />
               </a>
               <a href="#projects"
@@ -250,7 +250,7 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ WHY BLOOMSWIFT ══════════════════════ */}
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="py-24 relative overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="absolute inset-x-0 top-0 h-1/2 pointer-events-none" style={{ background: `linear-gradient(180deg, ${NAVY_RAISED}, transparent)`, opacity: 0.5 }} />
 
         <div className="relative z-10 max-w-[1550px] mx-auto px-6 xl:px-12">
@@ -349,7 +349,7 @@ const BloomSwiftPOS = () => {
       </section>
 
       {/* ══════════════════════ CTA ══════════════════════ */}
-      <section id="contact" className="py-24 px-6 scroll-mt-16" style={{ background: `linear-gradient(135deg, ${ORANGE}, #FF7A1A)` }}>
+      <section id="contact" className="py-24 px-6 scroll-mt-16" style={{ background: ORANGE_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
 

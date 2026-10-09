@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { getSEOConfig } from '../utils/seoConfig';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS } from '../styles/designTokens';
+import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -678,7 +678,7 @@ const ClientCard = ({ project, index, onOpen }: { project: ClientProject; index:
           <button
             onClick={() => onOpen(project)}
             className="flex items-center gap-2 text-white font-semibold text-sm px-6 py-3 rounded-lg shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
-            style={{ backgroundColor: ORANGE }}
+            style={{ background: ORANGE_GRADIENT }}
           >
             See Capabilities <ArrowRight className="w-4 h-4" />
           </button>
@@ -808,7 +808,7 @@ const ClientModal = ({ project, onClose }: { project: ClientProject; onClose: ()
             </div>
             <Link to="/contact" onClick={onClose}
               className="w-full flex items-center justify-center gap-2 text-white font-semibold text-sm py-3.5 rounded-lg hover:opacity-90 transition-opacity"
-              style={{ backgroundColor: ORANGE }}>
+              style={{ background: ORANGE_GRADIENT }}>
               <ArrowRight className="w-4 h-4" /> Start This Project
             </Link>
           </div>
@@ -959,7 +959,7 @@ const Portfolio = () => {
       <SEO config={getSEOConfig('portfolio')} />
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-36 pb-16 overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="relative pt-36 pb-16 overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2 text-xs font-medium text-gray-400 uppercase tracking-wide mb-8">
@@ -1212,7 +1212,7 @@ const Portfolio = () => {
               <h3 className="text-xl font-semibold mb-2" style={{ color: NAVY }}>No solutions found</h3>
               <p className="text-gray-500 mb-6">Try adjusting your search or category filter.</p>
               <button onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
-                className="px-6 py-3 bg-[#FF6B00] text-white font-semibold rounded-lg hover:bg-[#e65c00] transition-colors">
+                className="px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity" style={{ background: ORANGE_GRADIENT }}>
                 Clear Filters
               </button>
             </motion.div>
@@ -1232,7 +1232,7 @@ const Portfolio = () => {
       <section className="py-24 bg-white">
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
           <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }}
-            className="relative rounded-xl overflow-hidden p-12 md:p-16 text-center" style={{ backgroundColor: NAVY }}>
+            className="relative rounded-xl overflow-hidden p-12 md:p-16 text-center" style={{ background: NAVY_GRADIENT }}>
             <div className="relative z-10 max-w-2xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-5">
                 <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
@@ -1248,7 +1248,7 @@ const Portfolio = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
                 <Link to="/contact"
                   className="flex items-center gap-2 text-white font-semibold px-8 py-4 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all"
-                  style={{ backgroundColor: ORANGE }}>
+                  style={{ background: ORANGE_GRADIENT }}>
                   Start a Conversation <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link to="/company"

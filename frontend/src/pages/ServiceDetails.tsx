@@ -8,7 +8,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { getSEOConfig } from '../utils/seoConfig';
-import { NAVY, ORANGE, FONT_SANS } from '../styles/designTokens';
+import { NAVY, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
 import {
   BackgroundGlows,
   ServiceBreadcrumb,
@@ -56,7 +56,7 @@ const ServiceDetails = () => {
       <div className="min-h-screen flex flex-col items-center justify-center pt-24 px-6" style={{ backgroundColor: NAVY, fontFamily: FONT_SANS }}>
         <h1 className="text-4xl font-bold text-white mb-4">Service Not Found</h1>
         <p className="text-white/60 mb-8">The service you're looking for doesn't exist or has been moved.</p>
-        <Link to="/" className="flex items-center gap-2 text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#e65c00] transition-colors shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)]" style={{ backgroundColor: ORANGE }}>
+        <Link to="/" className="flex items-center gap-2 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)]" style={{ background: ORANGE_GRADIENT }}>
           <ArrowLeft size={18} /> Return Home
         </Link>
       </div>
@@ -83,7 +83,7 @@ const ServiceDetails = () => {
       <BackgroundGlows />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden" style={!config.heroBgImage ? { background: NAVY_GRADIENT } : undefined}>
 
         {/* Full-bleed background image with gradient blends */}
         {config.heroBgImage && (

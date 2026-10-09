@@ -4,7 +4,7 @@ import {
   Shield, Lock, History, BarChart3, ShieldAlert, TrendingUp, Zap,
   Search, RefreshCcw, ArrowRight, Globe
 } from 'lucide-react';
-import { NAVY_RAISED, ORANGE, ORANGE_LIGHT } from '../../../styles/designTokens';
+import { NAVY_RAISED, ORANGE, ORANGE_LIGHT, ORANGE_GRADIENT } from '../../../styles/designTokens';
 
 /**
  * CustomCRMContent Component
@@ -441,7 +441,7 @@ export const CustomCRMContent = ({ onOpenModal }: CustomCRMContentProps) => {
                 <button
                   type="submit"
                   className="w-full text-white py-4 rounded-lg font-semibold text-base shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all active:scale-[0.98] flex items-center justify-center gap-2.5"
-                  style={{ backgroundColor: ORANGE }}
+                  style={{ background: ORANGE_GRADIENT }}
                 >
                   Start Your Custom Build <ArrowRight size={18} />
                 </button>

@@ -3,7 +3,7 @@ import {
   QrCode, Wifi, Shield, Lock, FileText, Truck, BarChart3, Briefcase,
   CheckCircle2, Activity, Key, ArrowRight, ChevronRight, ShieldCheck, Zap, Database
 } from 'lucide-react';
-import { NAVY_RAISED, ORANGE } from '../../../styles/designTokens';
+import { NAVY_RAISED, ORANGE, ORANGE_GRADIENT } from '../../../styles/designTokens';
 
 interface CustomQRNFCContentProps {
   onOpenModal: () => void;
@@ -330,7 +330,7 @@ export const CustomQRNFCContent = ({ onOpenModal }: CustomQRNFCContentProps) => 
                 <button
                   onClick={onOpenModal}
                   className="w-full text-white text-base font-semibold py-4 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all active:scale-[0.98] flex justify-center items-center gap-2.5"
-                  style={{ backgroundColor: ORANGE }}
+                  style={{ background: ORANGE_GRADIENT }}
                 >
                   Request Discovery Session <ArrowRight size={18} />
                 </button>

@@ -4,7 +4,7 @@ import {
   Zap, Globe, Lock, ArrowRight, ChevronRight,
   ShieldCheck, Cpu, DollarSign
 } from 'lucide-react';
-import { NAVY_RAISED, ORANGE, ORANGE_LIGHT } from '../../../styles/designTokens';
+import { NAVY_RAISED, ORANGE, ORANGE_LIGHT, ORANGE_GRADIENT } from '../../../styles/designTokens';
 
 interface SEOContentProps {
   onOpenModal: () => void;
@@ -327,7 +327,7 @@ export const SEOContent = ({ onOpenModal }: SEOContentProps) => {
                 <button
                   onClick={onOpenModal}
                   className="w-full text-white text-base font-semibold py-4 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all active:scale-[0.98] flex justify-center items-center gap-2.5"
-                  style={{ backgroundColor: ORANGE }}
+                  style={{ background: ORANGE_GRADIENT }}
                 >
                   Get My Free Audit <ArrowRight size={18} />
                 </button>

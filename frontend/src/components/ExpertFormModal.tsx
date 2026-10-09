@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, User, Mail, Building2, Briefcase, MessageSquare, Send, CheckCircle2, Phone } from 'lucide-react';
 import { sendInquiryEmail } from '../utils/emailjs';
+import { NAVY, ORANGE, ORANGE_GRADIENT, FONT_SANS } from '../styles/designTokens';
 
 interface ExpertFormModalProps {
   isOpen: boolean;
@@ -72,18 +73,16 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-[#0c1a36]/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/60"
           ></motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative w-full max-w-2xl bg-gradient-to-br from-[#1a305c] to-[#0c1a36] border border-white/20 rounded-[32px] overflow-hidden shadow-2xl shadow-[#ff6b00]/20"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            className="relative w-full max-w-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+            style={{ backgroundColor: NAVY, fontFamily: FONT_SANS }}
           >
-            {/* Background Glow */}
-            <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-[#ff6b00]/20 blur-[80px] rounded-full pointer-events-none"></div>
-
             <div className="p-8 md:p-10">
               <button
                 onClick={onClose}
@@ -97,21 +96,21 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center text-white mb-6 shadow-lg shadow-green-500/30"
+                    className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mb-6"
                   >
-                    <CheckCircle2 size={40} />
+                    <CheckCircle2 size={32} />
                   </motion.div>
-                  <h2 className="text-3xl font-black text-white mb-4">Request Received!</h2>
-                  <p className="text-blue-100/70 text-lg max-w-md">
-                    One of our senior <span className="text-[#ff6b00] font-bold">{serviceName}</span> experts will contact you within 24 hours.
+                  <h2 className="text-2xl font-bold text-white mb-3">Request Received!</h2>
+                  <p className="text-white/60 text-base max-w-md">
+                    One of our senior <span style={{ color: ORANGE }} className="font-semibold">{serviceName}</span> experts will contact you within 24 hours.
                   </p>
                 </div>
               ) : (
                 <>
                   <div className="mb-8">
-                    <h2 className="text-3xl font-black text-white tracking-tight mb-2">Talk to an Expert</h2>
-                    <p className="text-blue-100/60 font-medium">
-                      Discussing solutions for: <span className="text-[#ff6b00]">{serviceName}</span>
+                    <h2 className="text-2xl font-bold text-white tracking-tight mb-2">Talk to an Expert</h2>
+                    <p className="text-white/55 text-[15px]">
+                      Discussing solutions for: <span style={{ color: ORANGE }} className="font-medium">{serviceName}</span>
                     </p>
                   </div>
 
@@ -128,7 +127,7 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Full Name"
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
                         />
                       </div>
                       <div className="relative group">
@@ -142,7 +141,7 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Work Email"
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
                         />
                       </div>
                     </div>
@@ -158,7 +157,7 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Company Name"
                           value={formData.company}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
                         />
                       </div>
                       <div className="relative group">
@@ -171,7 +170,7 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Job Title"
                           value={formData.jobTitle}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all"
+                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
                         />
                       </div>
                     </div>
@@ -201,7 +200,7 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                         placeholder="How can we help your organization?"
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all resize-none"
+                        className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all resize-none"
                       ></textarea>
                     </div>
 
@@ -212,18 +211,19 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-[#ff6b00] hover:bg-[#e65c00] disabled:bg-[#ff6b00]/50 text-white font-black uppercase tracking-widest py-4 px-6 rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 shadow-lg shadow-orange-500/20 mt-4 group"
+                      className="w-full disabled:opacity-50 text-white font-semibold text-[15px] py-3.5 px-6 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:-translate-y-0.5 transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4 group"
+                      style={{ background: ORANGE_GRADIENT }}
                     >
                       {loading ? (
-                        <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       ) : (
                         <>
-                          Send Inquiry <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                          Send Inquiry <Send size={16} className="group-hover:translate-x-0.5 transition-transform" />
                         </>
                       )}
                     </button>
-                    
-                    <p className="text-center text-white/30 text-[10px] uppercase font-bold tracking-widest mt-4">
+
+                    <p className="text-center text-white/35 text-xs mt-4">
                       Secure connection via BloomTech Analytics Engine
                     </p>
                   </form>

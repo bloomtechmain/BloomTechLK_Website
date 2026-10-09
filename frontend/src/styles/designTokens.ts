@@ -8,3 +8,8 @@ export const ORANGE = '#FF6B00';
 export const ORANGE_LIGHT = '#FFB27A'; // used for eyebrow/kicker labels on dark backgrounds
 export const GREY = '#F5F6F8';
 export const FONT_SANS = "'Inter', sans-serif";
+
+// Subtle two-stop accent gradients — for primary CTA buttons and major
+// hero/CTA section backgrounds only. Not for icon chips, cards, or borders.
+export const ORANGE_GRADIENT = 'linear-gradient(135deg, #FF6B00 0%, #FF7A1A 100%)';
+export const NAVY_GRADIENT = 'linear-gradient(135deg, #101D36 0%, #16233F 100%)';

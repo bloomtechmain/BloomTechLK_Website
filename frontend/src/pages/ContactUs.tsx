@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
 import { sendInquiryEmail } from '../utils/emailjs';
-import { NAVY, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS } from '../styles/designTokens';
+import { NAVY, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
 
 const vp = { once: true, margin: '-80px' } as const;
 
@@ -109,7 +109,7 @@ const ContactUs = () => {
       <SEO config={seoConfigs.contact} />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-28 overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="relative pt-40 pb-28 overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -363,7 +363,7 @@ const ContactUs = () => {
                     type="submit"
                     disabled={loading}
                     className="w-full px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] transition-all flex items-center justify-center gap-2 group"
-                    style={{ backgroundColor: ORANGE }}
+                    style={{ background: ORANGE_GRADIENT }}
                   >
                     {loading ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -382,7 +382,7 @@ const ContactUs = () => {
       </section>
 
       {/* Social Media Section */}
-      <section className="py-24 relative overflow-hidden" style={{ backgroundColor: NAVY }}>
+      <section className="py-24 relative overflow-hidden" style={{ background: NAVY_GRADIENT }}>
         <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

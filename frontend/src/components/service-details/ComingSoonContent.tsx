@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Clock, Mail } from 'lucide-react';
+import { ORANGE_GRADIENT } from '../../styles/designTokens';
 
 /**
  * ComingSoonContent Component
@@ -31,7 +32,8 @@ export const ComingSoonContent = ({ serviceName }: ComingSoonContentProps) => {
             We're building {serviceName} and it isn't publicly available just yet. Get in touch and we'll let you know the moment it launches.
           </p>
           <a href="mailto:hello@bloomtech.lk"
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-[#FF6B00] text-white font-semibold text-[15px] rounded-lg hover:bg-[#e65c00] transition-all shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:-translate-y-0.5">
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-semibold text-[15px] rounded-lg hover:opacity-90 transition-all shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:-translate-y-0.5"
+            style={{ background: ORANGE_GRADIENT }}>
             <Mail className="w-4 h-4" /> Get Notified at Launch
           </a>
         </motion.div>
