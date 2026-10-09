@@ -102,7 +102,7 @@ const ServiceDetails = () => {
         )}
 
         <div className="max-w-[1200px] mx-auto px-6 xl:px-0">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
             {/* Left Column: Content */}
             <motion.div
