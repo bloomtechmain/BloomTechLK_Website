@@ -62,7 +62,7 @@ const marqueeItems = [
   'AI & Machine Learning', 'Custom ERP & CRM', 'BloomSwift POS',
   'Cybersecurity', 'IT Infrastructure', 'Cloud Hosting',
   'SEO & Digital Marketing', 'Network Engineering', 'BloomAudit',
-  'Custom Software', 'On-Premises AI', 'Field Service Platforms',
+  'Custom Software', 'On-Premises AI', 'LTO Tape Archiving',
 ];
 
 const trustIndustries = [
@@ -85,7 +85,7 @@ const services = [
   {
     icon: Server,
     title: 'Suite of Applications',
-    desc: 'BloomSwift POS, BloomAudit, and BloomGo — purpose-built for Sri Lankan businesses.',
+    desc: 'BloomSwift POS, BloomAudit, and BloomLTO — purpose-built for Sri Lankan businesses.',
     link: '/services/bloomswift-pos',
     color: 'from-blue-500 to-cyan-500',
   },

@@ -183,26 +183,12 @@ export const serviceSEO: Record<string, SEOConfig> = {
     canonical: `${baseUrl}/services/ai-custom-development-automation`,
     ogImage: `${baseUrl}/images/Custom_AI_Development.jpg`
   },
-  'custom-ai-hardware': {
-    title: 'Custom AI Hardware & High-Performance Computing - BloomTech.lk',
-    description: 'Purpose-built AI hardware solutions. High-density GPU servers, custom workstations for machine learning, and on-premise AI infrastructure for secure, high-performance computing.',
-    keywords: 'AI hardware, GPU servers, machine learning hardware, custom AI workstations, high-performance computing',
-    canonical: `${baseUrl}/services/custom-ai-hardware`,
-    ogImage: `${baseUrl}/images/AI_Hardware.jpg`
-  },
   'custom-crm-erp-solutions': {
     title: 'Custom CRM & ERP Solutions - BloomTech.lk',
     description: 'Bespoke CRM and ERP platforms for unified business operations. Custom workflow automation, data integration, and single source of truth for enterprise resource planning.',
     keywords: 'custom CRM, custom ERP, business automation, workflow automation, enterprise software',
     canonical: `${baseUrl}/services/custom-crm-erp-solutions`,
     ogImage: `${baseUrl}/images/CRM_&_ERP.jpg`
-  },
-  'asset-lifecycle-management': {
-    title: 'IT Asset Lifecycle Management Services - BloomTech.lk',
-    description: 'Strategic IT asset management from procurement to certified destruction. Complete lifecycle control, compliance tracking, and IT investment optimization.',
-    keywords: 'asset lifecycle management, IT asset management, procurement, IT compliance, asset tracking',
-    canonical: `${baseUrl}/services/asset-lifecycle-management`,
-    ogImage: `${baseUrl}/images/Asset_Life_cycle.png`
   },
   'professional-it-consulting': {
     title: 'Professional IT Consulting & Strategic Advisory - BloomTech.lk',
@@ -225,11 +211,11 @@ export const serviceSEO: Record<string, SEOConfig> = {
     canonical: `${baseUrl}/services/bloomaudit`,
     ogImage: defaultOGImage
   },
-  'bloomgo': {
-    title: 'BloomGo - Field Service & Mobile Workforce Management - BloomTech.lk',
-    description: 'BloomGo empowers field teams with job scheduling, route optimization, on-site reporting, and real-time communication for maximum productivity.',
-    keywords: 'field service management, mobile workforce, job scheduling, route optimization',
-    canonical: `${baseUrl}/services/bloomgo`,
+  'bloomlto': {
+    title: 'BloomLTO - Searchable LTO Tape Archive Software - BloomTech.lk',
+    description: 'BloomLTO indexes every file archived to LTO tape — name, path, size, and barcode — so restoring a file means searching a catalog, not guessing which cartridge it\'s on.',
+    keywords: 'LTO tape archive, tape backup software, LTFS, searchable tape catalog, tape restore',
+    canonical: `${baseUrl}/services/bloomlto`,
     ogImage: defaultOGImage
   },
   'bloomswift-pos': {
@@ -266,6 +252,13 @@ export const serviceSEO: Record<string, SEOConfig> = {
     keywords: 'SEO services, online marketing, digital marketing, content strategy, search optimization',
     canonical: `${baseUrl}/services/online-marketing-services`,
     ogImage: `${baseUrl}/images/digital-marketing.jpg`
+  },
+  'medical-system': {
+    title: 'Medical System - Coming Soon - BloomTech.lk',
+    description: 'BloomTech.lk\'s Medical System — a clinical and practice management platform for Sri Lankan healthcare providers — is currently in development.',
+    keywords: 'medical system Sri Lanka, clinical management software, healthcare software, practice management',
+    canonical: `${baseUrl}/services/medical-system`,
+    ogImage: defaultOGImage
   }
 };
 

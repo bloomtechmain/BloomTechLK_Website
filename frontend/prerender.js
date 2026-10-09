@@ -14,19 +14,17 @@ const routes = [
   '/services/professional-it-consulting',
   '/services/custom-crm-erp-solutions',
   '/services/security-data-protection',
-  '/services/asset-lifecycle-management',
   '/services/bloomaudit',
-  '/services/bloomgo',
+  '/services/bloomlto',
   '/services/bloomswift-pos',
   '/services/custom-qr-nfc-applications',
-  '/services/custom-mobile-application',
-  '/services/custom-web-applications',
+  '/services/custom-mobile-web-applications',
+  '/services/medical-system',
   '/services/search-engine-optimization',
   '/services/custom-websites-design',
   '/services/online-marketing-services',
   '/services/ai-machine-learning',
   '/services/ai-custom-development-automation',
-  '/services/custom-ai-hardware',
 ];
 
 async function prerender() {

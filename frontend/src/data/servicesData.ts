@@ -62,15 +62,6 @@ export const megaMenuData: MegaMenuColumn[] = [
         benefits: ['Protection Against Data Breaches', 'Regulatory Compliance', 'Safeguarded Corporate Reputation'],
         imageUrl: '/images/security-hero.png'
       },
-      { 
-        name: 'Asset Lifecycle Management', 
-        desc: 'From procurement to secure decommissioning.',
-        slug: 'asset-lifecycle-management',
-        longDesc: 'End-to-end management of your corporate hardware estate. We handle the procurement, staging, deployment, tracking, and eventual secure, eco-friendly destruction of IT assets.',
-        features: ['Automated Inventory Tracking', 'Standardized Procurement', 'Secure Hard Drive Shredding', 'Eco-friendly Recycling'],
-        benefits: ['Optimized Hardware Spend', 'Data Security at EOL', 'Simplified Onboarding Processing'],
-        imageUrl: '/images/Asset_Life_cycle.png'
-      },
     ]
   },
   {
@@ -86,13 +77,13 @@ export const megaMenuData: MegaMenuColumn[] = [
         imageUrl: '/images/av-hero.png'
       },
       {
-        name: 'BloomGo',
-        desc: 'Smart field service and mobile workforce management.',
-        slug: 'bloomgo',
-        longDesc: 'BloomGo empowers field teams with a modern mobile platform for job scheduling, route optimization, on-site reporting, and real-time communication — keeping your workforce connected and productive anywhere.',
-        features: ['Job Scheduling & Dispatch', 'Route Optimization', 'On-Site Digital Forms', 'Real-Time Team Communication'],
-        benefits: ['Increased Field Productivity', 'Reduced Travel & Operational Costs', 'Improved Customer Satisfaction'],
-        imageUrl: '/images/av-hero.png'
+        name: 'BloomLTO',
+        desc: 'Searchable LTO tape archive software — archive, index, restore.',
+        slug: 'bloomlto',
+        longDesc: 'BloomLTO indexes every file the moment it\'s archived to LTO tape — name, path, size, and tape barcode — so restoring a file means searching a catalog, not guessing which cartridge it\'s on.',
+        features: ['Searchable Catalog', 'Scheduled Archiving', 'Verification & Duplication', 'Restore Queue & Audit Log'],
+        benefits: ['Instant File Lookup Across Libraries', 'Media-Loss Protection', 'Open LTFS — No Vendor Lock-In'],
+        imageUrl: '/images/dc-hero.png'
       },
       {
         name: 'BloomSwift POS',
@@ -102,6 +93,11 @@ export const megaMenuData: MegaMenuColumn[] = [
         features: ['Multi-Location Management', 'Real-Time Inventory Sync', 'Customer Loyalty Programs', 'Advanced Sales Analytics'],
         benefits: ['Faster Checkout Experience', 'Centralized Business Visibility', 'Scalable Across Multiple Sites'],
         imageUrl: '/images/av-hero.png'
+      },
+      {
+        name: 'Medical System',
+        desc: 'Coming soon.',
+        slug: 'medical-system',
       },
     ],
     secondarySection: {
@@ -117,21 +113,12 @@ export const megaMenuData: MegaMenuColumn[] = [
           imageUrl: '/images/graphic-design.jpg'
         },
         {
-          name: 'Custom Mobile Application',
-          desc: 'Native and cross-platform mobile apps built for performance.',
-          slug: 'custom-mobile-application',
-          longDesc: 'We design and develop bespoke mobile applications for iOS and Android — from consumer-facing apps to enterprise internal tools. Built with React Native and Flutter for cross-platform excellence, or native Swift/Kotlin for maximum performance.',
-          features: ['iOS & Android Development', 'React Native & Flutter', 'Offline-First Architecture', 'Push Notifications & Analytics'],
-          benefits: ['Single Codebase, Dual Platform', 'Native-Level Performance', 'Seamless Backend Integration'],
-          imageUrl: '/images/graphic-design.jpg'
-        },
-        {
-          name: 'Custom Web Applications',
-          desc: 'Bespoke portals, dashboards, and internal tools.',
-          slug: 'custom-web-applications',
-          longDesc: 'Purpose-built web applications designed to solve specific operational bottlenecks. From client-facing portals and member dashboards to internal workflow tools, we engineer scalable, secure web apps on modern React and Next.js stacks.',
-          features: ['React & Next.js Development', 'Custom API & Database Design', 'Role-Based Access Control', 'Real-Time Dashboards'],
-          benefits: ['Eliminates Manual Workflow Bottlenecks', 'Fully Owned & Customizable', 'Scales with Your Business'],
+          name: 'Custom Mobile & Web Applications',
+          desc: 'Native mobile apps and bespoke web platforms built for performance.',
+          slug: 'custom-mobile-web-applications',
+          longDesc: 'We design and develop bespoke mobile and web applications — from consumer-facing iOS/Android apps to client portals, dashboards, and internal workflow tools. Built with React Native and Flutter for cross-platform mobile excellence, and React/Next.js for scalable, secure web platforms.',
+          features: ['iOS & Android Development (React Native & Flutter)', 'React & Next.js Web Applications', 'Custom API & Database Design', 'Role-Based Access Control & Real-Time Dashboards'],
+          benefits: ['Single Codebase, Every Platform', 'Eliminates Manual Workflow Bottlenecks', 'Fully Owned, Scalable, and Customizable'],
           imageUrl: '/images/graphic-design.jpg'
         },
       ]
@@ -201,27 +188,6 @@ export const megaMenuData: MegaMenuColumn[] = [
         features: ['Intelligent Robotic Process Automation', 'Custom AI Agents', 'Workflow Orchestration', '24/7 Automated Operations'],
         benefits: ['Significant Cost Reduction', 'Elimination of Human Error', 'Scalable Operations'],
         imageUrl: '/images/Custom_AI_Development.jpg'
-      },
-      { 
-        name: 'Custom AI Hardware', 
-        desc: 'Purpose-built infrastructure for AI workloads.',
-        slug: 'custom-ai-hardware',
-        longDesc: 'For organizations with strict data privacy requirements or intensive compute needs, the public cloud isn\'t always the answer. BloomTech Corporation specializes in "Cloud Repatriation," helping you move your most intensive AI workloads to custom, on-premise hardware to reduce monthly OPEX by up to 60% while increasing performance. We design and build purpose-built server solutions—from high-VRAM GPU nodes to AMD EPYC virtualization clusters—engineered specifically for your local AI model requirements.',
-        features: [
-          'High-Density Compute Clusters: AMD EPYC 8004/9004 Series with massive ECC DDR5 memory pools',
-          'GPU-Accelerated Nodes: Multi-GPU configurations with custom thermal engineering',
-          'Enterprise NVMe Storage: Samsung PM Series arrays for high-speed IOPS',
-          'Redundant Power Systems: Titanium-rated 1+1 PSUs for maximum uptime',
-          'Remote Management: Dedicated IPMI/BMC hardware for BIOS-level control',
-          'CISA-Certified Security: 72-hour burn-in testing and TPM 2.0 integration'
-        ],
-        benefits: [
-          'Zero Data Leakage - Your proprietary data never leaves your internal network',
-          'Low Latency - Instant response times by eliminating cloud round-trips',
-          'Cost Predictability - Fixed hardware investment vs. fluctuating per-token costs',
-          'Full Hardware Control - Own your compute power and tune every component'
-        ],
-        imageUrl: '/images/AI_Hardware.jpg'
       },
     ]
   }

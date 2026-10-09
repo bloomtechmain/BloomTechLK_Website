@@ -1,4 +1,4 @@
-import { LucideIcon, Zap, Shield, Cpu, Bot, Sparkles, Package, ShieldAlert, BrainCircuit, Layers, Search, PenTool, Rocket, TrendingUp, BarChart3 } from 'lucide-react';
+import { LucideIcon, Zap, Shield, Bot, Sparkles, ShieldAlert, BrainCircuit, Layers, Search, PenTool, Rocket, TrendingUp, BarChart3 } from 'lucide-react';
 
 /**
  * Service Configuration
@@ -37,21 +37,6 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
     },
     secondaryCTA: {
       text: 'Learn More'
-    }
-  },
-  'asset-lifecycle-management': {
-    tagline: {
-      icon: Package,
-      text: 'Strategic Control'
-    },
-    heroTitle: 'Maximize Value. Minimize Risk. Master Your IT Lifecycle.',
-    heroDescription: 'From initial procurement to secure certified destruction, we manage every stage of your hardware and software journey. Stop losing track of your investments and start optimizing your ROI.',
-    primaryCTA: {
-      text: 'Request an Asset Audit',
-      icon: Package
-    },
-    secondaryCTA: {
-      text: 'View Compliance Frameworks'
     }
   },
   'ai-custom-development-automation': {
@@ -129,21 +114,6 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
       text: 'View Our Compliance Framework'
     }
   },
-  'custom-ai-hardware': {
-    tagline: {
-      icon: Cpu,
-      text: 'Cloud Repatriation. On-Premise Power.'
-    },
-    heroTitle: 'Own Your AI Infrastructure. Eliminate Cloud Lock-In.',
-    heroDescription: 'For organizations with strict data privacy requirements or intensive compute needs, the public cloud isn\'t always the answer. We design and build purpose-built AI hardware—from high-VRAM GPU nodes to AMD EPYC clusters—engineered to run your models locally with zero per-token costs.',
-    primaryCTA: {
-      text: 'Calculate Your Cloud Savings',
-      icon: Cpu
-    },
-    secondaryCTA: {
-      text: 'Explore AI Hardware Solutions'
-    }
-  },
   'custom-websites-design': {
     tagline: {
       icon: PenTool,
@@ -174,15 +144,15 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
       text: 'View Our Growth Framework'
     }
   },
-  'custom-mobile-application': {
+  'custom-mobile-web-applications': {
     tagline: {
       icon: Sparkles,
       text: 'Force Multiplier Technology'
     },
-    heroTitle: 'High-Performance Mobile Apps. Built for Your Business.',
-    heroDescription: "We build business-centric mobile applications engineered to reflect the prestige of your brand. From immersive UI/UX design to lightning-fast architecture, we create digital tools that act as a Force Multiplier for your existing team.",
+    heroTitle: 'Mobile & Web Apps. Built for Your Business.',
+    heroDescription: "We build business-centric mobile and web applications engineered to reflect the prestige of your brand. From immersive UI/UX design to lightning-fast architecture, we create digital tools — native apps, portals, dashboards — that act as a Force Multiplier for your existing team.",
     primaryCTA: {
-      text: 'Start Your App Project',
+      text: 'Start Your Project',
       icon: Zap
     },
     secondaryCTA: {
@@ -204,21 +174,6 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
       text: 'View Industry Use Cases'
     }
   },
-  'custom-web-applications': {
-    tagline: {
-      icon: Layers,
-      text: 'Built for Your Business Logic'
-    },
-    heroTitle: 'Custom Web Applications. Engineered for How You Actually Work.',
-    heroDescription: 'Off-the-shelf software forces your team to adapt to its limitations. We build bespoke web applications — CRM portals, ERP modules, automated data pipelines, and internal tools — designed from the ground up around your unique workflows and operational logic.',
-    primaryCTA: {
-      text: 'Book a Discovery Session',
-      icon: Zap
-    },
-    secondaryCTA: {
-      text: 'View Use Cases'
-    }
-  },
   'online-marketing-services': {
     tagline: {
       icon: TrendingUp,
@@ -232,6 +187,21 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
     },
     secondaryCTA: {
       text: 'View Strategy Framework'
+    }
+  },
+  'medical-system': {
+    tagline: {
+      icon: Sparkles,
+      text: 'In Development'
+    },
+    heroTitle: 'Medical System. Coming Soon.',
+    heroDescription: 'A purpose-built clinical and practice management platform for Sri Lankan healthcare providers — currently in development.',
+    primaryCTA: {
+      text: 'Get Notified at Launch',
+      icon: Sparkles
+    },
+    secondaryCTA: {
+      text: 'Contact Us'
     }
   },
 };

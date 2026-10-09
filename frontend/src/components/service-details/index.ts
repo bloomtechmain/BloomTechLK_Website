@@ -11,18 +11,17 @@ export { ServiceFeatureCard } from './ServiceFeatureCard';
 export { ServiceBenefitsSidebar } from './ServiceBenefitsSidebar';
 export { ServiceHeroImage } from './ServiceHeroImage';
 export { DefaultServiceContent } from './DefaultServiceContent';
+export { ComingSoonContent } from './ComingSoonContent';
 
 // Service-specific content components
 export { CustomQRNFCContent } from './services/CustomQRNFCContent';
 export { SEOContent } from './services/SEOContent';
 export { CustomWebsiteDesignContent } from './services/CustomWebsiteDesignContent';
 export { OnlineMarketingContent } from './services/OnlineMarketingContent';
-export { CustomMobileAppContent } from './services/CustomMobileAppContent';
+export { CustomMobileWebAppContent } from './services/CustomMobileWebAppContent';
 export { AICustomDevContent } from './services/AICustomDevContent';
-export { AssetLifecycleContent } from './services/AssetLifecycleContent';
 export { AIMachineLearningContent } from './services/AIMachineLearningContent';
 export { CustomCRMContent } from './services/CustomCRMContent';
 export { ProfessionalITConsultingContent } from './services/ProfessionalITConsultingContent';
 export { SecurityDataProtectionContent } from './services/SecurityDataProtectionContent';
-export { CustomWebAppContent } from './services/CustomWebAppContent';
 export { BloomAuditContent } from './services/BloomAuditContent';

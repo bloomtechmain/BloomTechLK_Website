@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 import {
-  Smartphone, Zap, PenTool, ShoppingCart, AppWindow, Plug, QrCode,
-  Server, GitBranch, Cpu, Shield, Lock, ShieldCheck, CheckCircle2,
-  ArrowRight, ChevronRight, Cloud, Activity
+  Smartphone, Zap, PenTool, ShoppingCart, BarChart3, Brain, Users,
+  Plug, QrCode, Server, GitBranch, Cpu, Shield, Lock, ShieldCheck,
+  CheckCircle2, ArrowRight, ChevronRight, Database, Layers,
 } from 'lucide-react';
 
-interface CustomMobileAppContentProps {
+interface CustomMobileWebAppContentProps {
   onOpenModal: () => void;
 }
 
-export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentProps) => {
+export const CustomMobileWebAppContent = ({ onOpenModal }: CustomMobileWebAppContentProps) => {
   return (
     <section className="py-20 relative">
       <div className="max-w-[1200px] mx-auto px-6 xl:px-0">
@@ -25,7 +25,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
           <div className="flex items-center gap-3 mb-12">
             <div className="h-10 w-2 bg-[#ff6b00] rounded-full"></div>
             <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight drop-shadow-sm">
-              Our Mobile Development Philosophy
+              Our Development Philosophy
               <span className="block text-xl lg:text-2xl text-white/50 font-medium mt-2 tracking-normal">Bridging technological breakthroughs with practical business requirements</span>
             </h2>
           </div>
@@ -35,7 +35,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               {
                 icon: Smartphone,
                 title: 'Conversion-First Design',
-                desc: 'We focus on "User Intent," ensuring every pixel and interaction serves a specific business purpose — not just aesthetic appeal.',
+                desc: 'We focus on "User Intent," ensuring every pixel and interaction — on mobile or web — serves a specific business purpose, not just aesthetic appeal.',
                 color: 'text-[#ff6b00]',
                 bg: 'bg-[#ff6b00]/20',
                 border: 'border-[#ff6b00]/20',
@@ -43,7 +43,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               {
                 icon: Zap,
                 title: 'Performance-Driven Engineering',
-                desc: 'Built on clean, bloat-free code optimized for sub-second load times and flawless responsiveness across all devices.',
+                desc: 'Built on clean, bloat-free code optimized for sub-second load times and flawless responsiveness across every device and platform.',
                 color: 'text-blue-400',
                 bg: 'bg-blue-500/20',
                 border: 'border-blue-400/20',
@@ -51,7 +51,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               {
                 icon: PenTool,
                 title: 'High-Fidelity UI/UX',
-                desc: 'Utilizing Canva Enterprise and Freepik Premium to craft standout visual identities that reflect the prestige of your brand.',
+                desc: 'Utilizing Canva Enterprise and Freepik Premium to craft standout visual identities that reflect the prestige of your brand everywhere.',
                 color: 'text-[#ff6b00]',
                 bg: 'bg-[#ff6b00]/20',
                 border: 'border-[#ff6b00]/20',
@@ -75,7 +75,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
           </div>
         </motion.div>
 
-        {/* Specialized Mobile Solutions */}
+        {/* Specialized Solutions */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -86,8 +86,8 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
           <div className="flex items-center gap-3 mb-16">
             <div className="h-10 w-2 bg-blue-500 rounded-full"></div>
             <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight drop-shadow-sm">
-              Specialized Mobile Solutions
-              <span className="block text-xl lg:text-2xl text-white/50 font-medium mt-2 tracking-normal">Bespoke mobile engines tailored to your operational needs</span>
+              Specialized Mobile & Web Solutions
+              <span className="block text-xl lg:text-2xl text-white/50 font-medium mt-2 tracking-normal">Bespoke engines tailored to your operational needs — on any platform</span>
             </h2>
           </div>
 
@@ -98,8 +98,8 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
                 num: 'I',
                 icon: ShoppingCart,
                 title: 'E-Commerce Powerhouses',
-                desc: 'Custom storefronts designed for high-volume transactions and seamless checkout flows — from product discovery to post-purchase experience.',
-                tags: ['Shopify Mobile', 'Apple Pay / Google Pay', 'High-Volume Checkout'],
+                desc: 'Custom storefronts — mobile or web — designed for high-volume transactions and seamless checkout flows, from product discovery to post-purchase experience.',
+                tags: ['Shopify Integration', 'Apple Pay / Google Pay', 'High-Volume Checkout'],
                 borderColor: 'border-[#ff6b00]',
                 shadowColor: 'shadow-[0_0_20px_rgba(255,107,0,0.3)]',
                 iconBg: 'bg-[#ff6b00]/20',
@@ -107,10 +107,10 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               },
               {
                 num: 'II',
-                icon: AppWindow,
-                title: 'Custom Mobile Portals & Internal Tools',
-                desc: 'Bespoke mobile applications built to solve specific operational bottlenecks — from field service dashboards to executive reporting suites.',
-                tags: ['React Native', 'Flutter', 'Offline-First'],
+                icon: BarChart3,
+                title: 'Enterprise CRM & ERP Modules',
+                desc: 'Manage resources and customers in one seamless, unified dashboard — integrating inventory, HR, sales pipelines, and financial sync into a single source of truth.',
+                tags: ['Precision ERP', 'Tailored CRM', 'Financial Sync'],
                 borderColor: 'border-blue-400/50',
                 shadowColor: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]',
                 iconBg: 'bg-blue-500/20',
@@ -118,10 +118,10 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               },
               {
                 num: 'III',
-                icon: Plug,
-                title: 'Enterprise Integration',
-                desc: 'We connect your mobile apps directly to your existing tech stack — including Shopify, custom CRM, and ERP systems — creating a single source of truth.',
-                tags: ['CRM & ERP Sync', 'REST & GraphQL APIs', 'Real-Time Data'],
+                icon: Users,
+                title: 'Custom Portals & Internal Tools',
+                desc: 'Bespoke mobile and web applications built to solve specific operational bottlenecks — from field service dashboards to secure, role-based client and member portals.',
+                tags: ['React Native & Flutter', 'Role-Based Access (RBAC)', 'Offline-First'],
                 borderColor: 'border-[#ff6b00]',
                 shadowColor: 'shadow-[0_0_20px_rgba(255,107,0,0.3)]',
                 iconBg: 'bg-[#ff6b00]/20',
@@ -129,6 +129,28 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               },
               {
                 num: 'IV',
+                icon: Brain,
+                title: 'Automated Data & Document Intelligence',
+                desc: 'Turn your archives into a searchable, intelligent knowledge base — extraction engines that read PDFs, emails, and images, piping key metrics directly into your database.',
+                tags: ['Extraction Engines', 'AI-Driven Logic', 'Predictive Analytics'],
+                borderColor: 'border-blue-400/50',
+                shadowColor: 'shadow-[0_0_20px_rgba(59,130,246,0.2)]',
+                iconBg: 'bg-blue-500/20',
+                iconColor: 'text-blue-400',
+              },
+              {
+                num: 'V',
+                icon: Plug,
+                title: 'Enterprise Integration',
+                desc: 'We connect your apps directly to your existing tech stack — including Shopify, custom CRM, and ERP systems — creating a single source of truth.',
+                tags: ['CRM & ERP Sync', 'REST & GraphQL APIs', 'Real-Time Data'],
+                borderColor: 'border-[#ff6b00]',
+                shadowColor: 'shadow-[0_0_20px_rgba(255,107,0,0.3)]',
+                iconBg: 'bg-[#ff6b00]/20',
+                iconColor: 'text-[#ff6b00]',
+              },
+              {
+                num: 'VI',
                 icon: QrCode,
                 title: 'Proximity-Based Applications',
                 desc: 'Specialized apps utilizing QR and NFC technology for secure asset tracking, contactless interactions, and automated workflows.',
@@ -186,12 +208,12 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
                 <span className="text-blue-400">Never Fails.</span>
               </h2>
               <p className="text-2xl text-white/70 leading-relaxed font-medium mb-12">
-                Unlike traditional design firms, our mobile solutions are backed by <span className="text-white font-bold italic">enterprise-grade infrastructure</span> — fully managed, always available, and built to scale.
+                Unlike traditional design firms, our mobile and web solutions are backed by <span className="text-white font-bold italic">enterprise-grade infrastructure</span> — fully managed, always available, and built to scale.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { title: 'Secure Managed Hosting', desc: 'App backends hosted on high-availability cloud environments — AWS, Google Cloud, or Azure.', icon: Cloud },
+                  { title: 'Secure Managed Hosting', desc: 'App backends hosted on high-availability cloud environments — AWS, Google Cloud, or Azure.', icon: Layers },
                   { title: 'Automated CI/CD Pipelines', desc: 'Custom deployment pipelines that automate testing and ensure zero-downtime updates to your live app.', icon: GitBranch },
                   { title: 'On-Premise Capability', desc: 'For strict data privacy, we host your application\'s intelligence locally on AMD EPYC server clusters.', icon: Cpu },
                 ].map((point, i) => (
@@ -243,13 +265,13 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
                   <span className="text-[#ff6b00]">Compliance Built In.</span>
                 </h2>
                 <p className="text-xl text-white/70 leading-relaxed font-medium">
-                  As a <span className="text-white font-bold">CISA-certified professional</span>, we ensure your mobile presence meets modern security and regulatory standards — protecting your business and every user from day one.
+                  As a <span className="text-white font-bold">CISA-certified professional</span>, we ensure every mobile and web platform we build meets modern security and regulatory standards — protecting your business and every user from day one.
                 </p>
               </div>
               <div className="lg:w-1/2 grid grid-cols-1 gap-6">
                 {[
                   { label: 'GDPR/CCPA Compliance & ADA Accessibility (WCAG 2.1)', desc: 'Privacy-first and inclusive design protecting you from regulatory liability.', icon: Lock },
-                  { label: 'Audit-Ready Architecture', desc: 'Detailed logging and hardened security protocols built for full accountability.', icon: Activity },
+                  { label: 'Audit-Ready, Disaster-Resilient Architecture', desc: 'Detailed logging, redundant backups, and hardened protocols built for full accountability.', icon: CheckCircle2 },
                   { label: 'Zero Trust Identity & Access Management', desc: 'Phishing-resistant MFA and least-privilege access to protect sensitive user data.', icon: ShieldCheck },
                 ].map((item, idx) => (
                   <div key={idx} className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-6 hover:bg-white/10 transition-colors">
@@ -286,10 +308,10 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
             <div className="hidden md:block absolute top-[28px] left-8 w-[calc(100%-4rem)] h-[2px] bg-gradient-to-r from-[#ff6b00] to-blue-500 z-0"></div>
 
             {[
-              { phase: '1', title: 'Strategy & Wireframing', desc: 'Mapping the complete user journey before touching a single line of code — aligning every screen to a business goal.', color: 'border-[#ff6b00]' },
-              { phase: '2', title: 'Creative Concepting', desc: 'Delivering high-fidelity mockups that bring your brand\'s personality to life and validate UX flows before development.', color: 'border-blue-400/50' },
-              { phase: '3', title: 'Development & Integration', desc: 'Building the full backend and integrating essential APIs for payments, communications, and your existing tech stack.', color: 'border-[#ff6b00]' },
-              { phase: '4', title: 'Launch & Optimization', desc: 'Post-launch load testing, App Store submission, and continuous performance tuning as your user base grows.', color: 'border-blue-400/50' },
+              { phase: '1', title: 'Strategy & Workflow Mapping', desc: 'Mapping the complete user journey and current manual processes before touching a single line of code — aligning every screen to a business goal.', color: 'border-[#ff6b00]' },
+              { phase: '2', title: 'Architecture & Creative Concepting', desc: 'Designing database schemas, API contracts, and high-fidelity mockups that bring your brand\'s personality to life and validate UX flows.', color: 'border-blue-400/50' },
+              { phase: '3', title: 'Iterative Development & Integration', desc: 'Building in sprints with access to a live staging environment, integrating essential APIs for payments, communications, and your existing stack.', color: 'border-[#ff6b00]' },
+              { phase: '4', title: 'Launch, Training & Optimization', desc: 'App Store submission or deployment, full staff training, and continuous performance tuning as your user base grows.', color: 'border-blue-400/50' },
             ].map((p, idx) => (
               <div key={idx} className="relative z-10 flex flex-col items-start gap-6 bg-black/20 md:bg-transparent p-8 md:p-0 rounded-3xl md:rounded-none border border-white/5 md:border-transparent mt-4 md:mt-0 group">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-[#1a305c] to-[#0c1a36] border-2 ${p.color} shadow-lg flex items-center justify-center font-black text-white text-2xl shrink-0 group-hover:scale-110 transition-transform`}>
@@ -315,7 +337,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
           <div className="flex items-center gap-3 mb-12">
             <div className="h-10 w-2 bg-[#ff6b00] rounded-full"></div>
             <h2 className="text-3xl lg:text-4xl font-black text-white tracking-tight drop-shadow-sm uppercase">
-              Mobile Tech Stack
+              Mobile & Web Tech Stack
               <span className="block text-xl lg:text-2xl text-white/50 font-medium mt-2 tracking-normal capitalize">The professional toolset behind every build</span>
             </h2>
           </div>
@@ -327,10 +349,11 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
             </div>
 
             {[
-              { cat: 'Cross-Platform', tools: 'React Native, Flutter — one codebase for iOS & Android', icon: Smartphone },
-              { cat: 'Frontend', tools: 'TypeScript, Tailwind, Expo for rapid native development', icon: AppWindow },
-              { cat: 'Backend', tools: 'Node.js, PostgreSQL, REST & GraphQL APIs', icon: Server },
-              { cat: 'Infrastructure', tools: 'AWS Amplify, Google Cloud, Azure — with On-Premise option', icon: Cloud },
+              { cat: 'Mobile', tools: 'React Native, Flutter — one codebase for iOS & Android', icon: Smartphone },
+              { cat: 'Web Frontend', tools: 'React, Next.js, TypeScript, Tailwind CSS', icon: Layers },
+              { cat: 'Backend', tools: 'Node.js, Python (Django / FastAPI), or Go', icon: Server },
+              { cat: 'Database', tools: 'PostgreSQL, MySQL, or MongoDB for unstructured data', icon: Database },
+              { cat: 'Infrastructure', tools: 'AWS, Google Cloud, Azure — with On-Premise AMD EPYC option', icon: Cpu },
               { cat: 'Security', tools: 'OAuth 2.0, JWT, Zero Trust IAM, AES-256 Encryption', icon: Shield },
             ].map((item, idx) => (
               <div key={idx} className="grid grid-cols-1 lg:grid-cols-3 border-b border-white/5 hover:bg-white/10 transition-all group last:border-b-0">
@@ -363,15 +386,15 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
             <div className="lg:w-[55%]">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-8">
                 <span className="w-2 h-2 rounded-full bg-[#ff6b00] animate-pulse"></span>
-                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">Mobile Specialist On Standby</span>
+                <span className="text-white/80 text-xs font-bold uppercase tracking-widest">Solutions Architect On Standby</span>
               </div>
 
               <h2 className="text-4xl lg:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 drop-shadow-lg">
                 Ready to Build Your <br />
-                <span className="text-[#ff6b00]">Mobile Force Multiplier?</span>
+                <span className="text-[#ff6b00]">Mobile or Web Platform?</span>
               </h2>
               <p className="text-xl text-white/80 leading-relaxed font-medium mb-10 max-w-xl">
-                Your app should be your hardest-working team member. Let's map the user journey and design a mobile experience that drives real business results.
+                Your app — on a phone or in a browser — should be your hardest-working team member. Let's map the user journey and design an experience that drives real business results.
               </p>
 
               <div className="flex gap-2 items-center">
@@ -385,7 +408,7 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
               <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#ff6b00]/20 blur-2xl rounded-full pointer-events-none"></div>
               <div className="flex flex-col gap-6 relative z-10">
                 <div className="text-center">
-                  <h3 className="text-2xl font-black text-white mb-2">Start Your App Project</h3>
+                  <h3 className="text-2xl font-black text-white mb-2">Start Your Project</h3>
                   <p className="text-white/60 text-sm">Tell us what you're building</p>
                 </div>
 
@@ -396,11 +419,13 @@ export const CustomMobileAppContent = ({ onOpenModal }: CustomMobileAppContentPr
                   </div>
 
                   <div>
-                    <label className="text-white/60 font-bold text-[10px] mb-2 block uppercase tracking-widest">App Type</label>
+                    <label className="text-white/60 font-bold text-[10px] mb-2 block uppercase tracking-widest">Project Type</label>
                     <div className="relative">
                       <select defaultValue="" className="w-full bg-black/40 border border-white/10 rounded-xl px-5 py-4 text-white focus:outline-none focus:border-[#ff6b00]/50 focus:bg-black/60 transition-all font-medium appearance-none cursor-pointer">
-                        <option value="" disabled className="text-gray-900 bg-white">Select an App Type...</option>
+                        <option value="" disabled className="text-gray-900 bg-white">Select a Project Type...</option>
                         <option value="ecommerce" className="text-gray-900 bg-white">E-Commerce Store</option>
+                        <option value="crm_erp" className="text-gray-900 bg-white">CRM / ERP System</option>
+                        <option value="client_portal" className="text-gray-900 bg-white">Client or Member Portal</option>
                         <option value="enterprise" className="text-gray-900 bg-white">Enterprise / Internal Tool</option>
                         <option value="consumer" className="text-gray-900 bg-white">Consumer-Facing App</option>
                         <option value="proximity" className="text-gray-900 bg-white">QR / NFC Proximity App</option>

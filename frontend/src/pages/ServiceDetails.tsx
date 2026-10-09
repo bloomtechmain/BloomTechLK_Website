@@ -19,15 +19,14 @@ import {
   SEOContent,
   CustomWebsiteDesignContent,
   OnlineMarketingContent,
-  CustomMobileAppContent,
+  CustomMobileWebAppContent,
   AICustomDevContent,
-  AssetLifecycleContent,
   AIMachineLearningContent,
   CustomCRMContent,
   ProfessionalITConsultingContent,
   SecurityDataProtectionContent,
-  CustomWebAppContent,
-  BloomAuditContent
+  BloomAuditContent,
+  ComingSoonContent
 } from '../components/service-details';
 
 // Lazy load the modal
@@ -186,14 +185,11 @@ function renderServiceContent(service: ServiceItem, onOpenModal: () => void) {
     case 'online-marketing-services':
       return <OnlineMarketingContent onOpenModal={onOpenModal} />;
 
-    case 'custom-mobile-application':
-      return <CustomMobileAppContent onOpenModal={onOpenModal} />;
+    case 'custom-mobile-web-applications':
+      return <CustomMobileWebAppContent onOpenModal={onOpenModal} />;
 
     case 'ai-custom-development-automation':
       return <AICustomDevContent onOpenModal={onOpenModal} />;
-
-    case 'asset-lifecycle-management':
-      return <AssetLifecycleContent onOpenModal={onOpenModal} />;
 
     case 'ai-machine-learning':
       return <AIMachineLearningContent onOpenModal={onOpenModal} />;
@@ -207,11 +203,11 @@ function renderServiceContent(service: ServiceItem, onOpenModal: () => void) {
     case 'security-data-protection':
       return <SecurityDataProtectionContent onOpenModal={onOpenModal} />;
 
-    case 'custom-web-applications':
-      return <CustomWebAppContent onOpenModal={onOpenModal} />;
-
     case 'bloomaudit':
       return <BloomAuditContent onOpenModal={onOpenModal} />;
+
+    case 'medical-system':
+      return <ComingSoonContent serviceName={service.name} />;
 
     default:
       // Services without custom content use the default layout

@@ -14,40 +14,38 @@ const Footer = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 text-center md:text-left w-full border-y border-white/10 py-16 mb-12">
-          {/* Services Column 1 */}
+          {/* Services Column 1 — Consulting & Custom Software Solutions */}
           <div>
             <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8">Services & Solutions</h5>
             <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
               <li><Link to="/services/professional-it-consulting" className="hover:text-[#ff6b00] transition-colors">Professional IT Consulting</Link></li>
               <li><Link to="/services/custom-crm-erp-solutions" className="hover:text-[#ff6b00] transition-colors">Custom CRM & ERP Solutions</Link></li>
               <li><Link to="/services/security-data-protection" className="hover:text-[#ff6b00] transition-colors">Security & Data Protection</Link></li>
-              <li><Link to="/services/asset-lifecycle-management" className="hover:text-[#ff6b00] transition-colors">Asset Lifecycle Management</Link></li>
-              <li><Link to="/services/it-network-infrastructure" className="hover:text-[#ff6b00] transition-colors">IT Network & Infrastructure</Link></li>
-              <li><Link to="/services/enterprise-networking" className="hover:text-[#ff6b00] transition-colors">Enterprise Networking</Link></li>
+              <li><Link to="/services/custom-qr-nfc-applications" className="hover:text-[#ff6b00] transition-colors">Custom QR & NFC Applications</Link></li>
+              <li><Link to="/services/custom-mobile-web-applications" className="hover:text-[#ff6b00] transition-colors">Custom Mobile & Web Applications</Link></li>
             </ul>
           </div>
-          
-          {/* Services Column 2 */}
+
+          {/* Services Column 2 — Suite of Applications */}
           <div>
             <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8 opacity-0 pointer-events-none">Services</h5>
             <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
-              <li><Link to="/services/custom-server-design-deployment" className="hover:text-[#ff6b00] transition-colors">Custom Server Design & Deployment</Link></li>
-              <li><Link to="/services/custom-nas-storage" className="hover:text-[#ff6b00] transition-colors">Custom NAS Storage</Link></li>
-              <li><Link to="/services/rack-and-roll-services" className="hover:text-[#ff6b00] transition-colors">Rack & Roll Services</Link></li>
-              <li><Link to="/services/cloud-hosting-deployment" className="hover:text-[#ff6b00] transition-colors">Cloud Hosting & Deployment</Link></li>
-              <li><Link to="/services/av-smart-workspaces" className="hover:text-[#ff6b00] transition-colors">AV & Smart Workspaces</Link></li>
+              <li><Link to="/services/bloomaudit" className="hover:text-[#ff6b00] transition-colors">BloomAudit</Link></li>
+              <li><Link to="/services/bloomlto" className="hover:text-[#ff6b00] transition-colors">BloomLTO</Link></li>
+              <li><Link to="/services/bloomswift-pos" className="hover:text-[#ff6b00] transition-colors">BloomSwift POS</Link></li>
+              <li><Link to="/services/medical-system" className="hover:text-[#ff6b00] transition-colors">Medical System</Link></li>
             </ul>
           </div>
-          
-          {/* Services Column 3 */}
+
+          {/* Services Column 3 — Online Presence & AI Development */}
           <div>
             <h5 className="font-black text-xs uppercase tracking-widest text-[#5b6e8a] mb-8 opacity-0 pointer-events-none">Services</h5>
             <ul className="space-y-3 text-[11px] font-bold opacity-60 uppercase">
+              <li><Link to="/services/search-engine-optimization" className="hover:text-[#ff6b00] transition-colors">Search Engine Optimization</Link></li>
               <li><Link to="/services/custom-websites-design" className="hover:text-[#ff6b00] transition-colors">Custom Website Design</Link></li>
               <li><Link to="/services/online-marketing-services" className="hover:text-[#ff6b00] transition-colors">Online Marketing Services</Link></li>
               <li><Link to="/services/ai-machine-learning" className="hover:text-[#ff6b00] transition-colors">AI & Machine Learning (ML)</Link></li>
               <li><Link to="/services/ai-custom-development-automation" className="hover:text-[#ff6b00] transition-colors">AI Custom Development for Automation</Link></li>
-              <li><Link to="/services/custom-ai-hardware" className="hover:text-[#ff6b00] transition-colors">Custom AI Hardware</Link></li>
             </ul>
           </div>
           <div>

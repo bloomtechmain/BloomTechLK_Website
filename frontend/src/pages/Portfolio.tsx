@@ -5,7 +5,7 @@ import {
   ChevronRight, Star, CheckCircle2, X, ExternalLink,
   Search, Clock, Building2, Calendar, ArrowRight,
   Layers, Award, Filter, SlidersHorizontal, Zap,
-  BarChart3, Shield, Smartphone, MapPin, ShoppingCart,
+  BarChart3, Shield, Database, ShoppingCart,
   ClipboardCheck, Users, Wifi, WifiOff, Package,
   TrendingUp, FileText, Bell, ChevronDown,
 } from 'lucide-react';
@@ -120,41 +120,41 @@ const BLOOM_PRODUCTS: BloomProduct[] = [
     serviceSlug: 'bloomaudit',
   },
   {
-    id: 'bloomgo',
-    name: 'BloomGo',
-    tagline: 'Your Field Team, Fully Connected.',
-    description: 'BloomGo is a smart field service and mobile workforce management platform that keeps field teams productive, coordinated, and connected — whether they\'re in Colombo or deep in Sri Lanka\'s rural regions. From AI-assisted job dispatch to offline-capable mobile forms, BloomGo eliminates the chaos of manual field coordination.',
-    fullDescription: 'Managing field teams across Sri Lanka\'s diverse geography presents unique challenges — variable connectivity, long distances, and complex routing. BloomGo was designed to solve exactly this. The platform combines an intelligent dispatch engine with a native mobile app (iOS and Android) that works fully offline, syncing automatically when connectivity is restored. Supervisors get a live dashboard with real-time job status, team locations, and SLA tracking. Customers receive automated SMS updates at every job milestone.',
-    category: 'Mobile & Field Operations',
+    id: 'bloomlto',
+    name: 'BloomLTO',
+    tagline: 'Your LTO Library, Finally Searchable.',
+    description: 'BloomLTO is searchable LTO tape archive software that indexes every file the moment it\'s archived to tape — name, path, size, and tape barcode — so restoring a file means searching a catalog, not guessing which cartridge it\'s on.',
+    fullDescription: 'Tape is cheap and reliable, but finding one file across a decade of cartridges is a nightmare without a catalog. BloomLTO solves exactly this. The platform watches mounted folders and network sources, archives to LTO in the open LTFS format on a schedule you set, and indexes every file as it\'s written. Re-hash verification and cold-spare duplication protect against media loss, while a full restore audit log tracks who recovered what, from which tape, and when. Built on open standards, tapes stay readable with or without BloomLTO on hand.',
+    category: 'IT Infrastructure',
     status: 'Live & Active',
-    image: '/images/av-hero.png',
+    image: '/images/dc-hero.png',
     accentColor: '#ff6b00',
     textAccent: 'text-[#ff6b00]',
     bgAccent: 'bg-[#ff6b00]',
     borderAccent: 'border-[#ff6b00]/30',
     features: [
-      { icon: <Zap className="w-4 h-4" />,        title: 'Smart Job Scheduling',    desc: 'AI-assisted dispatch with skill-based assignment and workload balancing.' },
-      { icon: <MapPin className="w-4 h-4" />,      title: 'Route Optimisation',      desc: 'Real-time routing with traffic awareness reduces travel time by 40%.' },
-      { icon: <FileText className="w-4 h-4" />,    title: 'Digital On-Site Forms',   desc: 'Custom form builder with photo capture, signatures, and auto-report generation.' },
-      { icon: <Smartphone className="w-4 h-4" />,  title: 'Live GPS Tracking',       desc: 'Team locations updated every 60 seconds with geofence alerts.' },
-      { icon: <WifiOff className="w-4 h-4" />,     title: 'Offline-First Operation', desc: 'Full functionality without internet — syncs instantly on reconnect.' },
-      { icon: <Users className="w-4 h-4" />,       title: 'Team Communication',      desc: 'In-app messaging with job context keeps everyone on the same page.' },
+      { icon: <Search className="w-4 h-4" />,      title: 'Searchable Catalog',        desc: 'Every file indexed by name, path, size, and tape barcode on archive.' },
+      { icon: <Clock className="w-4 h-4" />,        title: 'Scheduled Archiving',       desc: 'Automated runs across specified libraries and sources, on schedule.' },
+      { icon: <FileText className="w-4 h-4" />,     title: 'Restore Audit Log',         desc: 'Full recovery history — who restored what, from which tape, and when.' },
+      { icon: <Shield className="w-4 h-4" />,       title: 'Verification & Duplication',desc: 'Re-hash checks and cold-spare duplicate copies protect against media loss.' },
+      { icon: <Package className="w-4 h-4" />,      title: 'Open LTFS Format',          desc: 'Tapes stay readable with any LTFS-compatible tool — even without BloomLTO.' },
+      { icon: <Bell className="w-4 h-4" />,         title: 'Centralized Alerts',        desc: 'One attention page plus optional email alerts for jobs needing a look.' },
     ],
-    technologies: ['React Native', 'Expo', 'Node.js', 'PostgreSQL', 'Google Maps API', 'Socket.io', 'Firebase FCM', 'SQLite'],
+    technologies: ['Node.js', 'Electron', 'SQLite', 'LTFS', 'IBM & HPE Drive APIs', 'React', 'TypeScript', 'Windows / Linux'],
     metrics: [
-      { value: '40%',  label: 'Reduction in travel time' },
-      { value: '95%',  label: 'On-time job completion rate' },
-      { value: 'iOS + Android', label: 'Cross-platform support' },
-      { value: '100%', label: 'Offline-capable' },
+      { value: '18 TB',   label: 'Native capacity per LTO-9 tape' },
+      { value: 'LTO-5–9', label: 'Drive generations supported' },
+      { value: '30-Day',  label: 'Free trial available' },
+      { value: '100%',    label: 'Open LTFS format' },
     ],
     keyOutcomes: [
-      '40% reduction in field team travel time through route optimisation',
-      '95% on-time job completion rate across all deployments',
-      'Offline-first — works in Sri Lanka\'s remote areas without connectivity',
-      'Automated customer SMS updates at every job milestone',
-      'Real-time supervisor dashboard with live team location tracking',
+      'Every archived file searchable by name, path, size, and tape barcode',
+      'Re-hash verification and cold-spare duplication protect against media loss',
+      'Full restore audit log — who restored what, from which tape, and when',
+      'Open LTFS format keeps tapes readable with or without BloomLTO',
+      'Native support across LTO-5 through LTO-9 drives and libraries',
     ],
-    serviceSlug: 'bloomgo',
+    serviceSlug: 'bloomlto',
   },
   {
     id: 'bloomswift',
@@ -423,115 +423,93 @@ const BloomAuditMockup = () => (
   </div>
 );
 
-const BloomGoMockup = () => (
-  <div className="flex items-center justify-center gap-6">
-    {/* Phone frame */}
-    <div className="w-[175px] bg-[#0c1a36] rounded-[32px] p-2.5 shadow-2xl border-[3px] border-[#1a305c] flex-shrink-0">
-      {/* Notch */}
-      <div className="w-14 h-4 bg-[#1a305c] rounded-full mx-auto mb-2 flex items-center justify-center">
-        <div className="w-8 h-1 bg-[#0c1a36] rounded-full" />
+const BloomLTOMockup = () => (
+  <div className="w-full rounded-2xl overflow-hidden shadow-2xl bg-[#0f172a] border border-white/10">
+    {/* App layout */}
+    <div className="flex h-[300px]">
+      {/* Sidebar */}
+      <div className="w-12 bg-[#0f172a] border-r border-white/5 flex flex-col items-center py-4 gap-4">
+        <div className="w-7 h-7 rounded-lg bg-[#ff6b00] flex items-center justify-center">
+          <Database className="w-3.5 h-3.5 text-white" />
+        </div>
+        {[Search, Layers, Package, Bell].map((Icon, i) => (
+          <div key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center ${i === 0 ? 'bg-white/10' : ''}`}>
+            <Icon className="w-3.5 h-3.5 text-gray-500" />
+          </div>
+        ))}
       </div>
-      {/* Screen */}
-      <div className="bg-gray-50 rounded-[22px] overflow-hidden">
-        {/* App header */}
-        <div className="bg-[#ff6b00] px-3 pt-3 pb-4">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-white text-[11px] font-black">BloomGo</span>
-            <div className="flex items-center gap-1">
-              <Wifi className="w-3 h-3 text-white/80" />
-              <div className="w-3 h-3 rounded-full bg-white/30 flex items-center justify-center">
-                <div className="w-1.5 h-1.5 rounded-full bg-white" />
+      {/* Main area */}
+      <div className="flex-1 p-4 overflow-hidden">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-white text-[11px] font-black">Catalog Search</p>
+            <p className="text-gray-500 text-[9px]">48 tapes indexed · Library: Colombo-DR</p>
+          </div>
+          <div className="flex items-center gap-1.5 bg-emerald-500/20 border border-emerald-500/30 rounded-lg px-2 py-1">
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-emerald-400 text-[9px] font-bold">Live</span>
+          </div>
+        </div>
+        {/* Search bar */}
+        <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-3 py-2 mb-4">
+          <Search className="w-3.5 h-3.5 text-gray-500" />
+          <span className="text-[10px] text-gray-400">invoice_2019_Q4.xlsx</span>
+        </div>
+        {/* Stat row */}
+        <div className="grid grid-cols-4 gap-2 mb-4">
+          {[
+            { val: '18TB', lbl: 'Per Tape', col: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
+            { val: '5',    lbl: 'Jobs',     col: 'text-amber-400',   bg: 'bg-amber-500/10 border-amber-500/20'   },
+            { val: '48',   lbl: 'Tapes',    col: 'text-blue-400',    bg: 'bg-blue-500/10 border-blue-500/20'    },
+            { val: '0',    lbl: 'Alerts',   col: 'text-gray-300',    bg: 'bg-white/5 border-white/10'            },
+          ].map((s) => (
+            <div key={s.lbl} className={`rounded-xl p-2 text-center border ${s.bg}`}>
+              <div className={`text-base font-black ${s.col}`}>{s.val}</div>
+              <div className="text-gray-500 text-[8px] mt-0.5">{s.lbl}</div>
+            </div>
+          ))}
+        </div>
+        {/* Progress bars */}
+        <div className="space-y-2 mb-4">
+          {[
+            { label: 'Finance_Backup_Q3', pct: 72, color: 'bg-blue-500' },
+            { label: 'Render_Archive_2024', pct: 45, color: 'bg-purple-500' },
+            { label: 'Verify: LTO-0412', pct: 100, color: 'bg-emerald-500' },
+          ].map((row) => (
+            <div key={row.label}>
+              <div className="flex justify-between text-[9px] text-gray-400 mb-1">
+                <span>{row.label}</span><span className="font-bold text-white">{row.pct}%</span>
+              </div>
+              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${row.pct}%` }}
+                  transition={{ duration: 1.2, delay: 0.3 }}
+                  className={`h-full ${row.color} rounded-full`}
+                />
               </div>
             </div>
-          </div>
-          <p className="text-orange-100 text-[8px]">Today: 8 jobs · 3 completed</p>
+          ))}
         </div>
-        {/* Map area */}
-        <div className="h-[90px] relative overflow-hidden bg-gradient-to-br from-blue-100 via-green-50 to-blue-100">
-          <div className="absolute inset-0 grid grid-cols-5 grid-rows-4">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} className="border border-gray-200/60" />
-            ))}
+        {/* Search results table */}
+        <div className="bg-white/5 rounded-xl overflow-hidden">
+          <div className="px-3 py-1.5 border-b border-white/10 flex items-center justify-between">
+            <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Search Results</span>
+            <span className="text-[8px] text-blue-400 font-bold">3 matches</span>
           </div>
-          {/* Roads */}
-          <div className="absolute top-[35%] left-0 right-0 h-[2px] bg-white/70" />
-          <div className="absolute left-[40%] top-0 bottom-0 w-[2px] bg-white/70" />
-          {/* Job pins */}
-          <div className="absolute top-2 left-4 w-4 h-4 bg-[#ff6b00] rounded-full border-2 border-white shadow-md flex items-center justify-center">
-            <span className="text-white text-[6px] font-black">1</span>
-          </div>
-          <div className="absolute top-[45%] left-[55%] w-4 h-4 bg-[#ff6b00] rounded-full border-2 border-white shadow-md flex items-center justify-center">
-            <span className="text-white text-[6px] font-black">2</span>
-          </div>
-          <div className="absolute bottom-3 right-5 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white shadow-md flex items-center justify-center">
-            <CheckCircle2 className="w-2.5 h-2.5 text-white" />
-          </div>
-          <div className="absolute top-3 right-10 w-3.5 h-3.5 bg-blue-500 rounded-full border-2 border-white shadow-md" />
-          {/* Route line */}
-          <svg className="absolute inset-0 w-full h-full" style={{ overflow: 'visible' }}>
-            <path d="M 16 12 Q 60 50 88 50 Q 130 50 155 85" stroke="#ff6b00" strokeWidth="1.5" fill="none" strokeDasharray="4 2" opacity="0.6" />
-          </svg>
-        </div>
-        {/* Job list */}
-        <div className="px-2.5 py-2 space-y-1.5">
           {[
-            { id: 'J-0421', name: 'Network Install', status: 'Done',       color: 'bg-emerald-500', text: 'text-emerald-600', bg: 'bg-emerald-50' },
-            { id: 'J-0422', name: 'CCTV Repair',    status: 'Active',     color: 'bg-[#ff6b00]',   text: 'text-orange-600', bg: 'bg-orange-50' },
-            { id: 'J-0423', name: 'Server Upgrade', status: 'Scheduled',  color: 'bg-blue-500',    text: 'text-blue-600',   bg: 'bg-blue-50'   },
-          ].map((j) => (
-            <div key={j.id} className={`flex items-center gap-2 ${j.bg} rounded-xl px-2 py-1.5`}>
-              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${j.color}`} />
-              <div className="flex-1 min-w-0">
-                <p className="text-[8px] font-black text-gray-800 truncate">{j.name}</p>
-                <p className="text-[7px] text-gray-500">{j.id}</p>
-              </div>
-              <span className={`text-[7px] font-bold ${j.text} flex-shrink-0`}>{j.status}</span>
+            { file: 'invoice_2019_Q4.xlsx', tape: 'LTO-0427', size: '2.4 GB', dot: 'bg-emerald-400' },
+            { file: 'invoice_2019_Q4_bak.xlsx', tape: 'LTO-0198', size: '2.4 GB', dot: 'bg-blue-400' },
+            { file: 'invoice_2019_Q4.pdf', tape: 'LTO-0427', size: '640 KB', dot: 'bg-amber-400' },
+          ].map((row) => (
+            <div key={row.file} className="flex items-center gap-2.5 px-3 py-2 border-b border-white/5 last:border-0">
+              <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${row.dot}`} />
+              <span className="text-[9px] font-bold text-white truncate flex-1">{row.file}</span>
+              <span className="text-[8px] text-gray-500 truncate">{row.tape}</span>
+              <span className="text-[8px] text-gray-600 flex-shrink-0">{row.size}</span>
             </div>
           ))}
         </div>
-        {/* Bottom nav */}
-        <div className="flex justify-around py-2 border-t border-gray-100 px-2">
-          {[MapPin, ClipboardCheck, Users, BarChart3].map((Icon, i) => (
-            <div key={i} className={`p-1.5 rounded-lg ${i === 0 ? 'bg-[#ff6b00]' : ''}`}>
-              <Icon className={`w-3.5 h-3.5 ${i === 0 ? 'text-white' : 'text-gray-400'}`} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    {/* Supervisor dashboard side panel */}
-    <div className="flex-1 space-y-2.5 hidden sm:block">
-      <div className="bg-[#0c1a36] rounded-2xl p-3.5 border border-white/10">
-        <p className="text-[9px] font-black text-[#ff6b00] uppercase tracking-widest mb-2">Live Supervisor View</p>
-        <div className="grid grid-cols-2 gap-2">
-          {[
-            { val: '8', lbl: 'Active Jobs', col: 'text-white' },
-            { val: '3', lbl: 'Completed',   col: 'text-emerald-400' },
-            { val: '2', lbl: 'En Route',    col: 'text-[#ff6b00]'  },
-            { val: '0', lbl: 'Overdue',     col: 'text-gray-400'   },
-          ].map((m) => (
-            <div key={m.lbl} className="bg-white/5 rounded-xl p-2 text-center">
-              <p className={`text-lg font-black ${m.col}`}>{m.val}</p>
-              <p className="text-gray-600 text-[8px]">{m.lbl}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="bg-[#0c1a36] rounded-2xl p-3.5 border border-white/10">
-        <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest mb-2">Today's SLA</p>
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-2 bg-white/10 rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '95%' }}
-              transition={{ duration: 1.5, delay: 0.5 }}
-              className="h-full bg-gradient-to-r from-[#ff6b00] to-amber-400 rounded-full"
-            />
-          </div>
-          <span className="text-white font-black text-[11px] flex-shrink-0">95%</span>
-        </div>
-        <p className="text-gray-600 text-[8px] mt-1">On-time completion rate</p>
       </div>
     </div>
   </div>
@@ -847,7 +825,7 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
     return () => { document.removeEventListener('keydown', h); document.body.style.overflow = ''; };
   }, [onClose]);
 
-  const Mockup = product.id === 'bloomaudit' ? BloomAuditMockup : product.id === 'bloomgo' ? BloomGoMockup : BloomSwiftMockup;
+  const Mockup = product.id === 'bloomaudit' ? BloomAuditMockup : product.id === 'bloomlto' ? BloomLTOMockup : BloomSwiftMockup;
 
   return (
     <motion.div
@@ -1060,7 +1038,7 @@ const Portfolio = () => {
             {BLOOM_PRODUCTS.map((product, idx) => {
               const isEven = idx % 2 === 0;
               const Mockup = product.id === 'bloomaudit' ? BloomAuditMockup
-                           : product.id === 'bloomgo'    ? BloomGoMockup
+                           : product.id === 'bloomlto'   ? BloomLTOMockup
                            : BloomSwiftMockup;
               return (
                 <motion.div
