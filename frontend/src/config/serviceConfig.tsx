@@ -194,7 +194,7 @@ export const serviceConfigs: Record<string, ServiceConfig> = {
       icon: Sparkles,
       text: 'In Development'
     },
-    heroTitle: 'Medical System. Coming Soon.',
+    heroTitle: 'BloomMedical System. Coming Soon.',
     heroDescription: 'A purpose-built clinical and practice management platform for Sri Lankan healthcare providers — currently in development.',
     primaryCTA: {
       text: 'Get Notified at Launch',

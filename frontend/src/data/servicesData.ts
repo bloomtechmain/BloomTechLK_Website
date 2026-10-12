@@ -95,7 +95,7 @@ export const megaMenuData: MegaMenuColumn[] = [
         imageUrl: '/images/av-hero.png'
       },
       {
-        name: 'Medical System',
+        name: 'BloomMedical System',
         desc: 'Coming soon.',
         slug: 'medical-system',
       },

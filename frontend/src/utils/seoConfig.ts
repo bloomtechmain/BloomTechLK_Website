@@ -254,8 +254,8 @@ export const serviceSEO: Record<string, SEOConfig> = {
     ogImage: `${baseUrl}/images/digital-marketing.jpg`
   },
   'medical-system': {
-    title: 'Medical System - Coming Soon - BloomTech.lk',
-    description: 'BloomTech.lk\'s Medical System — a clinical and practice management platform for Sri Lankan healthcare providers — is currently in development.',
+    title: 'BloomMedical System - Coming Soon - BloomTech.lk',
+    description: 'BloomTech.lk\'s BloomMedical System — a clinical and practice management platform for Sri Lankan healthcare providers — is currently in development.',
     keywords: 'medical system Sri Lanka, clinical management software, healthcare software, practice management',
     canonical: `${baseUrl}/services/medical-system`,
     ogImage: defaultOGImage

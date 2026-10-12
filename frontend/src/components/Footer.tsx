@@ -33,7 +33,7 @@ const Footer = () => {
               <li><Link to="/services/bloomaudit" className="hover:text-[#ff6b00] transition-colors">BloomAudit</Link></li>
               <li><Link to="/services/bloomlto" className="hover:text-[#ff6b00] transition-colors">BloomLTO</Link></li>
               <li><Link to="/services/bloomswift-pos" className="hover:text-[#ff6b00] transition-colors">BloomSwift POS</Link></li>
-              <li><Link to="/services/medical-system" className="hover:text-[#ff6b00] transition-colors">Medical System</Link></li>
+              <li><Link to="/services/medical-system" className="hover:text-[#ff6b00] transition-colors">BloomMedical System</Link></li>
             </ul>
           </div>
 
