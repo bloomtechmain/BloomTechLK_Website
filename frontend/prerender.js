@@ -5,27 +5,8 @@ import { mergeAppHtml } from './ssr-html.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// All routes to pre-render
-const routes = [
-  '/',
-  '/company',
-  '/contact',
-  '/portfolio',
-  '/services/professional-it-consulting',
-  '/services/custom-crm-erp-solutions',
-  '/services/security-data-protection',
-  '/services/bloomaudit',
-  '/services/bloomlto',
-  '/services/bloomswift-pos',
-  '/services/custom-qr-nfc-applications',
-  '/services/custom-mobile-web-applications',
-  '/services/medical-system',
-  '/services/search-engine-optimization',
-  '/services/custom-websites-design',
-  '/services/online-marketing-services',
-  '/services/ai-machine-learning',
-  '/services/ai-custom-development-automation',
-];
+// Static pages; service routes are added from servicesData at build time
+const staticRoutes = ['/', '/company', '/contact', '/portfolio'];
 
 async function prerender() {
   console.log('🚀 Starting pre-rendering process...\n');
@@ -47,7 +28,8 @@ async function prerender() {
   }
   
   // Import the server entry
-  const { render } = await import('./dist/server/entry-server.js');
+  const { render, serviceSlugs, siteUrl } = await import('./dist/server/entry-server.js');
+  const routes = [...staticRoutes, ...serviceSlugs.map(slug => `/services/${slug}`)];
   
   // Read the client build HTML template
   const template = fs.readFileSync(clientTemplatePath, 'utf-8');
@@ -85,6 +67,25 @@ async function prerender() {
       errorCount++;
     }
   }
+
+  // 404 page: Cloudflare Pages serves 404.html with a real 404 status for unknown URLs
+  fs.writeFileSync(path.resolve(prerenderDir, '404.html'), mergeAppHtml(template, render('/404').html));
+  console.log('📄 Saved 404.html');
+
+  // Sitemap built from the same route list, using the trailing-slash URLs Cloudflare serves
+  const today = new Date().toISOString().slice(0, 10);
+  const sitemapUrls = routes.map(route => `  <url>
+    <loc>${siteUrl}${route === '/' ? '/' : `${route}/`}</loc>
+    <lastmod>${today}</lastmod>
+    <priority>${route === '/' ? '1.0' : route.startsWith('/services/') ? '0.8' : '0.9'}</priority>
+  </url>`);
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapUrls.join('\n')}
+</urlset>
+`;
+  fs.writeFileSync(path.resolve(prerenderDir, 'sitemap.xml'), sitemap);
+  console.log(`🗺️  Saved sitemap.xml (${routes.length} URLs)`);
 
   console.log('\n' + '='.repeat(60));
   console.log(`✅ Pre-rendering complete!`);

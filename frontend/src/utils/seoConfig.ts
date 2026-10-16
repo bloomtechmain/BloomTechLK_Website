@@ -110,7 +110,7 @@ export const seoConfigs: Record<string, SEOConfig> = {
     title: 'About BloomTech.lk — Sri Lanka\'s Technology Partner | Our Mission & Team',
     description: 'Learn about BloomTech.lk — Sri Lanka\'s trusted technology partner headquartered in Mawaramandiya. CISA-certified experts delivering AI, enterprise software, and IT infrastructure for Sri Lankan businesses.',
     keywords: 'BloomTech Sri Lanka, IT company Mawaramandiya, technology company Western Province, CISA certified Sri Lanka, AI experts Sri Lanka, enterprise IT Sri Lanka, about BloomTech.lk',
-    canonical: `${baseUrl}/company`,
+    canonical: `${baseUrl}/company/`,
     ogImage: defaultOGImage,
     ogType: 'website'
   },
@@ -118,34 +118,16 @@ export const seoConfigs: Record<string, SEOConfig> = {
     title: 'Contact BloomTech.lk — Talk to a Sri Lankan Tech Expert Today',
     description: 'Contact BloomTech.lk for AI solutions, custom software, and IT infrastructure services. Headquartered in Mawaramandiya, Sri Lanka. Full Sinhala and English support. Get a free consultation today.',
     keywords: 'contact BloomTech Sri Lanka, IT consultation Sri Lanka, tech support Sri Lanka, software quote Sri Lanka, AI consultation Sri Lanka, Mawaramandiya technology company',
-    canonical: `${baseUrl}/contact`,
+    canonical: `${baseUrl}/contact/`,
     ogImage: defaultOGImage,
     ogType: 'website',
     schema: localBusinessSchema
-  },
-  login: {
-    title: 'Client Login — BloomTech.lk Portal',
-    description: 'Access your BloomTech.lk client portal to manage projects, submit service requests, and view your IT solutions.',
-    canonical: `${baseUrl}/login`,
-    ogImage: defaultOGImage
-  },
-  register: {
-    title: 'Register — Create Your BloomTech.lk Account',
-    description: 'Create your BloomTech.lk account to access our client portal, request technology services, and manage your IT projects across Sri Lanka.',
-    canonical: `${baseUrl}/register`,
-    ogImage: defaultOGImage
-  },
-  dashboard: {
-    title: 'Dashboard — BloomTech.lk Client Portal',
-    description: 'Manage your BloomTech.lk services, track projects, and access expert support through your personalised client dashboard.',
-    canonical: `${baseUrl}/dashboard`,
-    ogImage: defaultOGImage
   },
   portfolio: {
     title: 'Project Portfolio — BloomTech.lk | Real Solutions. Measurable Outcomes.',
     description: 'Explore BloomTech.lk\'s project portfolio — AI forecasting engines, enterprise PMS platforms, cybersecurity overhauls, and more. Real technology solutions delivered across Sri Lanka.',
     keywords: 'BloomTech portfolio, IT projects Sri Lanka, AI projects Sri Lanka, enterprise software portfolio, technology case studies Sri Lanka, software development projects',
-    canonical: `${baseUrl}/portfolio`,
+    canonical: `${baseUrl}/portfolio/`,
     ogImage: defaultOGImage,
     ogType: 'website',
     schema: {
@@ -153,7 +135,7 @@ export const seoConfigs: Record<string, SEOConfig> = {
       '@type': 'CollectionPage',
       name: 'BloomTech.lk Project Portfolio',
       description: 'Technology projects delivered by BloomTech.lk across Sri Lanka — AI, enterprise software, cybersecurity, and digital transformation.',
-      url: `${baseUrl}/portfolio`,
+      url: `${baseUrl}/portfolio/`,
       publisher: organizationSchema,
     }
   }
@@ -165,14 +147,14 @@ export const serviceSEO: Record<string, SEOConfig> = {
     title: 'AI Machine Learning Solutions - Custom AI Development - BloomTech.lk',
     description: 'Enterprise AI machine learning solutions and custom AI development. Machine learning services include custom AI agents, on-premise AI hosting, document intelligence, and AI machine learning automation for business operations.',
     keywords: 'AI machine learning, machine learning, custom AI, AI machine, custom AI development, machine learning solutions, AI agents, on-premise AI, AI automation',
-    canonical: `${baseUrl}/services/ai-machine-learning`,
+    canonical: `${baseUrl}/services/ai-machine-learning/`,
     ogImage: `${baseUrl}/images/Custom_AI_Development.jpg`,
     schema: {
       '@context': 'https://schema.org',
       '@type': 'Service',
       serviceType: 'AI & Machine Learning Solutions',
       provider: organizationSchema,
-      areaServed: 'US',
+      areaServed: 'LK',
       description: 'Custom AI development, machine learning solutions, and intelligent automation for enterprise businesses.'
     }
   },
@@ -180,84 +162,84 @@ export const serviceSEO: Record<string, SEOConfig> = {
     title: 'AI Custom Development & Automation Services - BloomTech.lk',
     description: 'Bespoke AI development for business automation. Custom intelligent agents, workflow automation, and AI-powered process optimization to multiply your workforce effectiveness.',
     keywords: 'AI automation, custom AI development, intelligent agents, business automation, workflow optimization',
-    canonical: `${baseUrl}/services/ai-custom-development-automation`,
+    canonical: `${baseUrl}/services/ai-custom-development-automation/`,
     ogImage: `${baseUrl}/images/Custom_AI_Development.jpg`
   },
   'custom-crm-erp-solutions': {
     title: 'Custom CRM & ERP Solutions - BloomTech.lk',
     description: 'Bespoke CRM and ERP platforms for unified business operations. Custom workflow automation, data integration, and single source of truth for enterprise resource planning.',
     keywords: 'custom CRM, custom ERP, business automation, workflow automation, enterprise software',
-    canonical: `${baseUrl}/services/custom-crm-erp-solutions`,
-    ogImage: `${baseUrl}/images/CRM_&_ERP.jpg`
+    canonical: `${baseUrl}/services/custom-crm-erp-solutions/`,
+    ogImage: `${baseUrl}/images/CRM_%26_ERP.jpg`
   },
   'professional-it-consulting': {
     title: 'Professional IT Consulting & Strategic Advisory - BloomTech.lk',
     description: 'CISA-certified IT consulting services. Strategic advisory, IT governance, risk management, fractional CTO/CISO services, and compliance consulting.',
     keywords: 'IT consulting, CISA certified, IT governance, risk management, fractional CTO, CISO services',
-    canonical: `${baseUrl}/services/professional-it-consulting`,
+    canonical: `${baseUrl}/services/professional-it-consulting/`,
     ogImage: `${baseUrl}/images/IT_Consolting.jpg`
   },
   'security-data-protection': {
     title: 'Cybersecurity & Data Protection Services - BloomTech.lk',
     description: 'Multi-layered security architecture and data protection. Zero Trust security, EDR implementation, perimeter hardening, and compliance with SOC2, HIPAA, PCI-DSS, and NIST.',
     keywords: 'cybersecurity, data protection, Zero Trust, EDR, SOC2, HIPAA, PCI-DSS, security consulting',
-    canonical: `${baseUrl}/services/security-data-protection`,
+    canonical: `${baseUrl}/services/security-data-protection/`,
     ogImage: `${baseUrl}/images/IT_Consolting.jpg`
   },
   'bloomaudit': {
     title: 'BloomAudit - IT Audit & Compliance Management - BloomTech.lk',
     description: 'BloomAudit helps organizations track, assess, and report on IT infrastructure and business processes with automated compliance reporting and real-time audit trails.',
     keywords: 'IT audit, compliance management, audit software, risk assessment, regulatory compliance',
-    canonical: `${baseUrl}/services/bloomaudit`,
+    canonical: `${baseUrl}/services/bloomaudit/`,
     ogImage: defaultOGImage
   },
   'bloomlto': {
     title: 'BloomLTO - Searchable LTO Tape Archive Software - BloomTech.lk',
     description: 'BloomLTO indexes every file archived to LTO tape — name, path, size, and barcode — so restoring a file means searching a catalog, not guessing which cartridge it\'s on.',
     keywords: 'LTO tape archive, tape backup software, LTFS, searchable tape catalog, tape restore',
-    canonical: `${baseUrl}/services/bloomlto`,
+    canonical: `${baseUrl}/services/bloomlto/`,
     ogImage: defaultOGImage
   },
   'bloomswift-pos': {
     title: 'BloomSwift POS - Point of Sale System - BloomTech.lk',
     description: 'BloomSwift POS is a fast, intuitive point-of-sale system for retail and hospitality. Multi-location management, inventory sync, and advanced analytics.',
     keywords: 'POS system, point of sale, retail software, inventory management, hospitality POS',
-    canonical: `${baseUrl}/services/bloomswift-pos`,
+    canonical: `${baseUrl}/services/bloomswift-pos/`,
     ogImage: defaultOGImage
   },
   'custom-qr-nfc-applications': {
     title: 'Custom QR & NFC Based Applications - BloomTech.lk',
     description: 'Bespoke QR code and NFC-powered applications for asset tracking, contactless payments, smart marketing, and access control tailored to your operations.',
     keywords: 'QR code app, NFC application, contactless solutions, asset tracking, NFC development',
-    canonical: `${baseUrl}/services/custom-qr-nfc-applications`,
+    canonical: `${baseUrl}/services/custom-qr-nfc-applications/`,
     ogImage: defaultOGImage
   },
   'search-engine-optimization': {
     title: 'Search Engine Optimization Services - BloomTech.lk',
     description: 'Data-driven SEO strategies combining technical audits, keyword research, and content marketing to boost visibility and deliver sustainable organic growth.',
     keywords: 'SEO services, search engine optimization, technical SEO, keyword research, organic growth',
-    canonical: `${baseUrl}/services/search-engine-optimization`,
+    canonical: `${baseUrl}/services/search-engine-optimization/`,
     ogImage: defaultOGImage
   },
   'custom-websites-design': {
     title: 'Custom Website Design & Development - BloomTech.lk',
     description: 'Conversion-focused website design and development. Clean, optimized code, responsive design, and high-performance web applications built for business growth.',
     keywords: 'website design, web development, custom websites, responsive design, web applications',
-    canonical: `${baseUrl}/services/custom-websites-design`,
+    canonical: `${baseUrl}/services/custom-websites-design/`,
     ogImage: `${baseUrl}/images/digital-marketing.jpg`
   },
   'online-marketing-services': {
     title: 'SEO & Online Marketing Services - BloomTech.lk',
     description: 'Data-driven digital marketing and SEO services. Technical SEO, AI-powered content strategy, and online visibility optimization for business growth.',
     keywords: 'SEO services, online marketing, digital marketing, content strategy, search optimization',
-    canonical: `${baseUrl}/services/online-marketing-services`,
+    canonical: `${baseUrl}/services/online-marketing-services/`,
     ogImage: `${baseUrl}/images/digital-marketing.jpg`
   },
   'medical-system': {
     title: 'BloomMedical System - Coming Soon - BloomTech.lk',
     description: 'BloomTech.lk\'s BloomMedical System — a clinical and practice management platform for Sri Lankan healthcare providers — is currently in development.',
     keywords: 'medical system Sri Lanka, clinical management software, healthcare software, practice management',
-    canonical: `${baseUrl}/services/medical-system`,
+    canonical: `${baseUrl}/services/medical-system/`,
     ogImage: defaultOGImage
   }
 };
@@ -265,7 +247,22 @@ export const serviceSEO: Record<string, SEOConfig> = {
 // Helper function to get SEO config
 export const getSEOConfig = (page: string, serviceId?: string): SEOConfig => {
   if (serviceId && serviceSEO[serviceId]) {
-    return serviceSEO[serviceId];
+    const config = serviceSEO[serviceId];
+    // Every service page gets Service markup; the name is the title without the brand suffix
+    return config.schema ? config : {
+      ...config,
+      schema: {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: config.title.replace(/ - BloomTech\.lk$/, ''),
+        url: config.canonical,
+        provider: organizationSchema,
+        areaServed: 'LK',
+        description: config.description
+      }
+    };
   }
   return seoConfigs[page] || seoConfigs.home;
 };
+
+export const siteUrl = baseUrl;

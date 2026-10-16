@@ -9,6 +9,7 @@ import ContactUs from './pages/ContactUs';
 import Portfolio from './pages/Portfolio';
 import BloomSwiftPOS from './pages/BloomSwiftPOS';
 import BloomLTO from './pages/BloomLTO';
+import NotFound from './pages/NotFound';
 
 function AppRoutes() {
   return (
@@ -22,6 +23,7 @@ function AppRoutes() {
         <Route path="/services/bloomlto" element={<BloomLTO />} />
         <Route path="/services/:serviceId" element={<ServiceDetails />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

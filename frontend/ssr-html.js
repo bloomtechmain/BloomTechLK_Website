@@ -5,7 +5,8 @@
 // tags back out and places them in <head> so search engines actually see them (and so the
 // template's static placeholder <title> doesn't end up duplicated alongside the real one).
 export function mergeAppHtml(template, appHtml) {
-  let html = template.replace('<!--app-html-->', appHtml);
+  // Function replacements: a plain string would treat "$$" / "$&" in the page as patterns
+  let html = template.replace('<!--app-html-->', () => appHtml);
   html = html.replace(/<title>[\s\S]*?<\/title>/, '');
 
   const rootOpenTag = '<div id="root">';
@@ -37,7 +38,7 @@ export function mergeAppHtml(template, appHtml) {
 
   html = html.slice(0, rootStart + rootOpenTag.length) + html.slice(cursor);
   if (extracted) {
-    html = html.replace('</head>', `${extracted}</head>`);
+    html = html.replace('</head>', () => `${extracted}</head>`);
   }
   return html;
 }

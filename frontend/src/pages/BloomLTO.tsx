@@ -5,6 +5,8 @@ import {
   Package, Layers, Archive, ShieldCheck, ExternalLink, Mail, Download, ArrowRight,
 } from 'lucide-react';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
+import { getSEOConfig, siteUrl } from '../utils/seoConfig';
 import {
   PageHero, Section, Heading, Eyebrow, BlockGrid, BlockCard, FlowChart, CtaBand, ContactRows, PhotoBand, PrimaryButton, TextLink,
   IconTiles, StatsStrip, fade, GUTTER,
@@ -118,6 +120,14 @@ const BloomLTO = () => {
 
   return (
     <div className="bg-white overflow-x-hidden">
+
+      <SEO
+        config={getSEOConfig('service', 'bloomlto')}
+        breadcrumbs={[
+          { name: 'Home', url: `${siteUrl}/` },
+          { name: 'BloomLTO', url: `${siteUrl}/services/bloomlto/` }
+        ]}
+      />
 
       {/* ══════════════════════ HERO ══════════════════════ */}
       <PageHero

@@ -7,6 +7,8 @@ import {
   MapPin, MessageCircle, ExternalLink, Star
 } from 'lucide-react';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
+import { getSEOConfig, siteUrl } from '../utils/seoConfig';
 import {
   PageHero, Section, Heading, BlockGrid, CtaBand, ContactRows, PhotoBand, PrimaryButton, TextLink, fade,
 } from '../components/kit';
@@ -98,6 +100,14 @@ const BloomSwiftPOS = () => {
 
   return (
     <div className="bg-white">
+
+      <SEO
+        config={getSEOConfig('service', 'bloomswift-pos')}
+        breadcrumbs={[
+          { name: 'Home', url: `${siteUrl}/` },
+          { name: 'BloomSwift POS', url: `${siteUrl}/services/bloomswift-pos/` }
+        ]}
+      />
 
       {/* ══════════════════════ HERO ══════════════════════ */}
       <PageHero

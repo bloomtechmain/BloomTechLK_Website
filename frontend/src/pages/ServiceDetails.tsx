@@ -6,7 +6,7 @@ import { getServiceConfig } from '../config/serviceConfig';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
-import { getSEOConfig } from '../utils/seoConfig';
+import { getSEOConfig, siteUrl } from '../utils/seoConfig';
 import { PageHero, Breadcrumb, PrimaryButton, TextLink } from '../components/kit';
 import { servicePhotos, fallbackServicePhotos } from '../components/photos';
 import {
@@ -44,6 +44,7 @@ const ServiceDetails = () => {
   if (!service) {
     return (
       <div className="min-h-screen bg-navy flex flex-col items-center justify-center pt-24 px-4 text-center">
+        <SEO config={{ title: 'Service Not Found - BloomTech.lk', description: 'This service page does not exist or has been moved.' }} noindex />
         <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">Service Not Found</h1>
         <p className="text-white/65 mb-8">The service you're looking for doesn't exist or has been moved.</p>
         <PrimaryButton to="/" icon={ArrowLeft}>Return Home</PrimaryButton>
@@ -60,9 +61,8 @@ const ServiceDetails = () => {
       <SEO
         config={getSEOConfig('service', service.slug)}
         breadcrumbs={[
-          { name: 'Home', url: 'https://bloomtechusa.com' },
-          { name: 'Services', url: 'https://bloomtechusa.com/#services' },
-          { name: service.name, url: `https://bloomtechusa.com/services/${service.slug}` }
+          { name: 'Home', url: `${siteUrl}/` },
+          { name: service.name, url: `${siteUrl}/services/${service.slug}/` }
         ]}
       />
 
