@@ -2,128 +2,102 @@ import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Linkedin, Phone, Mail, MapPin, Network, Layout, MessageCircle } from 'lucide-react';
 import { socialMedia } from '../utils/seoConfig';
 
+const linkCls = 'text-white/60 hover:text-white transition-colors';
+const headCls = 'font-mono text-[11px] font-bold uppercase tracking-widest text-white/40 mb-6';
+const socialCls = 'w-10 h-10 rounded-xl bg-white/[0.06] text-white/70 flex items-center justify-center hover:bg-white hover:text-navy hover:-translate-y-0.5 transition-all';
+
 const Footer = () => {
   return (
-    <footer className="bg-[#101D36] text-white py-20 px-6">
-      <div className="max-w-[1550px] mx-auto px-6 xl:px-12 flex flex-col items-center">
-        <div className="flex items-center gap-3 mb-16">
+    <footer className="bg-navy-dark text-white pt-20 pb-10">
+      <div className="w-full px-4 sm:px-8 lg:px-12">
+        <div className="flex items-center gap-3 mb-14">
           <div className="w-11 h-11 rounded-lg flex items-center justify-center overflow-hidden">
             <img src="/bloomtech-logo.png" alt="BloomTech Logo" className="w-full h-full object-cover" />
           </div>
-          <span className="text-3xl font-bold tracking-tight">BloomTech<span className="text-[#FF6B00]">LK</span></span>
+          <span className="text-3xl font-extrabold tracking-tight">BloomTech<span className="text-brand-orange">LK</span></span>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 text-center md:text-left w-full border-y border-white/10 py-16 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-12 w-full border-y border-white/10 py-14 mb-10">
           {/* Services Column 1 — Consulting & Custom Software Solutions */}
           <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Services & Solutions</h5>
-            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
-              <li><Link to="/services/professional-it-consulting" className="hover:text-[#ff6b00] transition-colors">Professional IT Consulting</Link></li>
-              <li><Link to="/services/custom-crm-erp-solutions" className="hover:text-[#ff6b00] transition-colors">Custom CRM & ERP Solutions</Link></li>
-              <li><Link to="/services/security-data-protection" className="hover:text-[#ff6b00] transition-colors">Security & Data Protection</Link></li>
-              <li><Link to="/services/custom-qr-nfc-applications" className="hover:text-[#ff6b00] transition-colors">Custom QR & NFC Applications</Link></li>
-              <li><Link to="/services/custom-mobile-web-applications" className="hover:text-[#ff6b00] transition-colors">Custom Mobile & Web Applications</Link></li>
+            <h5 className={headCls}>Services & Solutions</h5>
+            <ul className="space-y-3 text-sm font-medium">
+              <li><Link to="/services/professional-it-consulting" className={linkCls}>Professional IT Consulting</Link></li>
+              <li><Link to="/services/custom-crm-erp-solutions" className={linkCls}>Custom CRM & ERP Solutions</Link></li>
+              <li><Link to="/services/security-data-protection" className={linkCls}>Security & Data Protection</Link></li>
+              <li><Link to="/services/custom-qr-nfc-applications" className={linkCls}>Custom QR & NFC Applications</Link></li>
+              <li><Link to="/services/custom-mobile-web-applications" className={linkCls}>Custom Mobile & Web Applications</Link></li>
             </ul>
           </div>
 
           {/* Services Column 2 — Suite of Applications */}
           <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7 opacity-0 pointer-events-none">Services</h5>
-            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
-              <li><Link to="/services/bloomaudit" className="hover:text-[#ff6b00] transition-colors">BloomAudit</Link></li>
-              <li><Link to="/services/bloomlto" className="hover:text-[#ff6b00] transition-colors">BloomLTO</Link></li>
-              <li><Link to="/services/bloomswift-pos" className="hover:text-[#ff6b00] transition-colors">BloomSwift POS</Link></li>
-              <li><Link to="/services/medical-system" className="hover:text-[#ff6b00] transition-colors">BloomMedical System</Link></li>
+            <h5 className={`${headCls} opacity-0 pointer-events-none hidden md:block`} aria-hidden="true">Services</h5>
+            <ul className="space-y-3 text-sm font-medium">
+              <li><Link to="/services/bloomaudit" className={linkCls}>BloomAudit</Link></li>
+              <li><Link to="/services/bloomlto" className={linkCls}>BloomLTO</Link></li>
+              <li><Link to="/services/bloomswift-pos" className={linkCls}>BloomSwift POS</Link></li>
+              <li><Link to="/services/medical-system" className={linkCls}>BloomMedical System</Link></li>
             </ul>
           </div>
 
           {/* Services Column 3 — Online Presence & AI Development */}
           <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7 opacity-0 pointer-events-none">Services</h5>
-            <ul className="space-y-3 text-[13px] font-medium text-white/55 normal-case">
-              <li><Link to="/services/search-engine-optimization" className="hover:text-[#ff6b00] transition-colors">Search Engine Optimization</Link></li>
-              <li><Link to="/services/custom-websites-design" className="hover:text-[#ff6b00] transition-colors">Custom Website Design</Link></li>
-              <li><Link to="/services/online-marketing-services" className="hover:text-[#ff6b00] transition-colors">Online Marketing Services</Link></li>
-              <li><Link to="/services/ai-machine-learning" className="hover:text-[#ff6b00] transition-colors">AI & Machine Learning (ML)</Link></li>
-              <li><Link to="/services/ai-custom-development-automation" className="hover:text-[#ff6b00] transition-colors">AI Custom Development for Automation</Link></li>
+            <h5 className={`${headCls} opacity-0 pointer-events-none hidden md:block`} aria-hidden="true">Services</h5>
+            <ul className="space-y-3 text-sm font-medium">
+              <li><Link to="/services/search-engine-optimization" className={linkCls}>Search Engine Optimization</Link></li>
+              <li><Link to="/services/custom-websites-design" className={linkCls}>Custom Website Design</Link></li>
+              <li><Link to="/services/online-marketing-services" className={linkCls}>Online Marketing Services</Link></li>
+              <li><Link to="/services/ai-machine-learning" className={linkCls}>AI & Machine Learning (ML)</Link></li>
+              <li><Link to="/services/ai-custom-development-automation" className={linkCls}>AI Custom Development for Automation</Link></li>
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Company</h5>
-            <ul className="space-y-3 text-[13px] font-medium text-white/55">
-              <li><Link to="/company" className="hover:text-[#ff6b00] transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="hover:text-[#ff6b00] transition-colors">Contact</Link></li>
-              <li><Link to="/company#mission" className="hover:text-[#ff6b00] transition-colors">Our Mission</Link></li>
+            <h5 className={headCls}>Company</h5>
+            <ul className="space-y-3 text-sm font-medium">
+              <li><Link to="/company" className={linkCls}>About Us</Link></li>
+              <li><Link to="/contact" className={linkCls}>Contact</Link></li>
+              <li><Link to="/company#mission" className={linkCls}>Our Mission</Link></li>
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Find Us On</h5>
-            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <a 
-                href={socialMedia.facebook}
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit our Facebook page"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-60 hover:opacity-100 hover:border-[#ff6b00] hover:bg-[#ff6b00]/10 transition-all"
-              >
+            <h5 className={headCls}>Find Us On</h5>
+            <div className="flex flex-wrap gap-2.5">
+              <a href={socialMedia.facebook} target="_blank" rel="noopener noreferrer" aria-label="Visit our Facebook page" className={socialCls}>
                 <Facebook size={18} />
               </a>
-              <a 
-                href={socialMedia.instagram}
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit our Instagram profile"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-60 hover:opacity-100 hover:border-[#ff6b00] hover:bg-[#ff6b00]/10 transition-all"
-              >
+              <a href={socialMedia.instagram} target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram profile" className={socialCls}>
                 <Instagram size={18} />
               </a>
-              <a 
-                href={socialMedia.twitter}
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit our X (Twitter) profile"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-60 hover:opacity-100 hover:border-[#ff6b00] hover:bg-[#ff6b00]/10 transition-all"
-              >
+              <a href={socialMedia.twitter} target="_blank" rel="noopener noreferrer" aria-label="Visit our X (Twitter) profile" className={socialCls}>
                 <Twitter size={18} />
               </a>
-              <a 
-                href={socialMedia.linkedin}
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Visit our LinkedIn page"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-60 hover:opacity-100 hover:border-[#ff6b00] hover:bg-[#ff6b00]/10 transition-all"
-              >
+              <a href={socialMedia.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Visit our LinkedIn page" className={socialCls}>
                 <Linkedin size={18} />
               </a>
-              <a 
-                href={`https://wa.me/${socialMedia.whatsapp}`}
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label="Contact us on WhatsApp"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-60 hover:opacity-100 hover:border-[#ff6b00] hover:bg-[#ff6b00]/10 transition-all"
-              >
+              <a href={`https://wa.me/${socialMedia.whatsapp}`} target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp" className={socialCls}>
                 <MessageCircle size={18} />
               </a>
             </div>
           </div>
-          <div>
-            <h5 className="font-semibold text-xs uppercase tracking-wide text-white/40 mb-7">Contact Us Directly</h5>
+          <div className="col-span-2 md:col-span-1">
+            <h5 className={headCls}>Contact Us Directly</h5>
             <div className="space-y-4">
-              <div className="flex items-start gap-2.5 text-sm text-white/55">
-                <Phone size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="font-medium text-white hover:text-[#FF6B00] transition-colors">
+              <div className="flex items-start gap-3 text-sm">
+                <Phone size={16} className="mt-0.5 shrink-0 text-white/50" />
+                <a href={`tel:${socialMedia.phone.replace(/\s/g, '')}`} className="font-semibold text-white hover:text-white/75 transition-colors">
                   {socialMedia.phone}
                 </a>
               </div>
-              <div className="flex items-start gap-2.5 text-sm text-white/55">
-                <Mail size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <a href={`mailto:${socialMedia.email}`} className="font-medium text-white hover:text-[#FF6B00] transition-colors">
+              <div className="flex items-start gap-3 text-sm">
+                <Mail size={16} className="mt-0.5 shrink-0 text-white/50" />
+                <a href={`mailto:${socialMedia.email}`} className="font-semibold text-white hover:text-white/75 transition-colors break-all">
                   {socialMedia.email}
                 </a>
               </div>
-              <div className="flex items-start gap-2.5 text-sm text-white/55">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-[#ff6b00]" />
-                <span className="font-medium text-white">
+              <div className="flex items-start gap-3 text-sm">
+                <MapPin size={16} className="mt-0.5 shrink-0 text-white/50" />
+                <span className="font-semibold text-white">
                   Mawaramandiya, Western Province, Sri Lanka
                 </span>
               </div>
@@ -131,24 +105,24 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center w-full gap-8">
-          <div className="flex gap-6 text-xs font-medium uppercase tracking-wide text-white/40 items-center">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6">
+          <div className="flex flex-wrap gap-6 font-mono text-[11px] font-bold uppercase tracking-widest text-white/40 items-center">
             <span>© 2026 BloomTech.lk</span>
-            <a 
-              href="https://bloomtech.lk" 
-              target="_blank" 
+            <a
+              href="https://bloomtech.lk"
+              target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-[#ff6b00] transition-colors"
+              className="flex items-center gap-2 hover:text-white transition-colors"
             >
               <span className="text-lg">🇱🇰</span>
               <span>BloomTech.lk</span>
             </a>
           </div>
-          <div className="flex gap-6">
-            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center opacity-50 hover:opacity-100 hover:border-[#ff6b00] transition-all cursor-pointer">
+          <div className="flex gap-3" aria-hidden="true">
+            <div className="w-8 h-8 rounded-lg bg-white/[0.06] text-white/50 flex items-center justify-center">
               <Network size={14} />
             </div>
-            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center opacity-50 hover:opacity-100 hover:border-[#ff6b00] transition-all cursor-pointer">
+            <div className="w-8 h-8 rounded-lg bg-white/[0.06] text-white/50 flex items-center justify-center">
               <Layout size={14} />
             </div>
           </div>

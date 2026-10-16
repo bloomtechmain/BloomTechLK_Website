@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
-  ChevronRight, Star, CheckCircle2, X, ExternalLink,
+  Star, CheckCircle2, X, ExternalLink,
   Search, Clock, Building2, ArrowRight,
   Layers, Award, Zap,
   BarChart3, Shield, Database, ShoppingCart,
@@ -10,8 +10,10 @@ import {
   TrendingUp, FileText, Bell,
 } from 'lucide-react';
 import SEO from '../components/SEO';
+import Footer from '../components/Footer';
 import { getSEOConfig } from '../utils/seoConfig';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
+import { PageHero, Breadcrumb, Section, Eyebrow, CtaBand, TextLink, fade, GUTTER, type Photo } from '../components/kit';
+import { photos } from '../components/photos';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -72,13 +74,6 @@ const STATUS_CFG: Record<string, { label: string; bg: string }> = {
   capability: { label: 'We Build This', bg: 'bg-[#101D36]'  },
 };
 
-const CAT_CFG: Record<string, { border: string; bg: string; text: string }> = {
-  'Web & Mobile':          { border: 'border-blue-200',   bg: 'bg-blue-50',   text: 'text-blue-700'   },
-  'AI & Machine Learning': { border: 'border-purple-200', bg: 'bg-purple-50', text: 'text-purple-700' },
-  'Enterprise Software':   { border: 'border-orange-200', bg: 'bg-orange-50', text: 'text-orange-700' },
-  'IT Infrastructure':     { border: 'border-gray-200',   bg: 'bg-gray-50',   text: 'text-gray-700'   },
-  'Digital Marketing':     { border: 'border-green-200',  bg: 'bg-green-50',  text: 'text-green-700'  },
-};
 
 // ─── BloomTech Product Definitions ───────────────────────────────────────────
 
@@ -323,7 +318,20 @@ const CLIENT_PROJECTS: ClientProject[] = [
   },
 ];
 
-// ─── CSS Product Mockups ──────────────────────────────────────────────────────
+// ─── Presentation-only mappings (data above is untouched) ────────────────────
+
+// Real photography per capability card, keyed by project id
+const PROJECT_PHOTOS: Record<number, Photo> = {
+  3: photos.tourism,
+  5: photos.serverRacks,
+  6: photos.tourismBeach,
+  7: photos.crmWarehouse,
+  8: photos.manufacturing,
+  9: photos.marketingStats,
+};
+const projectPhoto = (p: ClientProject): Photo => PROJECT_PHOTOS[p.id] ?? { src: p.image_url, alt: p.title };
+
+// ─── CSS Product Mockups (product screenshots keep their own colours) ───────
 
 const BloomAuditMockup = () => (
   <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0f172a]">
@@ -631,24 +639,21 @@ const BloomSwiftMockup = () => (
 // ─── Shared UI helpers ────────────────────────────────────────────────────────
 
 const TechTag = ({ label }: { label: string }) => (
-  <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-medium bg-gray-100 text-gray-600 whitespace-nowrap">
+  <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white text-gray-600 whitespace-nowrap">
     {label}
   </span>
 );
 
-const CatBadge = ({ category }: { category: string }) => {
-  const cfg = CAT_CFG[category] ?? { border: 'border-gray-200', bg: 'bg-gray-50', text: 'text-gray-700' };
-  return (
-    <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wide border ${cfg.border} ${cfg.bg} ${cfg.text}`}>
-      <Layers className="w-3 h-3" />{category}
-    </span>
-  );
-};
+const CatBadge = ({ category }: { category: string }) => (
+  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-white text-navy">
+    <Layers className="w-3 h-3" />{category}
+  </span>
+);
 
 const StatusBadge = ({ status }: { status: string }) => {
   const cfg = STATUS_CFG[status] ?? STATUS_CFG.completed;
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wide text-white ${cfg.bg}`}>
+    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-white bg-navy">
       {cfg.label}
     </span>
   );
@@ -658,27 +663,29 @@ const StatusBadge = ({ status }: { status: string }) => {
 
 const ClientCard = ({ project, index, onOpen }: { project: ClientProject; index: number; onOpen: (p: ClientProject) => void }) => {
   const extra = project.technologies.length - 4;
+  const pic = projectPhoto(project);
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.4, delay: Math.min(index * 0.06, 0.3) }}
-      className="group bg-white rounded-xl overflow-hidden border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] transition-all duration-300 hover:-translate-y-1 flex flex-col"
+      className="group bg-grey-light rounded-xl overflow-hidden flex flex-col shadow-[5px_5px_0_0_#D5DAE3] hover:bg-white hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_#101D36] transition-all duration-200"
     >
       <div className="relative overflow-hidden aspect-[16/9]">
         <img
-          src={project.image_url}
-          alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          src={pic.src}
+          alt={pic.alt}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
           onError={(e) => { (e.target as HTMLImageElement).src = '/bloomtech-logo.png'; }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'rgba(16,29,54,0.75)' }}>
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/50 via-transparent to-transparent" />
+        <span className="absolute left-0 bottom-0 h-1 w-16 bg-brand-orange" aria-hidden="true" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300 bg-navy/70">
           <button
             onClick={() => onOpen(project)}
-            className="flex items-center gap-2 text-white font-semibold text-sm px-6 py-3 rounded-lg shadow-lg translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
-            style={{ background: ORANGE_GRADIENT }}
+            className="flex items-center gap-2 text-white font-bold text-sm px-6 py-3 rounded-xl bg-brand-orange hover:bg-brand-orange-dark translate-y-2 group-hover:translate-y-0 transition-all duration-300"
           >
             See Capabilities <ArrowRight className="w-4 h-4" />
           </button>
@@ -689,29 +696,31 @@ const ClientCard = ({ project, index, onOpen }: { project: ClientProject; index:
         </div>
         {/* "We Build This" pill top-right */}
         <div className="absolute top-3 right-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wide text-white" style={{ backgroundColor: 'rgba(16,29,54,0.8)' }}>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-white bg-navy">
             <Zap className="w-3 h-3" /> We Build This
           </span>
         </div>
       </div>
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-6 lg:p-7 flex flex-col flex-1">
         {/* Industry target */}
-        <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: ORANGE }}>
+        <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-orange-dark mb-2">
           For {project.client_industry}
         </p>
-        <h3 className="text-[17px] font-semibold leading-snug mb-3 group-hover:text-[#FF6B00] transition-colors duration-300" style={{ color: NAVY }}>{project.title}</h3>
-        <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1 line-clamp-3">{project.short_desc}</p>
+        <h3 className="text-xl font-extrabold leading-snug text-navy mb-3">{project.title}</h3>
+        <div className="flex-1 mb-5">
+          <p className="text-gray-700 leading-relaxed line-clamp-3">{project.short_desc}</p>
+        </div>
         <div className="flex flex-wrap gap-1.5 mb-5">
           {project.technologies.slice(0, 4).map((t) => <TechTag key={t} label={t} />)}
-          {extra > 0 && <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-semibold text-[#FF6B00] bg-orange-50">+{extra} more</span>}
+          {extra > 0 && <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold text-navy bg-white">+{extra} more</span>}
         </div>
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-500">
             <Clock className="w-3.5 h-3.5" />
             {project.duration_months ? `~${project.duration_months} months` : 'Flexible timeline'}
           </div>
-          <button onClick={() => onOpen(project)} className="flex items-center gap-1.5 text-xs font-semibold text-[#FF6B00] hover:gap-2.5 transition-all">
-            Learn More <ChevronRight className="w-4 h-4" />
+          <button onClick={() => onOpen(project)} className="group/l flex items-center gap-1.5 text-sm font-bold text-navy">
+            Learn More <ArrowRight className="w-4 h-4 group-hover/l:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>
@@ -728,11 +737,12 @@ const ClientModal = ({ project, onClose }: { project: ClientProject; onClose: ()
     document.body.style.overflow = 'hidden';
     return () => { document.removeEventListener('keydown', h); document.body.style.overflow = ''; };
   }, [onClose]);
+  const pic = projectPhoto(project);
 
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-start justify-center p-4 md:p-8 bg-black/70 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-start justify-center p-4 md:p-8 bg-navy-dark/75 overflow-y-auto"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div
@@ -740,76 +750,77 @@ const ClientModal = ({ project, onClose }: { project: ClientProject; onClose: ()
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative w-full max-w-4xl bg-white rounded-xl overflow-hidden shadow-2xl my-auto"
+        role="dialog"
+        aria-modal="true"
+        className="relative w-full max-w-4xl bg-white rounded-2xl overflow-hidden shadow-[10px_10px_0_0_#101D36] my-auto"
       >
-        <button onClick={onClose} className="absolute top-4 right-4 z-10 w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50">
-          <X className="w-4 h-4" style={{ color: NAVY }} />
+        <button onClick={onClose} aria-label="Close" className="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center text-navy hover:bg-navy hover:text-white transition-colors">
+          <X className="w-4 h-4" />
         </button>
         <div className="relative h-56 md:h-72 overflow-hidden">
-          <img src={project.image_url} alt={project.title} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/bloomtech-logo.png'; }} />
-          <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${NAVY}, rgba(16,29,54,0.2), transparent)` }} />
+          <img src={pic.src} alt={pic.alt} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/bloomtech-logo.png'; }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8">
             <div className="flex flex-wrap gap-2 mb-3">
               <CatBadge category={project.category} />
               <StatusBadge status={project.status} />
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">{project.title}</h2>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white leading-tight">{project.title}</h2>
           </div>
         </div>
         <div className="p-8 md:p-10 grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2 space-y-7">
+          <div className="md:col-span-2 space-y-8">
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: ORANGE }}>What We Build</h3>
-              <p className="text-[15px] text-gray-600 leading-relaxed">{project.full_desc}</p>
+              <h3 className="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-orange-dark mb-3">What We Build</h3>
+              <p className="text-gray-700 leading-relaxed">{project.full_desc}</p>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: ORANGE }}>What You Get</h3>
-              <ul className="space-y-2.5">
+              <h3 className="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-orange-dark mb-4">What You Get</h3>
+              <ul className="space-y-2">
                 {project.key_outcomes.map((o, i) => (
                   <motion.li key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i }}
-                    className="flex items-start gap-3 text-sm text-gray-700">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" /><span>{o}</span>
+                    className="flex items-start gap-3 rounded-lg bg-grey-light px-4 py-3 text-sm text-gray-700">
+                    <CheckCircle2 className="w-4 h-4 text-navy-mid mt-0.5 flex-shrink-0" /><span>{o}</span>
                   </motion.li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: ORANGE }}>Technology Stack</h3>
+              <h3 className="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-orange-dark mb-3">Technology Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((t) => (
-                  <span key={t} className="px-3 py-1.5 text-white text-xs font-semibold rounded-md" style={{ backgroundColor: NAVY }}>{t}</span>
+                  <span key={t} className="px-3 py-1.5 text-white text-xs font-semibold rounded-md bg-navy">{t}</span>
                 ))}
               </div>
             </div>
           </div>
           <div className="space-y-4">
-            <div className="bg-gray-50 rounded-lg p-5 space-y-4 border border-gray-100">
-              <h3 className="text-xs font-semibold uppercase tracking-wide" style={{ color: ORANGE }}>Solution Details</h3>
+            <div className="bg-grey-light rounded-xl p-5 space-y-4">
+              <h3 className="font-mono text-[11px] font-bold uppercase tracking-widest text-brand-orange-dark">Solution Details</h3>
               {project.client_industry && (
                 <div className="flex gap-3"><Building2 className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                  <div><p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Target Industry</p>
-                  <p className="text-sm font-semibold" style={{ color: NAVY }}>{project.client_industry}</p></div>
+                  <div><p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Target Industry</p>
+                  <p className="text-sm font-bold text-navy">{project.client_industry}</p></div>
                 </div>
               )}
               {project.duration_months > 0 && (
                 <div className="flex gap-3"><Clock className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                  <div><p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Typical Timeline</p>
-                  <p className="text-sm font-semibold" style={{ color: NAVY }}>~{project.duration_months} months</p></div>
+                  <div><p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Typical Timeline</p>
+                  <p className="text-sm font-bold text-navy">~{project.duration_months} months</p></div>
                 </div>
               )}
               <div className="flex gap-3"><Award className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                <div><p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Delivery</p>
-                <p className="text-sm font-semibold" style={{ color: NAVY }}>Custom-built for your requirements</p></div>
+                <div><p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Delivery</p>
+                <p className="text-sm font-bold text-navy">Custom-built for your requirements</p></div>
               </div>
               <div className="flex gap-3"><Zap className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-                <div><p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">Capability</p>
-                <p className="text-sm font-semibold text-emerald-600">Ready to deliver</p></div>
+                <div><p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Capability</p>
+                <p className="text-sm font-bold text-navy">Ready to deliver</p></div>
               </div>
             </div>
             <Link to="/contact" onClick={onClose}
-              className="w-full flex items-center justify-center gap-2 text-white font-semibold text-sm py-3.5 rounded-lg hover:opacity-90 transition-opacity"
-              style={{ background: ORANGE_GRADIENT }}>
-              <ArrowRight className="w-4 h-4" /> Start This Project
+              className="group w-full flex items-center justify-center gap-2 text-white font-bold text-sm py-3.5 rounded-xl bg-brand-orange hover:bg-brand-orange-dark transition-colors">
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /> Start This Project
             </Link>
           </div>
         </div>
@@ -833,7 +844,7 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-start justify-center p-4 md:p-8 bg-black/75 backdrop-blur-sm overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-start justify-center p-4 md:p-8 bg-navy-dark/80 overflow-y-auto"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <motion.div
@@ -841,30 +852,32 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 40 }}
         transition={{ type: 'spring', stiffness: 280, damping: 28 }}
-        className="relative w-full max-w-5xl rounded-xl overflow-hidden shadow-2xl my-auto border border-white/10"
-        style={{ backgroundColor: NAVY }}
+        role="dialog"
+        aria-modal="true"
+        className="relative w-full max-w-5xl rounded-2xl overflow-hidden my-auto bg-navy"
       >
-        <button onClick={onClose} className="absolute top-5 right-5 z-10 w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
-          <X className="w-4 h-4 text-white" />
+        <span className="absolute left-0 top-0 h-1 w-16 bg-brand-orange" aria-hidden="true" />
+        <button onClick={onClose} aria-label="Close" className="absolute top-5 right-5 z-10 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-navy transition-colors">
+          <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
         <div className="p-8 md:p-10 pb-0">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className={`inline-flex items-center px-3 py-1 rounded-md text-[10px] font-semibold uppercase tracking-wide text-white ${product.bgAccent}`}>
+            <span className={`inline-flex items-center px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-white ${product.bgAccent}`}>
               {product.status}
             </span>
-            <span className="text-xs font-medium text-gray-400">{product.category}</span>
+            <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-white/45">{product.category}</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">{product.name}</h2>
-          <p className={`text-lg font-semibold ${product.textAccent} mb-4`}>{product.tagline}</p>
-          <p className="text-gray-400 text-[15px] leading-relaxed max-w-3xl">{product.fullDescription}</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-2">{product.name}</h2>
+          <p className={`text-lg font-semibold mb-4 ${product.textAccent}`}>{product.tagline}</p>
+          <p className="text-white/60 text-[15px] leading-relaxed max-w-3xl">{product.fullDescription}</p>
         </div>
 
         {/* Mockup */}
         <div className="px-8 md:px-10 py-8">
-          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-            <p className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mb-4">Product Interface Preview</p>
+          <div className="bg-white/[0.04] rounded-xl p-6">
+            <p className="font-mono text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4">Product Interface Preview</p>
             <Mockup />
           </div>
         </div>
@@ -872,17 +885,17 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
         <div className="px-8 md:px-10 pb-10 grid md:grid-cols-2 gap-8">
           {/* Features */}
           <div>
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-5">Core Features</h3>
+            <h3 className="font-mono text-[11px] font-bold text-white/40 uppercase tracking-widest mb-5">Core Features</h3>
             <div className="space-y-4">
               {product.features.map((f, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i }}
                   className="flex items-start gap-3">
-                  <div className={`w-8 h-8 rounded-lg ${product.bgAccent} flex items-center justify-center flex-shrink-0`}>
-                    <span className="text-white">{f.icon}</span>
+                  <div className={`w-8 h-8 rounded-lg text-white flex items-center justify-center flex-shrink-0 ${product.bgAccent}`}>
+                    {f.icon}
                   </div>
                   <div>
-                    <p className="text-[13px] font-semibold text-white mb-0.5">{f.title}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{f.desc}</p>
+                    <p className="text-[13px] font-bold text-white mb-0.5">{f.title}</p>
+                    <p className="text-xs text-white/50 leading-relaxed">{f.desc}</p>
                   </div>
                 </motion.div>
               ))}
@@ -892,12 +905,12 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
           <div className="space-y-7">
             {/* Metrics */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Key Metrics</h3>
+              <h3 className="font-mono text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4">Key Metrics</h3>
               <div className="grid grid-cols-2 gap-3">
                 {product.metrics.map((m) => (
-                  <div key={m.label} className="bg-white/5 border border-white/10 rounded-lg p-4">
-                    <p className={`text-2xl font-bold ${product.textAccent} mb-1`}>{m.value}</p>
-                    <p className="text-[11px] text-gray-500 leading-tight">{m.label}</p>
+                  <div key={m.label} className="bg-white/[0.05] rounded-lg p-4">
+                    <p className={`text-2xl font-extrabold mb-1 ${product.textAccent}`}>{m.value}</p>
+                    <p className="text-[11px] text-white/50 leading-tight">{m.label}</p>
                   </div>
                 ))}
               </div>
@@ -905,10 +918,10 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
 
             {/* Tech stack */}
             <div>
-              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Technology Stack</h3>
+              <h3 className="font-mono text-[11px] font-bold text-white/40 uppercase tracking-widest mb-3">Technology Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {product.technologies.map((t) => (
-                  <span key={t} className="px-3 py-1.5 bg-white/10 text-gray-300 text-[11px] font-medium rounded-md border border-white/10">{t}</span>
+                  <span key={t} className="px-3 py-1.5 bg-white/10 text-white/75 text-[11px] font-semibold rounded-md">{t}</span>
                 ))}
               </div>
             </div>
@@ -916,11 +929,11 @@ const ProductModal = ({ product, onClose }: { product: BloomProduct; onClose: ()
             {/* CTAs */}
             <div className="flex gap-3">
               <Link to={`/services/${product.serviceSlug}`} onClick={onClose}
-                className={`flex-1 flex items-center justify-center gap-2 ${product.bgAccent} text-white font-semibold text-[13px] py-3.5 rounded-lg hover:opacity-90 transition-opacity`}>
+                className="flex-1 flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold text-[13px] py-3.5 rounded-xl transition-colors">
                 <ExternalLink className="w-4 h-4" /> Product Page
               </Link>
               <Link to="/contact" onClick={onClose}
-                className="flex-1 flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-semibold text-[13px] py-3.5 rounded-lg hover:bg-white/15 transition-colors">
+                className="flex-1 flex items-center justify-center gap-2 bg-white/10 text-white font-bold text-[13px] py-3.5 rounded-xl hover:bg-white hover:text-navy transition-colors">
                 Get Started
               </Link>
             </div>
@@ -955,223 +968,183 @@ const Portfolio = () => {
   const closeProduct = useCallback(() => setSelectedProduct(null), []);
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: FONT_SANS }}>
+    <div className="min-h-screen bg-white">
       <SEO config={getSEOConfig('portfolio')} />
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}
-      <section className="relative pt-36 pb-16 overflow-hidden" style={{ background: NAVY_GRADIENT }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            className="flex items-center gap-2 text-xs font-medium text-gray-400 uppercase tracking-wide mb-8">
-            <Link to="/" className="hover:text-[#FF6B00] transition-colors">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-gray-600" />
-            <span style={{ color: ORANGE_LIGHT }}>Portfolio</span>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-2 gap-12 items-end">
-            <div>
-              <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                className="flex items-center gap-3 mb-5">
-                <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
-                <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE_LIGHT }}>Our Work</p>
-              </motion.div>
-              <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                className="text-[2.75rem] md:text-[3.4rem] font-bold text-white leading-[1.08] tracking-tight mb-6">
-                Project <span style={{ color: ORANGE }}>Portfolio</span>
-              </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                className="text-lg text-white/72 leading-relaxed max-w-lg">
-                From our own product suite to enterprise client projects — here's the technology we've built for Sri Lankan businesses and beyond.
-              </motion.p>
+      <PageHero
+        photo={photos.devTeam}
+        breadcrumb={<Breadcrumb items={[{ label: 'Home', to: '/' }, { label: 'Portfolio' }]} />}
+        eyebrow="Our Work"
+        title={<>Project <span className="block">Portfolio</span></>}
+        text="From our own product suite to enterprise client projects — here's the technology we've built for Sri Lankan businesses and beyond."
+      >
+        {/* Stats */}
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 border-t border-white/10 max-w-2xl">
+          {[
+            { v: '3',    l: 'BloomTech Products' },
+            { v: '8+',   l: 'Client Projects' },
+            { v: '10+',  l: 'Industries Served' },
+            { v: '99.9%',l: 'Platform Uptime' },
+          ].map(({ v, l }, i) => (
+            <div key={l} className={`pt-5 pb-1 pr-4 ${i % 2 === 1 ? 'pl-5 border-l border-white/10' : ''} ${i === 2 ? 'sm:pl-5 sm:border-l sm:border-white/10' : ''}`}>
+              <div className="text-3xl font-extrabold text-white mb-1 tracking-tight">{v}</div>
+              <div className="text-xs text-white/55 leading-snug">{l}</div>
             </div>
-
-            {/* Stats */}
-            <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}
-              className="grid grid-cols-2 divide-x divide-white/[0.08] border-t border-white/10 pt-2">
-              {[
-                { v: '3',    l: 'BloomTech Products' },
-                { v: '8+',   l: 'Client Projects' },
-                { v: '10+',  l: 'Industries Served' },
-                { v: '99.9%',l: 'Platform Uptime' },
-              ].map(({ v, l }, i) => (
-                <div key={l} className={`px-4 py-6 ${i >= 2 ? 'border-t border-white/[0.08]' : ''}`}>
-                  <div className="text-2xl font-bold text-white mb-1 tracking-tight">{v}</div>
-                  <div className="inline-flex items-center gap-1.5">
-                    <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: ORANGE }} />
-                    <span className="text-[11px] text-white/50 uppercase tracking-[0.1em]">{l}</span>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
+          ))}
         </div>
-      </section>
+      </PageHero>
 
       {/* ── BloomTech Product Suite ─────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
+      <Section tone="white">
+        <motion.div {...fade()} className="mb-14 flex flex-col md:flex-row md:items-end gap-6 justify-between">
+          <div>
+            <Eyebrow>BloomTech Product Suite</Eyebrow>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-navy leading-tight">
+              Our own products
+            </h2>
+            <p className="text-lg text-gray-600 mt-4 max-w-xl leading-relaxed">
+              Software we've designed, built, and actively deploy for clients across Sri Lanka.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 bg-grey-light rounded-lg px-4 py-2.5 flex-shrink-0">
+            <div className="w-1.5 h-1.5 rounded-full bg-navy" />
+            <span className="text-navy text-[13px] font-bold">All products live &amp; active</span>
+          </div>
+        </motion.div>
 
-          {/* Section header */}
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }}
-            className="mb-14">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>BloomTech Product Suite</p>
-            <div className="flex flex-col md:flex-row md:items-end gap-4 justify-between">
-              <div>
-                <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight" style={{ color: NAVY }}>
-                  Our own products
-                </h2>
-                <p className="text-gray-500 text-[15px] mt-3 max-w-xl leading-relaxed">
-                  Software we've designed, built, and actively deploy for clients across Sri Lanka.
-                </p>
-              </div>
-              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 flex-shrink-0">
-                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span className="text-emerald-700 text-[13px] font-semibold">All products live &amp; active</span>
-              </div>
-            </div>
-          </motion.div>
+        {/* Product cards */}
+        <div className="space-y-10">
+          {BLOOM_PRODUCTS.map((product, idx) => {
+            const isEven = idx % 2 === 0;
+            const Mockup = product.id === 'bloomaudit' ? BloomAuditMockup
+                         : product.id === 'bloomlto'   ? BloomLTOMockup
+                         : BloomSwiftMockup;
+            return (
+              <motion.div
+                key={product.id}
+                {...fade()}
+                className="group relative rounded-2xl overflow-hidden bg-navy shadow-[8px_8px_0_0_#D5DAE3]"
+              >
+                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-0 [&>*]:min-w-0">
 
-          {/* Product cards */}
-          <div className="space-y-8">
-            {BLOOM_PRODUCTS.map((product, idx) => {
-              const isEven = idx % 2 === 0;
-              const Mockup = product.id === 'bloomaudit' ? BloomAuditMockup
-                           : product.id === 'bloomlto'   ? BloomLTOMockup
-                           : BloomSwiftMockup;
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{ duration: 0.5 }}
-                  className="group relative rounded-xl overflow-hidden border border-white/10"
-                  style={{ backgroundColor: NAVY }}
-                >
-                  <div className={`relative grid lg:grid-cols-2 gap-0 ${isEven ? '' : 'lg:grid-flow-dense'}`}>
-
-                    {/* ── Text panel ── */}
-                    <div className={`p-10 xl:p-14 flex flex-col justify-center ${isEven ? '' : 'lg:col-start-2'}`}>
-                      {/* Product badge */}
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className={`inline-flex items-center ${product.bgAccent} bg-opacity-15 px-3 py-1.5 rounded-md`}>
-                          <span className={`text-[10px] font-semibold uppercase tracking-wide ${product.textAccent}`}>{product.status}</span>
-                        </div>
-                        <span className="text-xs font-medium text-gray-500">{product.category}</span>
-                      </div>
-
-                      <h3 className="text-3xl xl:text-4xl font-bold text-white tracking-tight mb-2">{product.name}</h3>
-                      <p className={`text-lg font-semibold ${product.textAccent} mb-5`}>{product.tagline}</p>
-                      <p className="text-[15px] text-gray-400 leading-relaxed mb-8">{product.description}</p>
-
-                      {/* Feature grid */}
-                      <div className="grid grid-cols-2 gap-3 mb-8">
-                        {product.features.slice(0, 4).map((f) => (
-                          <div key={f.title} className="flex items-start gap-2.5 bg-white/5 border border-white/10 rounded-lg p-3.5 group-hover:border-white/15 transition-colors">
-                            <div className={`w-7 h-7 rounded-md ${product.bgAccent} flex items-center justify-center flex-shrink-0`}>
-                              <span className="text-white">{f.icon}</span>
-                            </div>
-                            <div>
-                              <p className="text-xs font-semibold text-white leading-tight mb-0.5">{f.title}</p>
-                              <p className="text-[11px] text-gray-500 leading-snug line-clamp-2">{f.desc}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Metrics row */}
-                      <div className="grid grid-cols-4 gap-3 mb-8">
-                        {product.metrics.map((m) => (
-                          <div key={m.label} className="text-center">
-                            <p className={`text-xl font-bold ${product.textAccent}`}>{m.value}</p>
-                            <p className="text-[9px] text-gray-500 mt-0.5 leading-tight">{m.label}</p>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Tech stack */}
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {product.technologies.slice(0, 6).map((t) => (
-                          <span key={t} className="px-3 py-1 bg-white/8 border border-white/10 text-gray-400 text-[11px] font-medium rounded-md">{t}</span>
-                        ))}
-                        {product.technologies.length > 6 && (
-                          <span className={`px-3 py-1 border ${product.borderAccent} ${product.textAccent} text-[11px] font-semibold rounded-md`}>
-                            +{product.technologies.length - 6} more
-                          </span>
-                        )}
-                      </div>
-
-                      {/* CTA buttons */}
-                      <div className="flex flex-wrap gap-3">
-                        <button
-                          onClick={() => openProduct(product)}
-                          className={`flex items-center gap-2 ${product.bgAccent} text-white font-semibold text-[13px] px-6 py-3.5 rounded-lg hover:opacity-90 transition-opacity`}
-                        >
-                          View Full Details <ArrowRight className="w-4 h-4" />
-                        </button>
-                        <Link
-                          to={`/services/${product.serviceSlug}`}
-                          className="flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold text-[13px] px-6 py-3.5 rounded-lg hover:bg-white/15 transition-colors"
-                        >
-                          <ExternalLink className="w-4 h-4" /> Service Page
-                        </Link>
-                      </div>
+                  {/* ── Text panel ── */}
+                  <div className={`p-8 sm:p-10 xl:p-14 flex flex-col justify-center ${isEven ? '' : 'lg:col-start-2'}`}>
+                    <div className="flex flex-wrap items-center gap-3 mb-6">
+                      <span className={`inline-flex items-center px-3 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-wider text-white ${product.bgAccent}`}>{product.status}</span>
+                      <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-white/45">{product.category}</span>
                     </div>
 
-                    {/* ── Mockup panel ── */}
-                    <div className={`relative p-8 xl:p-12 flex items-center justify-center min-h-[420px] ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}
-                      style={{ backgroundColor: NAVY_RAISED }}>
-                      {/* Product label */}
-                      <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-10">
-                        <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Live Product Preview</span>
-                        <div className="flex items-center gap-1.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                          <span className="text-[10px] font-semibold text-emerald-400">Active</span>
+                    <h3 className="text-3xl xl:text-4xl font-extrabold text-white tracking-tight mb-2">{product.name}</h3>
+                    <p className={`text-lg font-semibold mb-5 ${product.textAccent}`}>{product.tagline}</p>
+                    <p className="text-[15px] text-white/60 leading-relaxed mb-8">{product.description}</p>
+
+                    {/* Feature grid */}
+                    <div className="grid sm:grid-cols-2 gap-2 mb-8">
+                      {product.features.slice(0, 4).map((f) => (
+                        <div key={f.title} className="group/f flex items-start gap-3 bg-white/[0.05] hover:bg-white/[0.09] rounded-lg p-3.5 transition-colors">
+                          <div className={`w-8 h-8 rounded-md text-white flex items-center justify-center flex-shrink-0 ${product.bgAccent}`}>
+                            {f.icon}
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold text-white leading-tight mb-0.5">{f.title}</p>
+                            <p className="text-[11px] text-white/50 leading-snug line-clamp-2">{f.desc}</p>
+                          </div>
                         </div>
+                      ))}
+                    </div>
+
+                    {/* Metrics row */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 border-t border-white/10 mb-8">
+                      {product.metrics.map((m, i) => (
+                        <div key={m.label} className={`pt-4 pr-3 ${i > 0 ? 'sm:pl-4 sm:border-l sm:border-white/10' : ''} ${i % 2 === 1 ? 'pl-4 border-l border-white/10' : ''}`}>
+                          <p className={`text-xl font-extrabold ${product.textAccent}`}>{m.value}</p>
+                          <p className="text-[10px] text-white/50 mt-0.5 leading-tight">{m.label}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-1.5 mb-8">
+                      {product.technologies.slice(0, 6).map((t) => (
+                        <span key={t} className="px-2.5 py-1 bg-white/10 text-white/70 text-[11px] font-semibold rounded-md">{t}</span>
+                      ))}
+                      {product.technologies.length > 6 && (
+                        <span className={`px-2.5 py-1 border ${product.borderAccent} ${product.textAccent} text-[11px] font-bold rounded-md`}>
+                          +{product.technologies.length - 6} more
+                        </span>
+                      )}
+                    </div>
+
+                    {/* CTA buttons */}
+                    <div className="flex flex-wrap items-center gap-5">
+                      <button
+                        onClick={() => openProduct(product)}
+                        className="group/b inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-brand-orange hover:bg-brand-orange-dark text-white font-bold text-sm transition-colors"
+                      >
+                        View Full Details <ArrowRight className="w-4 h-4 group-hover/b:translate-x-1 transition-transform" />
+                      </button>
+                      <Link
+                        to={`/services/${product.serviceSlug}`}
+                        className="group/s inline-flex items-center gap-2 font-bold text-sm text-white hover:text-white/75 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" /> Service Page
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* ── Mockup panel ── */}
+                  <div className={`relative p-6 sm:p-8 xl:p-12 flex items-center justify-center min-h-[420px] bg-navy-mid ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}>
+                    <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-10">
+                      <span className="font-mono text-[10px] font-bold text-white/40 uppercase tracking-widest">Live Product Preview</span>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span className="text-[10px] font-bold text-emerald-400">Active</span>
                       </div>
-                      <div className="w-full mt-8">
+                    </div>
+                    <div className="w-full mt-8 overflow-x-auto">
+                      <div className="min-w-[440px]">
                         <Mockup />
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Key outcomes footer */}
-                  <div className="border-t border-white/10 px-10 xl:px-14 py-5">
-                    <div className="flex flex-wrap gap-x-8 gap-y-2">
-                      {product.keyOutcomes.slice(0, 3).map((o, i) => (
-                        <div key={i} className="flex items-center gap-2 text-xs text-gray-500">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
-                          <span>{o}</span>
-                        </div>
-                      ))}
-                    </div>
+                {/* Key outcomes footer */}
+                <div className="border-t border-white/10 px-8 sm:px-10 xl:px-14 py-5">
+                  <div className="flex flex-wrap gap-x-8 gap-y-2">
+                    {product.keyOutcomes.slice(0, 3).map((o, i) => (
+                      <div key={i} className="flex items-center gap-2 text-xs text-white/55">
+                        <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 ${product.textAccent}`} />
+                        <span>{o}</span>
+                      </div>
+                    ))}
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </section>
+      </Section>
 
       {/* ── Client Projects ─────────────────────────────────────────────────── */}
-      <section className="bg-[#f8f9fb]">
+      <section className="bg-grey-light">
 
         {/* Section header + filter bar */}
-        <div className="sticky top-[72px] z-40 bg-[#f8f9fb] border-b border-gray-200/70 shadow-sm">
-          <div className="max-w-[1550px] mx-auto px-6 xl:px-12 py-5">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
+        <div className="sticky top-[84px] z-40 bg-grey-light/95 border-b border-border-grey">
+          <div className={`${GUTTER} py-5`}>
+            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
               <div className="flex-shrink-0">
-                <h2 className="text-lg font-semibold" style={{ color: NAVY }}>Solutions We Can Build</h2>
+                <h2 className="text-lg font-extrabold text-navy">Solutions We Can Build</h2>
                 <p className="text-xs text-gray-500">Enterprise solutions ready to deliver for your business</p>
               </div>
-              <div className="w-px h-8 bg-gray-200 hidden lg:block" />
+              <div className="w-px h-8 bg-border-grey hidden lg:block" />
 
               {/* Category pills */}
               <div className="flex items-center gap-2 flex-wrap flex-1">
                 {CATEGORIES.map((cat) => (
-                  <button key={cat} onClick={() => setActiveCategory(cat)}
-                    className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors whitespace-nowrap ${activeCategory === cat ? 'text-white' : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-300'}`}
-                    style={activeCategory === cat ? { backgroundColor: NAVY } : undefined}>
+                  <button key={cat} onClick={() => setActiveCategory(cat)} aria-pressed={activeCategory === cat}
+                    className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${activeCategory === cat ? 'bg-navy text-white' : 'bg-white text-navy hover:bg-grey-hover'}`}>
                     {cat}
                   </button>
                 ))}
@@ -1179,11 +1152,12 @@ const Portfolio = () => {
 
               {/* Search */}
               <div className="flex items-center gap-2.5 w-full lg:w-auto">
-                <div className="relative flex-1 lg:w-52">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <div className="relative flex-1 lg:w-60">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input type="text" placeholder="Search solutions..." value={searchQuery}
+                    aria-label="Search solutions"
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md text-[#101D36] placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[#FF6B00] focus:border-[#FF6B00]" />
+                    className="w-full pl-10 pr-4 py-2.5 text-[13px] bg-white rounded-lg text-navy placeholder-gray-400 border-0 focus:outline-none focus:ring-2 focus:ring-navy" />
                 </div>
               </div>
             </div>
@@ -1191,14 +1165,14 @@ const Portfolio = () => {
         </div>
 
         {/* Grid */}
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 py-12">
+        <div className={`${GUTTER} py-12 lg:py-16`}>
           <div className="flex items-center justify-between mb-8">
-            <p className="text-[13px] text-gray-500">
-              Showing <span className="font-semibold" style={{ color: NAVY }}>{filtered.length}</span> of <span className="font-semibold" style={{ color: NAVY }}>{clientProjects.length}</span> solutions
+            <p className="text-[13px] text-gray-600">
+              Showing <span className="font-bold text-navy">{filtered.length}</span> of <span className="font-bold text-navy">{clientProjects.length}</span> solutions
             </p>
             {(activeCategory !== 'All' || searchQuery) && (
               <button onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
-                className="text-xs font-semibold text-[#FF6B00] hover:underline flex items-center gap-1">
+                className="text-xs font-bold text-navy hover:underline underline-offset-4 flex items-center gap-1">
                 <X className="w-3.5 h-3.5" /> Clear
               </button>
             )}
@@ -1206,13 +1180,13 @@ const Portfolio = () => {
 
           {filtered.length === 0 && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="text-center py-20">
-              <div className="w-14 h-14 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mx-auto mb-5">
-                <Search className="w-6 h-6 text-[#FF6B00]" />
+              <div className="w-14 h-14 rounded-xl bg-white text-navy-mid flex items-center justify-center mx-auto mb-5">
+                <Search className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: NAVY }}>No solutions found</h3>
-              <p className="text-gray-500 mb-6">Try adjusting your search or category filter.</p>
+              <h3 className="text-xl font-extrabold text-navy mb-2">No solutions found</h3>
+              <p className="text-gray-600 mb-6">Try adjusting your search or category filter.</p>
               <button onClick={() => { setActiveCategory('All'); setSearchQuery(''); }}
-                className="px-6 py-3 text-white font-semibold rounded-lg hover:opacity-90 transition-opacity" style={{ background: ORANGE_GRADIENT }}>
+                className="px-6 py-3 rounded-xl bg-brand-orange hover:bg-brand-orange-dark text-white font-bold transition-colors">
                 Clear Filters
               </button>
             </motion.div>
@@ -1229,37 +1203,16 @@ const Portfolio = () => {
       </section>
 
       {/* ── CTA ────────────────────────────────────────────────────────────── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-80px' }}
-            className="relative rounded-xl overflow-hidden p-12 md:p-16 text-center" style={{ background: NAVY_GRADIENT }}>
-            <div className="relative z-10 max-w-2xl mx-auto">
-              <div className="flex items-center justify-center gap-3 mb-5">
-                <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
-                <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE_LIGHT }}>Start Your Project</p>
-                <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
-              </div>
-              <h2 className="text-3xl md:text-[2.5rem] font-bold text-white leading-[1.1] tracking-tight mb-5">
-                Have a project <span style={{ color: ORANGE }}>in mind?</span>
-              </h2>
-              <p className="text-lg text-white/70 leading-relaxed mb-10">
-                Our CISA-certified team has delivered transformative technology for businesses across Sri Lanka. Let's build something extraordinary together.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-                <Link to="/contact"
-                  className="flex items-center gap-2 text-white font-semibold px-8 py-4 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all"
-                  style={{ background: ORANGE_GRADIENT }}>
-                  Start a Conversation <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link to="/company"
-                  className="flex items-center gap-2 bg-white/10 border border-white/20 text-white font-semibold px-8 py-4 rounded-lg hover:bg-white/15 transition-colors">
-                  Learn About Us
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <CtaBand
+        eyebrow="Start Your Project"
+        title={<>Have a project <span className="block sm:inline">in mind?</span></>}
+        text="Our CISA-certified team has delivered transformative technology for businesses across Sri Lanka. Let's build something extraordinary together."
+        button="Start a Conversation"
+        to="/contact"
+        secondary={<TextLink to="/company">Learn About Us</TextLink>}
+      />
+
+      <Footer />
 
       {/* ── Modals ─────────────────────────────────────────────────────────── */}
       <AnimatePresence>
@@ -1269,5 +1222,7 @@ const Portfolio = () => {
     </div>
   );
 };
+
+
 
 export default Portfolio;

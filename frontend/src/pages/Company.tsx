@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion';
-import { Building2, Target, Eye, Users, Lightbulb, Code, Wrench, MapPin, Globe, Zap, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Building2, Target, Eye, Users, Lightbulb, Code, Wrench, MapPin, Globe, Zap, ArrowUpRight, Briefcase, Brain, Network, Megaphone, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs } from '../utils/seoConfig';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS, ORANGE_GRADIENT, NAVY_GRADIENT } from '../styles/designTokens';
-
-const vp = { once: true, margin: '-80px' } as const;
+import {
+  PageHero, Section, Heading, BlockGrid, Explorer, PhotoBand, CtaBand, PrimaryButton, TextLink, StatsStrip, Hl, fade, GUTTER,
+} from '../components/kit';
+import { photos } from '../components/photos';
 
 const Company = () => {
   const services = [
@@ -130,420 +130,213 @@ const Company = () => {
 
   const [selectedHub, setSelectedHub] = useState(globalHubs[0]);
 
+  // Presentation-only: an icon per service offering (same order as `services`)
+  const serviceIcons = [Briefcase, Brain, Network, Megaphone, ShieldCheck];
+
   return (
-    <div style={{ fontFamily: FONT_SANS }}>
+    <div className="bg-white">
       <SEO config={seoConfigs.company} />
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-20 overflow-hidden" style={{ background: NAVY_GRADIENT }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
-              <p className="text-sm font-semibold tracking-wide inline-flex items-center gap-2" style={{ color: ORANGE_LIGHT }}>
-                <Building2 className="w-4 h-4" /> About BloomTech.lk
-              </p>
-            </div>
+      <PageHero
+        photo={photos.colomboLotus}
+        eyebrow={<span className="inline-flex items-center gap-2"><Building2 className="w-4 h-4" /> About BloomTech.lk</span>}
+        title={<>Sri Lanka's trusted <span className="block">technology partner</span></>}
+        text="Headquartered in Mawaramandiya, BloomTech.lk is built by Sri Lankans for Sri Lankan businesses — combining international expertise with genuine local knowledge to deliver technology that drives real, measurable growth."
+      >
+        <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+          <PrimaryButton to="/services/ai-machine-learning">Explore Our Services</PrimaryButton>
+          <TextLink href="#mission">Our Mission</TextLink>
+        </div>
+      </PageHero>
 
-            <h1 className="text-[2.75rem] md:text-[3.4rem] font-bold mb-6 leading-[1.08] tracking-tight text-white">
-              Sri Lanka's trusted <span style={{ color: ORANGE }}>technology partner</span>
-            </h1>
-
-            <p className="text-lg text-white/72 mb-10 leading-relaxed max-w-2xl">
-              Headquartered in Mawaramandiya, BloomTech.lk is built by Sri Lankans for Sri Lankan businesses — combining international expertise with genuine local knowledge to deliver technology that drives real, measurable growth.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3.5">
-              <Link
-                to="/services/ai-machine-learning"
-                className="px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                style={{ background: ORANGE_GRADIENT }}
-              >
-                Explore Our Services <ChevronRight className="w-4 h-4" />
-              </Link>
-              <a
-                href="#mission"
-                className="px-8 py-4 bg-white/[0.06] text-white border border-white/25 rounded-lg font-semibold text-[15px] hover:bg-white/[0.12] hover:border-white/40 transition-all flex items-center justify-center"
-              >
-                Our Mission
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Stats Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/[0.08] border-t border-white/10 mt-16 pt-2"
-          >
-            {stats.map((stat, i) => (
-              <div key={i} className={`px-4 py-8 text-center ${i >= 2 ? 'border-t border-white/[0.08] md:border-t-0' : ''}`}>
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">{stat.value}</div>
-                <div className="inline-flex items-center gap-1.5">
-                  <span className="w-3 h-[2px] rounded-full" style={{ backgroundColor: ORANGE }} />
-                  <span className="text-[11px] text-white/50 uppercase tracking-[0.1em]">{stat.label}</span>
-                </div>
-              </div>
-            ))}
-          </motion.div>
+      {/* Stats Bar */}
+      <section className="bg-white border-b border-gray-200">
+        <div className={GUTTER}>
+          <StatsStrip stats={stats.map((s) => ({ value: s.value, label: s.label }))} />
         </div>
       </section>
 
       {/* Mission & Vision Section */}
-      <section id="mission" className="py-24 bg-white scroll-mt-20">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid lg:grid-cols-2 gap-14 items-start">
-            {/* Mission */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center">
-                  <Target className="w-5 h-5" style={{ color: ORANGE }} />
-                </div>
-                <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-gray-400">Our Mission</h2>
-              </div>
-              <h3 className="text-3xl md:text-[2.25rem] font-bold mb-5 leading-[1.1] tracking-tight" style={{ color: NAVY }}>
-                Accelerating Sri Lanka's digital transformation
-              </h3>
-              <p className="text-gray-600 leading-relaxed text-[15px]">
-                To make enterprise-grade technology accessible to every Sri Lankan business — empowering local companies with AI-powered solutions, custom software, and world-class IT infrastructure. BloomTech.lk combines international expertise with deep local knowledge to deliver measurable value and sustainable digital growth for clients across the island.
-              </p>
-            </motion.div>
-
-            {/* Vision */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-lg bg-blue-50 ring-1 ring-blue-100 flex items-center justify-center">
-                  <Eye className="w-5 h-5 text-blue-600" />
-                </div>
-                <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-gray-400">Our Vision</h2>
-              </div>
-              <h3 className="text-3xl md:text-[2.25rem] font-bold mb-5 leading-[1.1] tracking-tight" style={{ color: NAVY }}>
-                Sri Lanka's most trusted technology company
-              </h3>
-              <p className="text-gray-600 leading-relaxed text-[15px]">
-                To be the cornerstone of Sri Lanka's digital economy — driving innovation that enables local businesses to compete confidently on the world stage, while building a technology ecosystem that uplifts communities, creates skilled employment, and fuels national prosperity across the island.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <Section tone="white" id="mission">
+        <BlockGrid
+          cols={2}
+          items={[
+            {
+              image: photos.team,
+              icon: Target,
+              tag: <h2 className="inline">Our Mission</h2>,
+              title: <span className="text-2xl md:text-3xl block">Accelerating Sri Lanka's digital transformation</span>,
+              desc: 'To make enterprise-grade technology accessible to every Sri Lankan business — empowering local companies with AI-powered solutions, custom software, and world-class IT infrastructure. BloomTech.lk combines international expertise with deep local knowledge to deliver measurable value and sustainable digital growth for clients across the island.',
+            },
+            {
+              image: photos.colomboSkyline,
+              icon: Eye,
+              tag: <h2 className="inline">Our Vision</h2>,
+              title: <span className="text-2xl md:text-3xl block">Sri Lanka's most trusted technology company</span>,
+              desc: 'To be the cornerstone of Sri Lanka\'s digital economy — driving innovation that enables local businesses to compete confidently on the world stage, while building a technology ecosystem that uplifts communities, creates skilled employment, and fuels national prosperity across the island.',
+            },
+          ]}
+        />
+      </Section>
 
       {/* The BloomTech Approach */}
-      <section className="py-24" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14 max-w-2xl mx-auto"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Our Philosophy</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-              How we deliver for Sri Lankan businesses
-            </h2>
-            <p className="text-gray-500 leading-relaxed text-[15px]">
-              Every engagement is built on three principles: deep technical mastery, genuine understanding of your business goals, and an unwavering focus on outcomes that matter to your bottom line and your people.
-            </p>
-          </motion.div>
+      <Section tone="grey">
+        <Heading
+          eyebrow="Our Philosophy"
+          title="How we deliver for Sri Lankan businesses"
+          image={photos.consultingTeam}
+        >
+          <p>
+            Every engagement is built on three principles: deep technical mastery, genuine understanding of your business goals, and an unwavering focus on outcomes that matter to your bottom line and your people.
+          </p>
+        </Heading>
+        <BlockGrid
+          cols={3}
+          items={approach.map(({ icon, title, desc }, i) => ({ icon, title, desc, num: String(i + 1).padStart(2, '0') }))}
+        />
+      </Section>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {approach.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="bg-white rounded-xl p-7 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-5">
-                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                </div>
-                <h4 className="text-lg font-semibold mb-2.5" style={{ color: NAVY }}>{title}</h4>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PhotoBand photo={photos.colomboRail} />
 
       {/* Service Offerings */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14 max-w-2xl mx-auto"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>What We Deliver</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-              Comprehensive service offerings
-            </h2>
-            <p className="text-gray-500 leading-relaxed text-[15px]">
-              A complete suite of technology services built around the real needs of Sri Lankan businesses — designed to maximise ROI and future-proof your organisation in a rapidly evolving digital landscape.
-            </p>
-          </motion.div>
-
-          <div className="space-y-4">
-            {services.map((service, i) => (
-              <motion.div
-                key={service.number}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="rounded-xl border border-gray-200 p-7 md:p-8 hover:border-gray-300 hover:shadow-[0_1px_3px_rgba(16,29,54,0.04)] transition-all"
-              >
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
-                  <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center shrink-0 font-bold text-sm" style={{ color: ORANGE }}>
-                    {service.number}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold mb-4" style={{ color: NAVY }}>
-                      {service.title}
-                    </h3>
-                    <ul className="space-y-3">
-                      {service.items.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2.5 text-gray-600 text-sm leading-relaxed">
-                          <ChevronRight className="w-4 h-4 mt-0.5 shrink-0" style={{ color: ORANGE }} />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Section tone="white">
+        <Heading
+          eyebrow="What We Deliver"
+          title="Comprehensive service offerings"
+          sub="A complete suite of technology services built around the real needs of Sri Lankan businesses — designed to maximise ROI and future-proof your organisation in a rapidly evolving digital landscape."
+        />
+        <Explorer
+          items={services.map((service, i) => ({
+            num: service.number,
+            icon: serviceIcons[i],
+            title: service.title,
+            points: service.items,
+          }))}
+        />
+      </Section>
 
       {/* Technical Expertise */}
-      <section className="py-24 relative overflow-hidden" style={{ background: NAVY_GRADIENT }}>
-        <div className="absolute inset-x-0 top-0 h-1/2 pointer-events-none" style={{ background: `linear-gradient(180deg, ${NAVY_RAISED}, transparent)`, opacity: 0.5 }} />
-
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14 max-w-2xl mx-auto"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>Our Team</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4 text-white">
-              Elite Sri Lankan technical talent
-            </h2>
-            <p className="text-white/60 leading-relaxed text-[15px]">
-              BloomTech.lk attracts and retains Sri Lanka's best technology professionals — a team that combines local market insight with world-class technical credentials.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {expertise.map(({ icon: Icon, title, description }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={vp}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="rounded-xl p-8 border border-white/10 hover:border-white/20 transition-colors"
-                style={{ backgroundColor: NAVY_RAISED }}
-              >
-                <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
-                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                </div>
-                <h4 className="text-lg font-semibold text-white mb-3">{title}</h4>
-                <p className="text-white/55 leading-relaxed text-sm">{description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Section tone="dark">
+        <Heading
+          light
+          center
+          eyebrow="Our Team"
+          title="Elite Sri Lankan technical talent"
+          sub="BloomTech.lk attracts and retains Sri Lanka's best technology professionals — a team that combines local market insight with world-class technical credentials."
+        />
+        <BlockGrid
+          dark
+          cols={3}
+          items={expertise.map(({ icon, title, description }, i) => ({ icon, title, desc: description, num: String(i + 1).padStart(2, '0') }))}
+        />
+      </Section>
 
       {/* Global Delivery Model */}
-      <section className="py-24 bg-white">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 max-w-3xl mx-auto"
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Where We Operate</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-5" style={{ color: NAVY }}>
-              Rooted in Sri Lanka, reaching the world
-            </h2>
-            <p className="text-gray-500 leading-relaxed text-[15px] mb-3">
-              Headquartered at <span className="font-semibold" style={{ color: NAVY }}>XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</span>, BloomTech.lk serves Sri Lankan businesses locally while supporting regional growth through our global hub network.
-            </p>
-            <p className="text-gray-500 leading-relaxed text-[15px]">
-              Our geographic presence enables local on-site support across Sri Lanka, combined with the capacity to deliver projects for the Sri Lankan diaspora and international market.
-            </p>
-          </motion.div>
+      <Section tone="white">
+        <Heading
+          eyebrow="Where We Operate"
+          title="Rooted in Sri Lanka, reaching the world"
+          className="mb-12 [&_.max-w-3xl]:max-w-4xl"
+        >
+          <p>
+            Headquartered at <Hl>XXPG+VXF, Makola - Udupila Rd, Mawaramandiya, Sri Lanka</Hl>, BloomTech.lk serves Sri Lankan businesses locally while supporting regional growth through our global hub network.
+          </p>
+          <p>
+            Our geographic presence enables local on-site support across Sri Lanka, combined with the capacity to deliver projects for the Sri Lankan diaspora and international market.
+          </p>
+        </Heading>
 
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-            {/* Hub Cards - Left Side */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {globalHubs.map((hub, index) => {
-                const active = selectedHub.id === hub.id;
-                return (
-                  <motion.button
-                    key={hub.id}
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={vp}
-                    transition={{ duration: 0.5, delay: index * 0.08 }}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Hub list - Left Side */}
+          <ul className="lg:col-span-5 flex flex-col gap-2">
+            {globalHubs.map((hub, index) => {
+              const active = selectedHub.id === hub.id;
+              return (
+                <motion.li key={hub.id} {...fade(index * 0.08)}>
+                  <button
+                    type="button"
                     onClick={() => setSelectedHub(hub)}
-                    className={`text-left rounded-xl p-5 border transition-all ${
-                      active
-                        ? 'border-transparent shadow-[0_12px_28px_-12px_rgba(16,29,54,0.35)]'
-                        : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-[0_1px_3px_rgba(16,29,54,0.04)]'
-                    }`}
-                    style={active ? { backgroundColor: NAVY } : undefined}
+                    onMouseEnter={() => setSelectedHub(hub)}
+                    onFocus={() => setSelectedHub(hub)}
+                    aria-pressed={active}
+                    className={`w-full text-left rounded-xl p-5 transition-colors ${active ? 'bg-navy' : 'bg-grey-light hover:bg-grey-hover'}`}
                   >
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: active ? 'rgba(255,107,0,0.2)' : '#FFF4EC' }}>
-                        <MapPin className="w-4 h-4" style={{ color: ORANGE }} />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className={`font-semibold text-sm mb-0.5 ${active ? 'text-white' : ''}`} style={!active ? { color: NAVY } : undefined}>
-                          {hub.name}
-                        </h4>
-                        <p className={`text-xs ${active ? 'text-white/70' : 'text-gray-500'}`}>
-                          {hub.location}
-                        </p>
+                    <div className="flex items-start gap-4">
+                      <span className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors ${active ? 'bg-white text-navy' : 'bg-white text-navy-mid'}`}>
+                        <MapPin className="w-4 h-4" />
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <h4 className={`font-extrabold leading-snug ${active ? 'text-white' : 'text-navy'}`}>{hub.name}</h4>
+                        <p className={`font-mono text-[11px] font-bold uppercase tracking-wider mt-0.5 ${active ? 'text-brand-orange' : 'text-gray-500'}`}>{hub.location}</p>
+                        <p className={`text-sm leading-relaxed mt-2.5 ${active ? 'text-white/70' : 'text-gray-600'}`}>{hub.description}</p>
+                        <p className={`text-xs leading-relaxed mt-3 pt-3 border-t ${active ? 'border-white/10 text-white/55' : 'border-gray-200 text-gray-500'}`}>{hub.address}</p>
                       </div>
                     </div>
-                    <p className={`text-xs leading-relaxed ${active ? 'text-white/70' : 'text-gray-500'}`}>
-                      {hub.description}
-                    </p>
-                    <div className={`mt-3 pt-3 border-t ${active ? 'border-white/15' : 'border-gray-100'}`}>
-                      <p className={`text-[11px] ${active ? 'text-white/55' : 'text-gray-400'}`}>
-                        {hub.address}
-                      </p>
-                    </div>
-                  </motion.button>
-                );
-              })}
+                  </button>
+                </motion.li>
+              );
+            })}
+          </ul>
+
+          {/* Interactive Map - Right Side */}
+          <motion.div {...fade(0.1)} className="lg:col-span-7 lg:sticky lg:top-28">
+            <div className="rounded-2xl overflow-hidden bg-navy shadow-[8px_8px_0_0_#D5DAE3]">
+              <div className="p-5 flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <h3 className="text-white font-extrabold text-[15px] mb-0.5">{selectedHub.name}</h3>
+                  <p className="text-white/60 text-sm">{selectedHub.location}</p>
+                </div>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedHub.address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-4 py-2.5 rounded-lg bg-white text-navy font-bold text-xs hover:bg-grey-light transition-colors flex items-center gap-1.5 shrink-0"
+                >
+                  Open Maps
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedHub.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative h-[460px] bg-grey-light"
+                >
+                  <iframe
+                    src={selectedHub.mapUrl}
+                    width="100%"
+                    height="100%"
+                    className="w-full h-full borderless-iframe"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title={`Map of ${selectedHub.name}`}
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            {/* Interactive Map - Right Side */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={vp}
-              transition={{ duration: 0.6 }}
-              className="relative h-full min-h-[560px]"
-            >
-              <div className="sticky top-24">
-                <div className="rounded-xl overflow-hidden border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)]">
-                  <div className="p-5 flex items-center justify-between" style={{ backgroundColor: NAVY }}>
-                    <div>
-                      <h3 className="text-white font-semibold text-[15px] mb-0.5">{selectedHub.name}</h3>
-                      <p className="text-white/60 text-sm">{selectedHub.location}</p>
-                    </div>
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(selectedHub.address)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-white rounded-lg font-semibold text-xs hover:bg-gray-100 transition-all flex items-center gap-1.5 shrink-0"
-                      style={{ color: NAVY }}
-                    >
-                      Open Maps
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-
-                  <motion.div
-                    key={selectedHub.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.4 }}
-                    className="relative h-[460px] bg-gray-100"
-                  >
-                    <iframe
-                      src={selectedHub.mapUrl}
-                      width="100%"
-                      height="100%"
-                      className="w-full h-full borderless-iframe"
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={`Map of ${selectedHub.name}`}
-                    />
-                  </motion.div>
-                </div>
-
-                <div className="mt-4 rounded-lg p-4 border border-gray-200" style={{ backgroundColor: GREY }}>
-                  <div className="flex items-center gap-2.5">
-                    <Globe className="w-4 h-4" style={{ color: ORANGE }} />
-                    <p className="text-sm text-gray-600">
-                      Click on any hub to view its location on the map
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+            <p className="mt-5 flex items-center gap-2.5 text-sm text-gray-600">
+              <Globe className="w-4 h-4 text-navy-mid" />
+              Click on any hub to view its location on the map
+            </p>
+          </motion.div>
         </div>
-      </section>
+      </Section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6" style={{ background: ORANGE_GRADIENT }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={vp}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <h2 className="text-3xl md:text-[2.5rem] font-bold text-white mb-5 leading-[1.1] tracking-tight">
-              Ready to grow with Sri Lanka's best tech team?
-            </h2>
-            <p className="text-lg text-white/90 mb-9 max-w-2xl mx-auto leading-relaxed">
-              Let's discuss how BloomTech.lk can empower your organisation with technology that's built for Sri Lanka and engineered for growth.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5">
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-8px_rgba(16,29,54,0.5)] hover:shadow-[0_10px_26px_-8px_rgba(16,29,54,0.6)] hover:-translate-y-0.5 transition-all flex items-center gap-2"
-                style={{ color: NAVY }}
-              >
-                Get in Touch <ChevronRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/services/ai-machine-learning"
-                className="px-8 py-4 bg-transparent text-white border border-white/50 rounded-lg font-semibold text-[15px] hover:bg-white/10 transition-colors"
-              >
-                View Our Services
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <CtaBand
+        title="Ready to grow with Sri Lanka's best tech team?"
+        text="Let's discuss how BloomTech.lk can empower your organisation with technology that's built for Sri Lanka and engineered for growth."
+        button="Get in Touch"
+        to="/contact"
+        secondary={<TextLink to="/services/ai-machine-learning">View Our Services</TextLink>}
+      />
 
       <Footer />
     </div>

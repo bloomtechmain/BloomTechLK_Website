@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, User, Mail, Building2, Briefcase, MessageSquare, Send, CheckCircle2, Phone } from 'lucide-react';
+import { X, User, Mail, Building2, Briefcase, MessageSquare, Send, Check, Phone } from 'lucide-react';
 import { sendInquiryEmail } from '../utils/emailjs';
-import { NAVY, ORANGE, ORANGE_GRADIENT, FONT_SANS } from '../styles/designTokens';
+import { fieldCls } from './kit';
 
 interface ExpertFormModalProps {
   isOpen: boolean;
@@ -10,6 +10,9 @@ interface ExpertFormModalProps {
   serviceName: string;
   serviceSlug: string;
 }
+
+const iconCls = 'absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-navy transition-colors';
+const inputCls = `${fieldCls} pl-12`;
 
 const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serviceName }) => {
   const [formData, setFormData] = useState({
@@ -73,22 +76,25 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-navy-dark/75"
           ></motion.div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 16 }}
-            className="relative w-full max-w-2xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
-            style={{ backgroundColor: NAVY, fontFamily: FONT_SANS }}
+            role="dialog"
+            aria-modal="true"
+            className="relative w-full max-w-2xl max-h-[calc(100vh-2rem)] overflow-y-auto rounded-2xl bg-white shadow-[10px_10px_0_0_#101D36]"
           >
-            <div className="p-8 md:p-10">
+            <span className="absolute left-0 top-0 h-1 w-16 bg-brand-orange" aria-hidden="true" />
+            <div className="p-7 sm:p-10">
               <button
                 onClick={onClose}
-                className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+                aria-label="Close"
+                className="absolute top-5 right-5 w-10 h-10 rounded-full bg-grey-light text-navy hover:bg-navy hover:text-white flex items-center justify-center transition-colors"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
               {success ? (
@@ -96,28 +102,28 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white mb-6"
+                    className="w-16 h-16 bg-navy rounded-full flex items-center justify-center text-white mb-6"
                   >
-                    <CheckCircle2 size={32} />
+                    <Check size={32} strokeWidth={3} />
                   </motion.div>
-                  <h2 className="text-2xl font-bold text-white mb-3">Request Received!</h2>
-                  <p className="text-white/60 text-base max-w-md">
-                    One of our senior <span style={{ color: ORANGE }} className="font-semibold">{serviceName}</span> experts will contact you within 24 hours.
+                  <h2 className="text-2xl font-extrabold text-navy mb-3">Request Received!</h2>
+                  <p className="text-gray-600 text-base max-w-md">
+                    One of our senior <span className="font-bold text-navy">{serviceName}</span> experts will contact you within 24 hours.
                   </p>
                 </div>
               ) : (
                 <>
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-bold text-white tracking-tight mb-2">Talk to an Expert</h2>
-                    <p className="text-white/55 text-[15px]">
-                      Discussing solutions for: <span style={{ color: ORANGE }} className="font-medium">{serviceName}</span>
+                  <div className="mb-8 pr-12">
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-tight mb-2">Talk to an Expert</h2>
+                    <p className="text-gray-600 text-[15px]">
+                      Discussing solutions for: <span className="font-bold text-navy">{serviceName}</span>
                     </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
+                        <div className={iconCls}>
                           <User size={18} />
                         </div>
                         <input
@@ -127,11 +133,11 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Full Name"
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
+                          className={inputCls}
                         />
                       </div>
                       <div className="relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
+                        <div className={iconCls}>
                           <Mail size={18} />
                         </div>
                         <input
@@ -141,14 +147,14 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Work Email"
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
+                          className={inputCls}
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
+                        <div className={iconCls}>
                           <Building2 size={18} />
                         </div>
                         <input
@@ -157,11 +163,11 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Company Name"
                           value={formData.company}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
+                          className={inputCls}
                         />
                       </div>
                       <div className="relative group">
-                        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
+                        <div className={iconCls}>
                           <Briefcase size={18} />
                         </div>
                         <input
@@ -170,13 +176,13 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                           placeholder="Job Title"
                           value={formData.jobTitle}
                           onChange={handleChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all"
+                          className={inputCls}
                         />
                       </div>
                     </div>
 
                     <div className="relative group">
-                      <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
+                      <div className={iconCls}>
                         <Phone size={18} />
                       </div>
                       <input
@@ -185,13 +191,13 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                         placeholder="Phone Number (Optional)"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/20 focus:border-[#ff6b00] focus:ring-1 focus:ring-[#ff6b00] outline-none transition-all"
+                        className={inputCls}
                       />
                     </div>
 
                     <div className="relative group">
-                      <div className="absolute top-4 left-4 flex items-start pointer-events-none text-white/40 group-focus-within:text-[#ff6b00] transition-colors">
-                        <MessageSquare size={18} className="mt-1" />
+                      <div className="absolute top-4 left-4 flex items-start pointer-events-none text-gray-400 group-focus-within:text-navy transition-colors">
+                        <MessageSquare size={18} className="mt-0.5" />
                       </div>
                       <textarea
                         name="message"
@@ -200,30 +206,29 @@ const ExpertFormModal: React.FC<ExpertFormModalProps> = ({ isOpen, onClose, serv
                         placeholder="How can we help your organization?"
                         value={formData.message}
                         onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-lg py-3.5 pl-12 pr-4 text-white placeholder:text-white/25 focus:border-[#FF6B00]/50 focus:ring-1 focus:ring-[#FF6B00]/50 outline-none transition-all resize-none"
+                        className={`${inputCls} resize-none`}
                       ></textarea>
                     </div>
 
                     {error && (
-                      <p className="text-red-400 text-sm font-medium">{error}</p>
+                      <p className="text-red-600 text-sm font-medium">{error}</p>
                     )}
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full disabled:opacity-50 text-white font-semibold text-[15px] py-3.5 px-6 rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:-translate-y-0.5 transition-all active:scale-[0.98] flex items-center justify-center gap-2 mt-4 group"
-                      style={{ background: ORANGE_GRADIENT }}
+                      className="group w-full inline-flex items-center justify-center gap-2.5 px-8 py-4 mt-2 rounded-xl bg-brand-orange hover:bg-brand-orange-dark text-white font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       {loading ? (
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                       ) : (
                         <>
-                          Send Inquiry <Send size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                          Send Inquiry <Send size={16} className="group-hover:translate-x-1 transition-transform" />
                         </>
                       )}
                     </button>
 
-                    <p className="text-center text-white/35 text-xs mt-4">
+                    <p className="text-center font-mono text-[11px] font-bold uppercase tracking-widest text-gray-400 pt-2">
                       Secure connection via BloomTech Analytics Engine
                     </p>
                   </form>

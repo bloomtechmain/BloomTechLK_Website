@@ -1,13 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import {
-  ArrowRight, Clock, RefreshCw, History, Bell, Search, HardDrive,
-  Package, Layers, Archive, ShieldCheck, ExternalLink, Mail, Download,
+  Clock, RefreshCw, History, Bell, Search, HardDrive,
+  Package, Layers, Archive, ShieldCheck, ExternalLink, Mail, Download, ArrowRight,
 } from 'lucide-react';
 import Footer from '../components/Footer';
-import { NAVY, NAVY_RAISED, ORANGE, ORANGE_LIGHT, GREY, FONT_SANS, ORANGE_GRADIENT } from '../styles/designTokens';
+import {
+  PageHero, Section, Heading, Eyebrow, BlockGrid, BlockCard, FlowChart, CtaBand, ContactRows, PhotoBand, PrimaryButton, TextLink,
+  IconTiles, StatsStrip, fade, GUTTER,
+} from '../components/kit';
+import { servicePhotos } from '../components/photos';
 
-const vp = { once: true, margin: '-80px' } as const;
+const pics = servicePhotos['bloomlto'];
 
 function useCountUp(target: number, duration = 1200) {
   const [count, setCount] = useState(0);
@@ -113,363 +117,221 @@ const BloomLTO = () => {
   const steps = activeTab === 'restoring' ? restoringSteps : archivingSteps;
 
   return (
-    <div className="overflow-x-hidden" style={{ fontFamily: FONT_SANS }}>
+    <div className="bg-white overflow-x-hidden">
 
       {/* ══════════════════════ HERO ══════════════════════ */}
-      <section className="relative min-h-[600px] h-[90vh] max-h-[760px] flex items-center overflow-hidden" style={{ backgroundColor: NAVY }}>
-        <div className="absolute right-0 top-0 h-full w-[60%] hidden lg:block">
-          <img
-            src="/images/rack_and_roll.jpg"
-            alt="Tape library and server racks — BloomLTO"
-            className="w-full h-full object-cover object-[30%_center] opacity-80"
-          />
+      <PageHero
+        photo={pics.hero}
+        eyebrow="Searchable LTO Tape Archive Software"
+        title={<>Tape is cheap and safe. <span className="block">But which tape has it?</span></>}
+        text="BloomLTO indexes every file the moment it's archived to LTO — name, path, size, and tape barcode — so restoring a file means searching a catalog, not guessing which cartridge it's on."
+        minH="lg:min-h-[780px]"
+      >
+        <div className="flex flex-wrap gap-2 mt-7">
+          {['Open LTFS Format', 'LTO-5 to LTO-9', 'Scheduled Archiving', 'Restore Audit Log', 'Verification & Duplication'].map(t => (
+            <span key={t} className="px-3 py-1.5 rounded-md bg-white/[0.07] text-xs font-semibold text-white/75">{t}</span>
+          ))}
         </div>
-        <div className="absolute inset-0" style={{ background: `linear-gradient(100deg, ${NAVY} 24%, rgba(16,29,54,0.82) 52%, rgba(16,29,54,0.5) 100%)` }} />
 
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12 relative z-20 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="max-w-2xl"
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-8 h-[2px]" style={{ backgroundColor: ORANGE }} />
-              <p className="text-sm font-semibold tracking-wide" style={{ color: ORANGE_LIGHT }}>
-                Searchable LTO Tape Archive Software
-              </p>
+        <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+          <PrimaryButton href="https://bloomlto.com" external icon={ExternalLink}>Visit bloomlto.com</PrimaryButton>
+          <TextLink href="#library">See How Archiving Works</TextLink>
+        </div>
+
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-2xl">
+          {[
+            { ref: capacityRef,    val: `${capacityCount} TB`,     label: 'Per Tape (LTO-9)' },
+            { ref: generationsRef, val: `LTO-5–${generationsCount + 4}`, label: 'Generations Supported' },
+            { ref: trialRef,       val: `${trialCount}-Day`,       label: 'Free Trial' },
+            { ref: null,           val: '100%',                    label: 'Open LTFS Format' },
+          ].map(({ ref, val, label }) => (
+            <div key={label} ref={ref} className="rounded-lg bg-white/[0.06] px-4 py-3">
+              <span className="block font-extrabold text-white leading-none">{val}</span>
+              <span className="block text-[11px] text-white/50 mt-1.5 leading-snug">{label}</span>
             </div>
+          ))}
+        </div>
+      </PageHero>
 
-            <h1 className="text-[2.75rem] md:text-[3.4rem] font-bold mb-6 leading-[1.08] tracking-tight text-white">
-              Tape is cheap and safe. <span style={{ color: ORANGE }}>But which tape has it?</span>
-            </h1>
-
-            <p className="text-white/72 text-lg mb-9 leading-relaxed max-w-xl">
-              BloomLTO indexes every file the moment it's archived to LTO — name, path, size, and tape barcode — so restoring a file means searching a catalog, not guessing which cartridge it's on.
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-9">
-              {['Open LTFS Format', 'LTO-5 to LTO-9', 'Scheduled Archiving', 'Restore Audit Log', 'Verification & Duplication'].map(t => (
-                <span key={t} className="px-3 py-1.5 bg-white/[0.06] border border-white/10 rounded-full text-xs font-medium text-white/65">{t}</span>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3.5 mb-10">
-              <a href="https://bloomlto.com" target="_blank" rel="noopener noreferrer"
-                className="px-8 py-4 text-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:shadow-[0_10px_26px_-6px_rgba(255,107,0,0.65)] hover:-translate-y-0.5 transition-all flex items-center justify-center gap-2"
-                style={{ background: ORANGE_GRADIENT }}>
-                Visit bloomlto.com <ExternalLink className="w-4 h-4" />
-              </a>
-              <a href="#library"
-                className="px-8 py-4 bg-white/[0.06] text-white border border-white/25 rounded-lg font-semibold text-[15px] hover:bg-white/[0.12] hover:border-white/40 transition-all flex items-center justify-center">
-                See How Archiving Works
-              </a>
-            </div>
-
-            <div className="flex flex-wrap gap-2.5">
-              {[
-                { ref: capacityRef,    val: `${capacityCount} TB`,     label: 'Per Tape (LTO-9)' },
-                { ref: generationsRef, val: `LTO-5–${generationsCount + 4}`, label: 'Generations Supported' },
-                { ref: trialRef,       val: `${trialCount}-Day`,       label: 'Free Trial' },
-                { ref: null,           val: '100%',                    label: 'Open LTFS Format' },
-              ].map(({ ref, val, label }) => (
-                <div key={label} ref={ref} className="bg-white/[0.05] border border-white/10 rounded-lg px-4 py-2.5">
-                  <span className="block font-bold text-white leading-none">{val}</span>
-                  <span className="block text-[10px] text-white/45 uppercase tracking-wide mt-1">{label}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+      {/* ══════════════════════ STATS BAR ══════════════════════ */}
+      <section className="bg-white border-b border-gray-200">
+        <div className={GUTTER}>
+          <StatsStrip
+            stats={[
+              { value: '18 TB',   label: 'Per Tape (LTO-9)' },
+              { value: 'LTO-5–9', label: 'Generations Supported' },
+              { value: '30-Day',  label: 'Free Trial' },
+              { value: '100%',    label: 'Open LTFS Format' },
+            ]}
+          />
         </div>
       </section>
 
-      {/* ══════════════════════ STATS BAR ══════════════════════ */}
-      <div style={{ backgroundColor: NAVY }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-white/[0.08] border-t border-white/[0.08]">
-            {[
-              { n: '18 TB',   l: 'Per Tape (LTO-9)' },
-              { n: 'LTO-5–9', l: 'Generations Supported' },
-              { n: '30-Day',  l: 'Free Trial' },
-              { n: '100%',    l: 'Open LTFS Format' },
-            ].map(({ n, l }, i) => (
-              <div key={l} className={`px-4 py-8 text-center ${i >= 2 ? 'border-t border-white/[0.08] sm:border-t-0' : ''}`}>
-                <div className="text-3xl font-bold text-white mb-1.5">{n}</div>
-                <div className="text-[11px] text-white/50 uppercase tracking-wide">{l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* ══════════════════════ HOW IT WORKS ══════════════════════ */}
-      <section id="how-it-works" className="py-24 bg-white scroll-mt-16">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }} className="text-center mb-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>How BloomLTO Works</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-              Two workflows. Zero guesswork.
-            </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto leading-relaxed">
-              Whether you're writing new archives to tape or racing to find one file in a ten-year-old library, BloomLTO makes it simple.
-            </p>
-          </motion.div>
+      <Section tone="white" id="how-it-works">
+        <Heading
+          center
+          eyebrow="How BloomLTO Works"
+          title="Two workflows. Zero guesswork."
+          sub="Whether you're writing new archives to tape or racing to find one file in a ten-year-old library, BloomLTO makes it simple."
+          className="mb-10"
+        />
 
-          <div className="flex gap-2 justify-center border-b border-gray-200 mb-10">
+        <div className="flex justify-center mb-12">
+          <div role="tablist" className="inline-flex rounded-xl bg-grey-light p-1.5">
             {(['restoring', 'archiving'] as const).map((tab) => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`px-7 py-3 text-sm font-semibold border-b-2 -mb-px transition-all ${activeTab === tab ? 'border-current' : 'border-transparent text-gray-400 hover:text-gray-600'}`}
-                style={activeTab === tab ? { color: ORANGE } : undefined}>
+              <button key={tab} role="tab" aria-selected={activeTab === tab} onClick={() => setActiveTab(tab)}
+                className={`px-6 py-3 rounded-lg text-sm font-bold transition-colors ${activeTab === tab ? 'bg-navy text-white' : 'text-navy hover:bg-grey-hover'}`}>
                 {tab === 'restoring' ? 'Restoring a File' : 'Archiving to Tape'}
               </button>
             ))}
           </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {steps.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="bg-white rounded-xl p-7 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-white shrink-0" style={{ backgroundColor: ORANGE }}>{i + 1}</span>
-                  <div className="w-10 h-10 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center">
-                    <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                  </div>
-                </div>
-                <h3 className="text-base font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
-          </div>
         </div>
-      </section>
+
+        <div key={activeTab}>
+          <FlowChart items={steps.map(({ icon, title, desc }) => ({ icon, title, desc }))} />
+        </div>
+      </Section>
+
+      <PhotoBand photo={pics.b} />
 
       {/* ══════════════════════ FEATURES ══════════════════════ */}
-      <section id="features" className="py-24 scroll-mt-16" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }} className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Platform Features</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-              Everything the archive needs.
-            </h2>
-            <p className="text-gray-500 max-w-3xl mx-auto leading-relaxed">
-              BloomLTO is a full searchable tape archive system — from scheduled writes to audited restores — built on the open LTFS standard.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {features.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
-                className="bg-white rounded-xl p-6 border border-gray-200 shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all">
-                <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                </div>
-                <h3 className="text-[15px] font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      <Section tone="grey" id="features">
+        <Heading
+          center
+          eyebrow="Platform Features"
+          title="Everything the archive needs."
+          sub="BloomLTO is a full searchable tape archive system — from scheduled writes to audited restores — built on the open LTFS standard."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {features.map(({ icon, title, desc }, i) => (
+            <BlockCard key={title} it={{ icon, title, desc, num: String(i + 1).padStart(2, '0') }} delay={Math.min((i % 5) * 0.06, 0.3)} />
+          ))}
         </div>
-      </section>
+      </Section>
 
       {/* ══════════════════════ FOR IT & BACKUP TEAMS ══════════════════════ */}
-      <section id="library" className="py-24 scroll-mt-16" style={{ backgroundColor: NAVY }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }} className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE_LIGHT }}>For IT &amp; Backup Teams</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4 text-white">
-              Your tape library, <span style={{ color: ORANGE }}>finally under control.</span>
-            </h2>
-            <p className="text-white/60 max-w-2xl mx-auto leading-relaxed">
-              Stop guessing which cartridge has the file. Schedule archives, verify every write, and get alerted before a problem becomes a disaster.
-            </p>
-          </motion.div>
+      <Section tone="navy" id="library">
+        <Heading
+          light
+          center
+          eyebrow={<>For IT &amp; Backup Teams</>}
+          title={<>Your tape library, <span className="block">finally under control.</span></>}
+          sub="Stop guessing which cartridge has the file. Schedule archives, verify every write, and get alerted before a problem becomes a disaster."
+        />
 
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-start">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }}
-              className="rounded-xl p-9 border border-white/10" style={{ backgroundColor: NAVY_RAISED }}>
-              <div className="text-xs font-semibold uppercase tracking-[0.12em] text-white/40 mb-4">Example Tape Capacity</div>
-              <div className="text-[2.5rem] font-bold leading-none mb-1" style={{ color: ORANGE }}>18 TB</div>
-              <div className="text-sm text-white/60 mb-7">native capacity per LTO-9 cartridge</div>
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+          <motion.div {...fade()} className="lg:col-span-5 rounded-2xl bg-white/[0.05] p-8 lg:p-9">
+            <div className="font-mono text-[11px] font-bold uppercase tracking-widest text-white/40 mb-4">Example Tape Capacity</div>
+            <div className="text-5xl font-extrabold text-white leading-none tracking-tight mb-2">18 TB</div>
+            <div className="text-sm text-white/60 mb-3">native capacity per LTO-9 cartridge</div>
+            <span className="block w-10 h-px bg-brand-orange mb-7" />
+            <div className="divide-y divide-white/10 border-t border-white/10">
               {[
                 { icon: ShieldCheck, strong: 'Full Control',   body: 'You choose what\'s archived, when, and where restores land.' },
                 { icon: RefreshCw,   strong: 'Verified Writes', body: 'Re-hash verification confirms every archive job completed cleanly.' },
                 { icon: Bell,        strong: 'Instant Alerts',  body: 'Get notified the moment a job needs your attention.' },
               ].map(({ icon: Icon, strong, body }) => (
-                <div key={strong} className="flex items-start gap-3.5 mb-4 last:mb-0">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
-                    <Icon className="w-4 h-4" style={{ color: ORANGE }} />
-                  </div>
+                <div key={strong} className="flex items-start gap-4 py-4">
+                  <span className="w-9 h-9 rounded-full bg-white/10 text-white/80 flex items-center justify-center shrink-0">
+                    <Icon className="w-4 h-4" />
+                  </span>
                   <div className="text-sm text-white/65">
-                    <strong className="text-white font-semibold block text-[15px]">{strong}</strong>
+                    <strong className="text-white font-bold block text-[15px]">{strong}</strong>
                     {body}
                   </div>
                 </div>
               ))}
-            </motion.div>
-
-            <div className="grid gap-5">
-              {libraryCards.map(({ icon: Icon, title, desc }, i) => (
-                <motion.div key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="rounded-xl p-7 border border-white/10 hover:border-white/20 transition-colors" style={{ backgroundColor: NAVY_RAISED }}>
-                  <div className="flex gap-4 items-start">
-                    <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
-                      <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold text-white mb-1.5">{title}</h3>
-                      <p className="text-sm text-white/55 leading-relaxed">{desc}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════ FOR RESTORE & COMPLIANCE ══════════════════════ */}
-      <section id="restore" className="py-24 bg-white scroll-mt-16">
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
-            <div>
-              <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }}>
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>For Restore &amp; Compliance</p>
-                <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-                  Search once. Find it everywhere.
-                </h2>
-                <p className="text-gray-500 leading-relaxed mb-8">
-                  Skip the spreadsheet of tape labels and the afternoon spent swapping cartridges. BloomLTO puts the exact file, tape, and location in front of you — in seconds.
-                </p>
-              </motion.div>
-              <div className="grid gap-4">
-                {restoreCards.map(({ icon: Icon, title, desc }, i) => (
-                  <motion.div key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="bg-white rounded-xl p-6 border border-gray-200 flex gap-4 items-start shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all">
-                    <div className="w-11 h-11 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                    </div>
-                    <div>
-                      <h3 className="text-base font-semibold mb-1" style={{ color: NAVY }}>{title}</h3>
-                      <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: 0.1 }}>
-              <div className="rounded-xl p-8 border border-gray-200" style={{ backgroundColor: GREY }}>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0 bg-orange-50 ring-1 ring-orange-100">
-                    <Search className="w-5 h-5" style={{ color: ORANGE }} />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Search Result</div>
-                    <div className="text-[15px] font-semibold" style={{ color: NAVY }}>invoice_2019_Q4.xlsx · 2.4 GB</div>
-                  </div>
-                </div>
-                <div className="grid gap-2.5 mb-7">
-                  {[
-                    { label: 'Tape Barcode', value: 'LTO-0427', highlight: true },
-                    { label: 'Archived On', value: '12 Mar 2024', highlight: false },
-                    { label: 'Verification', value: '✓ Checksum Verified', highlight: false, green: true },
-                  ].map(({ label, value, highlight, green }) => (
-                    <div key={label} className="flex justify-between items-center px-4 py-3 bg-white rounded-lg border border-gray-200">
-                      <span className="text-sm font-medium text-gray-500">{label}</span>
-                      <span className="text-sm font-semibold" style={{ color: highlight ? ORANGE : green ? '#059669' : NAVY }}>{value}</span>
-                    </div>
-                  ))}
-                </div>
-                <a href="#cta"
-                  className="w-full inline-flex items-center justify-center gap-2 px-7 py-3.5 text-white font-semibold text-sm rounded-lg shadow-[0_8px_20px_-6px_rgba(255,107,0,0.5)] hover:-translate-y-0.5 transition-all"
-                  style={{ background: ORANGE_GRADIENT }}>
-                  Queue Restore <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════ TRUST & SAFETY ══════════════════════ */}
-      <section id="trust" className="py-24 scroll-mt-16" style={{ backgroundColor: GREY }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }} className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] mb-3" style={{ color: ORANGE }}>Archive Integrity</p>
-            <h2 className="text-3xl md:text-[2.5rem] font-bold leading-[1.1] tracking-tight mb-4" style={{ color: NAVY }}>
-              Protection built into every archive.
-            </h2>
-            <p className="text-gray-500 max-w-3xl mx-auto leading-relaxed">
-              BloomLTO is designed so every write and every restore leaves a verifiable, auditable trail.
-            </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
-            {trustPillars.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div key={title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="bg-white rounded-xl p-6 border border-gray-200 text-center shadow-[0_1px_3px_rgba(16,29,54,0.04)] hover:shadow-[0_12px_28px_-12px_rgba(16,29,54,0.18)] hover:-translate-y-1 transition-all">
-                <div className="w-12 h-12 rounded-lg bg-orange-50 ring-1 ring-orange-100 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                </div>
-                <h3 className="text-base font-semibold mb-1.5" style={{ color: NAVY }}>{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-              </motion.div>
+          <div className="lg:col-span-7 grid gap-5">
+            {libraryCards.map(({ icon, title, desc }, i) => (
+              <BlockCard key={title} dark it={{ icon, title, desc, num: String(i + 1).padStart(2, '0') }} delay={i * 0.08} />
             ))}
           </div>
         </div>
-      </section>
+      </Section>
+
+      {/* ══════════════════════ FOR RESTORE & COMPLIANCE ══════════════════════ */}
+      <Section tone="white" id="restore">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="lg:col-span-7">
+            <motion.div {...fade()}>
+              <Eyebrow>For Restore &amp; Compliance</Eyebrow>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-navy leading-tight mb-5">
+                Search once. Find it everywhere.
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed mb-8 max-w-2xl">
+                Skip the spreadsheet of tape labels and the afternoon spent swapping cartridges. BloomLTO puts the exact file, tape, and location in front of you — in seconds.
+              </p>
+            </motion.div>
+            <IconTiles
+              cols="sm:grid-cols-1"
+              items={restoreCards.map(({ icon, title, desc }) => ({ icon, label: title, desc }))}
+            />
+          </div>
+
+          <motion.div {...fade(0.1)} className="lg:col-span-5">
+            <div className="rounded-2xl bg-white p-7 lg:p-8 shadow-[8px_8px_0_0_#101D36]">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="w-11 h-11 rounded-lg bg-navy text-white flex items-center justify-center shrink-0">
+                  <Search className="w-5 h-5" />
+                </span>
+                <div className="min-w-0">
+                  <div className="font-mono text-[11px] font-bold text-gray-500 uppercase tracking-widest">Search Result</div>
+                  <div className="text-[15px] font-bold text-navy break-words">invoice_2019_Q4.xlsx · 2.4 GB</div>
+                </div>
+              </div>
+              <div className="divide-y divide-gray-200 border-y border-gray-200 mb-7">
+                {[
+                  { label: 'Tape Barcode', value: 'LTO-0427' },
+                  { label: 'Archived On', value: '12 Mar 2024' },
+                  { label: 'Verification', value: '✓ Checksum Verified' },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex justify-between items-center gap-4 py-3.5">
+                    <span className="text-sm font-medium text-gray-500">{label}</span>
+                    <span className="text-sm font-bold text-navy">{value}</span>
+                  </div>
+                ))}
+              </div>
+              <PrimaryButton href="#cta" icon={ArrowRight} className="w-full">Queue Restore</PrimaryButton>
+            </div>
+          </motion.div>
+        </div>
+      </Section>
+
+      {/* ══════════════════════ TRUST & SAFETY ══════════════════════ */}
+      <Section tone="grey" id="trust">
+        <Heading
+          center
+          eyebrow="Archive Integrity"
+          title="Protection built into every archive."
+          sub="BloomLTO is designed so every write and every restore leaves a verifiable, auditable trail."
+        />
+        <BlockGrid cols={4} items={trustPillars.map(({ icon, title, desc }) => ({ icon, title, desc }))} />
+      </Section>
 
       {/* ══════════════════════ CTA ══════════════════════ */}
-      <section id="cta" className="py-20 px-6 scroll-mt-16" style={{ background: ORANGE_GRADIENT }}>
-        <div className="max-w-[1550px] mx-auto px-6 xl:px-12">
-          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5 }} className="text-center lg:text-left">
-              <h2 className="text-3xl md:text-[2.5rem] font-bold text-white mb-5 leading-[1.1] tracking-tight">
-                Ready to make your tapes searchable?
-              </h2>
-              <p className="text-lg text-white/90 mb-9 leading-relaxed max-w-md mx-auto lg:mx-0">
-                Start a 30-day free trial of BloomLTO, or book a demo to see the full catalog-and-restore walkthrough.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5">
-                <a href="https://bloomlto.com" target="_blank" rel="noopener noreferrer"
-                  className="px-8 py-4 bg-white rounded-lg font-semibold text-[15px] shadow-[0_8px_20px_-8px_rgba(16,29,54,0.5)] hover:-translate-y-0.5 transition-all flex items-center gap-2" style={{ color: NAVY }}>
-                  Start 30-Day Trial <ArrowRight className="w-4 h-4" />
-                </a>
-                <a href="https://bloomlto.com" target="_blank" rel="noopener noreferrer"
-                  className="px-8 py-4 bg-transparent text-white border border-white/50 rounded-lg font-semibold text-[15px] hover:bg-white/10 transition-colors flex items-center gap-2">
-                  Book a Demo <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={vp} transition={{ duration: 0.5, delay: 0.1 }}
-              className="rounded-2xl p-3 shadow-[0_24px_60px_-20px_rgba(16,29,54,0.45)]" style={{ backgroundColor: NAVY }}>
-              {[
-                { icon: Mail, label: 'Email', value: 'info@bloomlto.com', href: 'mailto:info@bloomlto.com' },
-                { icon: ExternalLink, label: 'Website', value: 'bloomlto.com', href: 'https://bloomlto.com', external: true },
-                { icon: Layers, label: 'Supports', value: 'LTO-5 through LTO-9' },
-              ].map(({ icon: Icon, label, value, href, external }, i) => {
-                const inner = (
-                  <div className={`flex items-center gap-4 px-6 py-5 ${i !== 0 ? 'border-t border-white/[0.08]' : ''} ${href ? 'hover:bg-white/[0.04] transition-colors' : ''} rounded-lg`}>
-                    <div className="w-11 h-11 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(255,107,0,0.15)' }}>
-                      <Icon className="w-5 h-5" style={{ color: ORANGE }} />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-white/45 text-[11px] font-semibold uppercase tracking-[0.1em] mb-0.5">{label}</p>
-                      <p className="text-white text-[15px] font-semibold">{value}</p>
-                    </div>
-                  </div>
-                );
-                return href ? (
-                  <a key={label} href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}>{inner}</a>
-                ) : (
-                  <div key={label}>{inner}</div>
-                );
-              })}
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        id="cta"
+        title="Ready to make your tapes searchable?"
+        text="Start a 30-day free trial of BloomLTO, or book a demo to see the full catalog-and-restore walkthrough."
+        secondary={
+          <>
+            <PrimaryButton href="https://bloomlto.com" external>Start 30-Day Trial</PrimaryButton>
+            <TextLink href="https://bloomlto.com" external icon={ExternalLink}>Book a Demo</TextLink>
+          </>
+        }
+      >
+        <ContactRows
+          rows={[
+            { icon: Mail, label: 'Email', value: 'info@bloomlto.com', href: 'mailto:info@bloomlto.com' },
+            { icon: ExternalLink, label: 'Website', value: 'bloomlto.com', href: 'https://bloomlto.com', external: true },
+            { icon: Layers, label: 'Supports', value: 'LTO-5 through LTO-9' },
+          ]}
+        />
+      </CtaBand>
 
       <Footer />
     </div>
