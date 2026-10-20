@@ -138,6 +138,27 @@ export const seoConfigs: Record<string, SEOConfig> = {
       url: `${baseUrl}/portfolio/`,
       publisher: organizationSchema,
     }
+  },
+  refundPolicy: {
+    title: 'Refund Policy - BloomTech.lk',
+    description: 'BloomTech.lk refund policy — returns, refunds, exchanges, non-returnable items and processing times for products and services purchased online.',
+    canonical: `${baseUrl}/refund-policy/`,
+    ogImage: defaultOGImage,
+    ogType: 'website'
+  },
+  privacyPolicy: {
+    title: 'Privacy Policy - BloomTech.lk',
+    description: 'How BloomTech.lk collects, uses, shares and protects your personal information when you visit our website or make a purchase.',
+    canonical: `${baseUrl}/privacy-policy/`,
+    ogImage: defaultOGImage,
+    ogType: 'website'
+  },
+  termsAndConditions: {
+    title: 'Terms and Conditions - BloomTech.lk',
+    description: 'Terms and Conditions governing the use of the BloomTech.lk website and the purchase of products and services from BloomTech.lk.',
+    canonical: `${baseUrl}/terms-and-conditions/`,
+    ogImage: defaultOGImage,
+    ogType: 'website'
   }
 };
 

@@ -10,6 +10,8 @@ import Portfolio from './pages/Portfolio';
 import BloomSwiftPOS from './pages/BloomSwiftPOS';
 import BloomLTO from './pages/BloomLTO';
 import NotFound from './pages/NotFound';
+import PolicyPage from './pages/PolicyPage';
+import { policies } from './data/policiesData';
 
 function AppRoutes() {
   return (
@@ -23,6 +25,9 @@ function AppRoutes() {
         <Route path="/services/bloomlto" element={<BloomLTO />} />
         <Route path="/services/:serviceId" element={<ServiceDetails />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        {Object.values(policies).map(policy => (
+          <Route key={policy.slug} path={`/${policy.slug}`} element={<PolicyPage policy={policy} />} />
+        ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

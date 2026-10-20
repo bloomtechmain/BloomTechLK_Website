@@ -6,7 +6,7 @@ import { mergeAppHtml } from './ssr-html.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Static pages; service routes are added from servicesData at build time
-const staticRoutes = ['/', '/company', '/contact', '/portfolio'];
+const staticRoutes = ['/', '/company', '/contact', '/portfolio', '/refund-policy', '/privacy-policy', '/terms-and-conditions'];
 
 async function prerender() {
   console.log('🚀 Starting pre-rendering process...\n');
