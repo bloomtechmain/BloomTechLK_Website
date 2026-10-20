@@ -123,6 +123,20 @@ export const Heading = ({ eyebrow, title, sub, light = false, center = false, cl
   );
 };
 
+/** Numbered section opener: a ruled line, the section number + label, then the heading. */
+export const SectionHead = ({ n, label, title, sub, light = false }: { n: string; label: string; title: ReactNode; sub?: ReactNode; light?: boolean }) => (
+  <motion.div {...fade()} className={`grid lg:grid-cols-12 gap-4 lg:gap-10 pt-5 mb-12 lg:mb-14 border-t-2 ${light ? 'border-white/20' : 'border-navy'}`}>
+    <p className="lg:col-span-3 flex items-baseline gap-3 text-sm font-bold">
+      <span className={light ? 'text-brand-orange' : 'text-brand-orange-dark'}>{n}</span>
+      <span className={light ? 'text-white/55' : 'text-gray-500'}>{label}</span>
+    </p>
+    <div className="lg:col-span-9">
+      <h2 className={`text-3xl md:text-4xl lg:text-[44px] font-extrabold leading-[1.1] tracking-tight max-w-3xl ${light ? 'text-white' : 'text-navy'}`}>{title}</h2>
+      {sub && <p className={`text-lg mt-4 max-w-2xl leading-relaxed ${light ? 'text-white/65' : 'text-gray-600'}`}>{sub}</p>}
+    </div>
+  </motion.div>
+);
+
 /* ---------- page hero: copy left, full-bleed real photo right ---------- */
 
 export const Breadcrumb = ({ items }: { items: { label: string; to?: string }[] }) => (

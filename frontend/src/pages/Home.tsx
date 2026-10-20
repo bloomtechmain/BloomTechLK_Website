@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Brain, Server, Briefcase, Globe, ShieldCheck,
   CheckCircle2, Award, Target, Phone, MapPin,
   MessageCircle, Landmark, ShoppingBag, Heart, Package,
-  Cpu, Check, Bot, HardDrive, FileSearch, Store, Calculator, Archive,
+  Cpu, Bot, HardDrive, FileSearch, Store, Calculator, Archive,
   Users, Layers, Cloud, MonitorSmartphone, QrCode, Search, Lock, Scale,
   Database, BarChart3, Smartphone, Network, Zap, WifiOff, Languages,
   UserCheck, Wrench, Clock, Headphones,
@@ -12,10 +12,12 @@ import {
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import { seoConfigs, socialMedia } from '../utils/seoConfig';
-import { Section, Eyebrow, MediaFrame, BlockGrid, CtaBand, ContactRows, TextLink, PrimaryButton, StatsStrip, fade, GUTTER } from '../components/kit';
+import { Section, SectionHead, Eyebrow, MediaFrame, CtaBand, ContactRows, TextLink, PrimaryButton, StatsStrip, fade, GUTTER } from '../components/kit';
 import { photos } from '../components/photos';
 import { HeroShowcase } from '../components/home/HeroShowcase';
 import { ServicesStack, type StackLayer } from '../components/home/ServicesStack';
+import { WhyPillars } from '../components/home/WhyPillars';
+import { SectorExplorer, type Sector, type CapabilityFamily } from '../components/home/SectorExplorer';
 
 // ─── animated counter hook ────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1200) {
@@ -189,6 +191,25 @@ const stackPillar = layer(svcAdvisory, [
 
 const industryPhotos = [photos.apparel, photos.tourism, photos.finance, photos.healthcare, photos.retail, photos.manufacturing];
 
+// Sector explorer: each sector's capabilities are the phrases in its own description
+const industryItems = [
+  ['Production tracking', 'ERP', 'AI quality control'],
+  ['Hotel POS', 'QR menus', 'booking management', 'smart workspace tech'],
+  ['CBSL-aligned compliance software', 'AI document processing'],
+  ['Patient management systems', 'medical record digitisation', 'secure data infrastructure'],
+  ['Multi-location POS', 'inventory management', 'e-commerce'],
+  ['Production monitoring', 'asset tracking', 'IoT integrations'],
+];
+const sectors: Sector[] = industries.map((s, i) => ({ ...s, photo: industryPhotos[i], items: industryItems[i] }));
+// Which quoted item puts each sector (Apparel, Tourism, Banking, Healthcare, Retail, Manufacturing) in a family
+const sectorFamilies: CapabilityFamily[] = [
+  { label: 'AI',                    hits: ['AI quality control', null, 'AI document processing', null, null, null] },
+  { label: 'Point of sale',         hits: [null, 'Hotel POS', null, null, 'Multi-location POS', null] },
+  { label: 'Management systems',    hits: ['ERP', 'booking management', 'CBSL-aligned compliance software', 'Patient management systems', 'inventory management', 'Production monitoring'] },
+  { label: 'Web, QR & e-commerce',  hits: [null, 'QR menus', null, null, 'e-commerce', null] },
+  { label: 'Data & infrastructure', hits: [null, 'smart workspace tech', null, 'secure data infrastructure', null, 'IoT integrations'] },
+];
+
 // Pillars band: a photo per advantage, plus keyword tiles quoted from each description
 const advantagePhotos = [photos.team, photos.colomboAerial, photos.consultingRoom];
 const advantageTiles = [
@@ -213,7 +234,6 @@ const advantageTiles = [
 
 // ─── component ────────────────────────────────────────────────────────────────
 const Home = () => {
-  const reduce = useReducedMotion();
 
   // Counter values
   const { count: projectsCount, ref: projectsRef } = useCountUp(50);
@@ -334,90 +354,27 @@ const Home = () => {
 
       {/* ══════════════════════ INDUSTRIES ══════════════════════ */}
       <Section tone="white">
-        <motion.div {...fade()} className="text-center mb-14 max-w-3xl mx-auto">
-          <Eyebrow center>Sectors We Serve</Eyebrow>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-navy leading-tight mb-4">
-            Deep expertise across Sri Lanka's key sectors
-          </h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
-            We understand the unique challenges, regulations, and opportunities in Sri Lanka's most important industries.
-          </p>
-        </motion.div>
-
-        <BlockGrid
-          cols={3}
-          items={industries.map(({ icon, name, desc }, i) => ({
-            icon,
-            num: String(i + 1).padStart(2, '0'),
-            title: name,
-            desc,
-            image: industryPhotos[i],
-          }))}
+        <SectionHead
+          n={String(industries.length)}
+          label="Sectors We Serve"
+          title="Deep expertise across Sri Lanka's key sectors"
+          sub="We understand the unique challenges, regulations, and opportunities in Sri Lanka's most important industries."
         />
+        <SectorExplorer sectors={sectors} families={sectorFamilies} />
       </Section>
 
       {/* ══════════════════════ WHY BLOOMTECH ══════════════════════ */}
       <section className="bg-navy-dark py-20 lg:py-24">
         <div className={GUTTER}>
-          <motion.div {...fade()} className="text-center mb-14 max-w-3xl mx-auto">
-            <Eyebrow center light>Why BloomTech.lk</Eyebrow>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight">
-              Sri Lanka's technology partner that understands your business
-            </h2>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-3 lg:grid-rows-[auto_auto_auto_1fr_auto_auto] border-t border-white/10">
-            {advantages.map(({ icon: Icon, title, desc }, i) => (
-              <motion.div
-                key={title}
-                initial={reduce ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="grid lg:grid-rows-subgrid lg:row-span-6 py-10 lg:px-10 lg:first:pl-0 lg:last:pr-0 border-b lg:border-b-0 lg:border-r lg:last:border-r-0 border-white/10"
-              >
-                <div className="group relative h-52 lg:h-56 mb-8 rounded-xl overflow-hidden">
-                  <img src={advantagePhotos[i].src} alt={advantagePhotos[i].alt} loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/70 via-navy-dark/10 to-transparent" />
-                  <span className="absolute left-0 bottom-0 h-1 w-16 bg-brand-orange" aria-hidden="true" />
-                </div>
-                <Icon className="w-6 h-6 text-white/70 mb-6" strokeWidth={1.75} />
-                <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-                <p className="text-white/70 leading-relaxed mb-8">{desc}</p>
-
-                {/* the matching differentiator, ticking in */}
-                <div className="mb-8 rounded-xl bg-white/[0.03] p-5 flex items-center gap-4">
-                  <motion.span
-                    initial={reduce ? false : { scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: 'spring', stiffness: 500, damping: 20, delay: 0.3 + i * 0.2 }}
-                    className="w-9 h-9 rounded-full bg-white text-navy flex items-center justify-center shrink-0"
-                  >
-                    <Check className="w-4 h-4" strokeWidth={3} />
-                  </motion.span>
-                  <span className="font-bold text-white leading-snug">{differentiators[i]}</span>
-                </div>
-
-                <ul className="grid grid-cols-2 gap-2 content-start" aria-hidden="true">
-                  {advantageTiles[i].map((t, k) => {
-                    const wide = k === advantageTiles[i].length - 1 && advantageTiles[i].length % 2 === 1;
-                    return (
-                      <li key={t.label} className={wide ? 'col-span-2' : ''}>
-                        <div className="group/tile h-full flex items-center gap-3 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] px-3.5 py-3 transition-colors">
-                          <span className="w-8 h-8 rounded-md bg-white/[0.07] text-white/70 flex items-center justify-center shrink-0 transition-colors group-hover/tile:bg-white group-hover/tile:text-navy">
-                            <t.icon className="w-4 h-4" />
-                          </span>
-                          <span className="text-sm font-bold text-white leading-snug first-letter:uppercase">{t.label}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
+          <SectionHead light n={String(advantages.length)} label="Why BloomTech.lk"
+            title="Sri Lanka's technology partner that understands your business" />
+          <WhyPillars pillars={advantages.map((a, i) => ({
+            ...a,
+            photo: advantagePhotos[i],
+            differentiator: differentiators[i],
+            items: advantageTiles[i],
+            diagram: (['standards', 'resilience', 'support'] as const)[i],
+          }))} />
         </div>
       </section>
 
