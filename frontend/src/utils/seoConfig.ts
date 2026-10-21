@@ -124,9 +124,9 @@ export const seoConfigs: Record<string, SEOConfig> = {
     schema: localBusinessSchema
   },
   portfolio: {
-    title: 'Project Portfolio — BloomTech.lk | Real Solutions. Measurable Outcomes.',
-    description: 'Explore BloomTech.lk\'s project portfolio — AI forecasting engines, enterprise PMS platforms, cybersecurity overhauls, and more. Real technology solutions delivered across Sri Lanka.',
-    keywords: 'BloomTech portfolio, IT projects Sri Lanka, AI projects Sri Lanka, enterprise software portfolio, technology case studies Sri Lanka, software development projects',
+    title: 'Project Portfolio 2026 — BloomTech.lk | Software That Runs Real Businesses',
+    description: 'ERP systems, web applications, POS and IT infrastructure delivered across Sri Lanka, the USA, Canada and the UAE — plus BloomAudit, BloomSwift POS and BloomLTO, the products we build and run ourselves.',
+    keywords: 'BloomTech portfolio, ERP Sri Lanka, web application development, POS system Sri Lanka, BloomAudit, BloomSwift POS, BloomLTO, software case studies, IT infrastructure',
     canonical: `${baseUrl}/portfolio/`,
     ogImage: defaultOGImage,
     ogType: 'website',
@@ -134,7 +134,7 @@ export const seoConfigs: Record<string, SEOConfig> = {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'BloomTech.lk Project Portfolio',
-      description: 'Technology projects delivered by BloomTech.lk across Sri Lanka — AI, enterprise software, cybersecurity, and digital transformation.',
+      description: 'Projects delivered by BloomTech across Sri Lanka, the USA, Canada and the UAE — ERP and business systems, websites and web apps, POS systems and infrastructure.',
       url: `${baseUrl}/portfolio/`,
       publisher: organizationSchema,
     }
